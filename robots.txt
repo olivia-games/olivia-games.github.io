@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://olivia-games.github.io/sitemap.xml

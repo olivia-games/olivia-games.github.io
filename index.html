@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olivia Games - Play 500+ Online Instantly</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play 500+ free online games instantly in your browser. Action, puzzle, adventure, strategy games and more. No downloads, no registration required. Start playing now!">
+    <meta name="keywords" content="free online games, browser games, flash games, unblocked games, action games, puzzle games, Papa's games, restaurant games, play free games online">
+    <meta name="author" content="Olivia Games">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://olivia-games.github.io/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://olivia-games.github.io/">
+    <meta property="og:title" content="Olivia Games - Play 500+ Free Online Games">
+    <meta property="og:description" content="Discover amazing free online games! Play instantly in your browser - action, puzzle, adventure, and more.">
+    <meta property="og:site_name" content="Olivia Games">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Olivia Games - Free Online Games">
+    <meta name="twitter:description" content="Play 500+ amazing games for free! No downloads required.">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Olivia Games",
+      "url": "https://olivia-games.github.io/",
+      "description": "Free online gaming platform with 500+ games",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://olivia-games.github.io/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://olivia-games.github.io/favicon.ico">
+    <link rel="manifest" href="https://olivia-games.github.io/manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+<style>
+/* Base Reset & Variables */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#ec4899;--accent:#f59e0b;--success:#10b981;--bg-dark:#0a0a0f;--bg-darker:#050508;--bg-card:#16161f;--bg-card-hover:#1c1c28;--text:#fff;--text-muted:#94a3b8;--text-dim:#64748b;--border:#ffffff14;--border-hover:#ffffff26;--glow:#6366f14d;--shadow-sm:0 2px 8px #0003;--shadow-md:0 8px 24px #0000004d;--shadow-lg:0 16px 48px #0006;--radius:16px;--radius-lg:24px;--transition:all .3s cubic-bezier(0.4,0,0.2,1)}
+
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-darker);color:var(--text);line-height:1.6;overflow-x:hidden;min-height: 100vh;display: flex;flex-direction: column;}
+main {flex: 1;}
+
+.bg-gradient{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at 20% 50%,#6366f126 0%,transparent 50%),radial-gradient(circle at 80% 80%,#ec489926 0%,transparent 50%),radial-gradient(circle at 40% 90%,#f59e0b1a 0%,transparent 50%)}
+
+/* Header & Nav */
+header{position:sticky;top:0;z-index:1000;background:#0a0a0fcc;backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+nav{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.logo{display:flex;align-items:center;gap:.75rem;font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.logo-icon{font-size:2rem}
+.nav-links{display:flex;gap:.5rem;list-style:none}
+.nav-link{padding:.5rem 1rem;color:var(--text-muted);text-decoration:none;font-weight:500;border-radius:12px;transition:var(--transition)}
+.nav-link:hover,.nav-link.active{color:var(--text);background:#ffffff0d}
+
+/* Mobile Menu */
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:.5rem}
+.mobile-nav{display:none;top:0;left:0;right:0;bottom:0;background:#0a0a0ffa;backdrop-filter:blur(20px);z-index:2000;padding:2rem;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-nav.active{display:flex}
+.mobile-nav .nav-link{font-size:1.5rem}
+.mobile-close-btn{position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--text);font-size:2rem;cursor:pointer}
+
+/* Hero Section */
+.hero{max-width:1400px;margin:0 auto;padding:4rem 2rem 6rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.25rem;background:#6366f11a;border:1px solid #6366f14d;border-radius:100px;color:var(--primary-light);font-size:.875rem;font-weight:600;margin-bottom:2rem;animation:fadeInUp .6s ease-out}
+h1{font-family:'Poppins',sans-serif;font-size:clamp(2.5rem,8vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;animation:fadeInUp .6s ease-out .1s both}
+.gradient-text{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 50%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:gradient-shift 3s ease infinite}
+.hero-subtitle{font-size:1.25rem;color:var(--text-muted);max-width:600px;margin:0 auto 3rem;animation:fadeInUp .6s ease-out .2s both}
+.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s ease-out .3s both}
+
+/* Buttons */
+.btn{padding:1rem 2rem;font-size:1rem;font-weight:600;border:none;border-radius:var(--radius);cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;box-shadow:0 4px 16px #6366f166}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px #6366f180}
+.btn-secondary{background:#ffffff0d;color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:#ffffff1a;border-color:var(--border-hover)}
+
+/* Controls & Filters */
+.controls{max-width:1400px;margin:0 auto;padding:2rem}
+.search-wrapper{position:relative;max-width:600px;margin:0 auto 2rem}
+.search-box{width:100%;padding:1rem 1rem 1rem 3.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:1rem;transition:var(--transition)}
+.search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px #6366f11a}
+.search-icon{position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:var(--text-dim)}
+.filters{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:3rem}
+.filter-chip{padding:.625rem 1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-size:.875rem;font-weight:500;cursor:pointer;transition:var(--transition)}
+.filter-chip:hover{background:var(--bg-card-hover);border-color:var(--border-hover);transform:translateY(-2px)}
+.filter-chip.active{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-color:var(--primary);color:#fff}
+
+/* Games Grid */
+.games-section{max-width:1400px;margin:0 auto;padding:2rem}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.section-title{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:700}
+.view-controls{display:flex;gap:.5rem;background:var(--bg-card);padding:.25rem;border-radius:12px}
+.view-btn{padding:.5rem 1rem;background:transparent;border:none;color:var(--text-muted);cursor:pointer;border-radius:8px;transition:var(--transition);font-size:.875rem;display:flex;align-items:center;gap:.5rem}
+.view-btn.active{background:var(--primary);color:#fff}
+
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.games-grid.list-view{grid-template-columns:1fr}
+/* List view styles */
+.games-grid.list-view .game-card{display:flex;flex-direction:row;align-items:center;gap:1.5rem;padding: 1rem;}
+.games-grid.list-view .game-header{flex-direction:column;gap:.5rem;margin-bottom:0; min-width: 100px;}
+.games-grid.list-view .game-content{flex:1; text-align: left;}
+.games-grid.list-view .game-description{margin-bottom: 0; -webkit-line-clamp:1;}
+.games-grid.list-view .game-footer{flex-direction:column;min-width:140px; gap: 0.5rem;}
+
+.game-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden; display: flex; flex-direction: column;}
+.game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--secondary));transform:scaleX(0);transition:var(--transition)}
+.game-card:hover{transform:translateY(-8px);border-color:var(--border-hover);box-shadow:var(--shadow-lg)}
+.game-card:hover::before{transform:scaleX(1)}
+
+.game-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem}
+.game-category{padding:.25rem .75rem;background:#6366f11a;color:var(--primary-light);font-size:.75rem;font-weight:600;text-transform:uppercase;border-radius:6px}
+.favorite-btn{background:none;border:none;color:var(--text-dim);font-size:1.25rem;cursor:pointer;transition:var(--transition)}
+.favorite-btn:hover,.favorite-btn.active{color:var(--accent);transform:scale(1.2)}
+
+.game-content {flex-grow: 1; margin-bottom: 1.5rem;}
+.game-title{font-size:1.25rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
+.game-description{color:var(--text-muted);font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+.game-footer{display:flex;gap:.75rem; margin-top: auto;}
+.play-btn{flex:1;padding:.75rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;text-align:center; display: flex; align-items: center; justify-content: center; gap: 0.5rem;}
+.play-btn:hover{transform:scale(1.02);box-shadow:0 4px 16px #6366f166}
+.info-btn{padding:.75rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;color:var(--text-muted);cursor:pointer;transition:var(--transition)}
+.info-btn:hover{background:#ffffff1a;color:var(--text)}
+
+/* Footer Styles (ADDED) */
+.footer {background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 4rem;}
+.footer-content {max-width: 1400px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 1rem; align-items: center;}
+.footer-title {font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+.footer-text {color: var(--text-muted);}
+.footer-panic {margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 8px; color: #fca5a5; font-size: 0.9rem;}
+.footer-panic code {background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace;}
+
+/* Panic Buttons */
+.panic-btn{display:none !important;position:fixed;bottom:2rem;right:2rem;width:60px;height:60px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:var(--shadow-lg);transition:var(--transition);z-index:9000; display: flex; align-items: center; justify-content: center;}
+.panic-btn:hover{transform:scale(1.1)}
+
+.exit-panic-btn{display:none;position:fixed;top:2rem;right:2rem;padding:.75rem 1.5rem;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:12px;color:#fff;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);z-index:9001;transition:var(--transition)}
+.exit-panic-btn:hover{transform:scale(1.05)}
+
+/* Panic Mode Active State */
+body.panic-mode .exit-panic-btn{display:block}
+body.panic-mode{background:#fff!important;color:#000!important}
+body.panic-mode *{background:transparent!important;color:#000!important;border:none!important;box-shadow:none!important}
+body.panic-mode header,body.panic-mode .hero,body.panic-mode .controls,body.panic-mode .games-section,body.panic-mode .panic-btn, body.panic-mode .footer, body.panic-mode .bg-gradient {display:none!important}
+body.panic-mode::before{content:"📚 Google Classroom - Student Dashboard\A\A🎯 Today's Assignments:\A• Mathematics: Algebra Problems (Due: Tomorrow)\A• English Literature: Essay Analysis (In Progress)\A• Science: Chemistry Lab Report (Submitted)\A• History: World War II Timeline (Due: Friday)\A\A📊 Current Grade Summary:\A• Mathematics: A- (92%)\A• English: B+ (88%)\A• Science: A (95%)\A• History: B (85%)";white-space:pre-line;padding:2rem;display:block;font-family:Arial,sans-serif;line-height:1.8}
+
+/* Animations */
+@keyframes fadeInUp {
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+@keyframes gradient-shift {
+    0%,100%{background-position:0 50%}
+    50%{background-position:100% 50%}
+}
+
+/* Utilities */
+.loading, .empty-state{text-align:center;padding:4rem 2rem;color:var(--text-muted)}
+.empty-state h3{font-size:1.5rem;margin-bottom:.5rem}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    nav{padding:1rem}
+    .nav-links{display:none}
+    .mobile-menu-btn{display:block}
+    .hero{padding:3rem 1rem}
+    .cta-buttons{flex-direction:column}
+    .games-grid{grid-template-columns:1fr}
+    .panic-btn{width:50px;height:50px;bottom:1rem;right:1rem}
+    .games-grid.list-view .game-card {flex-direction: column; align-items: flex-start;}
+    .games-grid.list-view .game-header, .games-grid.list-view .game-footer {width: 100%;}
+    .mobile-nav {padding: 1rem;
+    gap: 1.5rem;
+    }
+    .nav-link {font-size: 1.25rem;}
+}
+</style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <span class="logo-icon">🎮</span>
+                <span>Olivia Games</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#games" class="nav-link">Games</a></li>
+                <li><a href="#categories" class="nav-link">Categories</a></li>
+                <li><a href="#favorites" class="nav-link">Favorites</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <button class="mobile-close-btn" id="mobile-close-btn">✕</button>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#games" class="nav-link">Games</a>
+            <a href="#categories" class="nav-link">Categories</a>
+            <a href="#favorites" class="nav-link">Favorites</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-badge">
+                <span>✨</span>
+                <span>500+ Games Available</span>
+            </div>
+            
+            <h1>
+                Play Amazing Games<br>
+                <span class="gradient-text">Absolutely Free</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Discover the best collection of free online games. 
+                From action-packed adventures to brain-teasing puzzles - all playable instantly in your browser!
+            </p>
+
+            <div class="cta-buttons">
+                <button class="btn btn-primary" id="explore-btn">
+                    <span>🚀</span>
+                    <span>Explore Games</span>
+                </button>
+                <button class="btn btn-secondary" id="random-btn">
+                    <span>🎲</span>
+                    <span>Random Game</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="controls" id="categories">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="search" 
+                    class="search-box" 
+                    id="search-input"
+                    placeholder="Search for games..."
+                    aria-label="Search games"
+                >
+            </div>
+
+            <div class="filters" id="filters">
+                <button class="filter-chip active" data-category="all">All Games</button>
+                <button class="filter-chip" data-category="action">Action</button>
+                <button class="filter-chip" data-category="puzzle">Puzzle</button>
+                <button class="filter-chip" data-category="restaurant">Restaurant</button>
+                <button class="filter-chip" data-category="adventure">Adventure</button>
+                <button class="filter-chip" data-category="strategy">Strategy</button>
+            </div>
+        </section>
+
+        <!-- Favorites Section -->
+        <section class="games-section" id="favorites" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">⭐ Favorite Games</h2>
+            </div>
+            <div class="games-grid" id="favorites-container">
+                <div class="empty-state">
+                    <h3>No favorites yet</h3>
+                    <p>Click the star icon on any game to add it to your favorites</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="games-section" id="games">
+            <div class="section-header">
+                <h2 class="section-title">Featured Games</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="grid">
+                        <span>⊞</span>
+                        <span>Grid</span>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <span>☰</span>
+                        <span>List</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="games-grid" id="games-container">
+                <div class="loading">
+                    <p>Loading games...</p>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <button class="panic-btn" id="panic-btn" title="Panic Mode (Press ` or ESC)">🚨</button>
+    <button class="exit-panic-btn" id="exit-panic-btn">✕ Exit Panic Mode</button>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 class="footer-title">🎮 Olivia Games</h3>
+            <p class="footer-text">Your ultimate destination for free online gaming</p>
+            <p class="footer-text">&copy; 2026 Olivia Games. Play responsibly and have fun!</p>
+            <div class="footer-panic">
+                Press <code>`</code> key or click the red button for School Panic Mode
+            </div>
+            <!-- Panic button (in footer) -->
+<button class="panic-btn" id="panic-btn" title="School Panic Mode (` key)" aria-label="School Panic Mode">🚨</button>
+
+<!-- Exit Panic Mode button (anywhere in body) -->
+<button class="exit-panic-btn" id="exit-panic-btn" aria-label="Exit Panic Mode">❌ Exit Panic Mode</button>
+
+        </div>
+    </footer>
+
+
+<script src="index.js?v=1.15"></script>
+</body>
+</html>
