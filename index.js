@@ -701,7 +701,7 @@ function createGameCard(game) {
             </div>
             <div class="game-footer">
                 <a href="${game.url}" class="play-btn" target="_blank" rel="noopener" aria-label="Play ${game.name}">
-                    Play Now 🎮
+                   ▶️ Play Now
                 </a>
                 <button class="info-btn" onclick="window.showInfo('${game.name}')" aria-label="Game Info">
                     ℹ️
