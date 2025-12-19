@@ -759,7 +759,7 @@ window.showInfo = function(gameName) {
 // Play Random Game
 function playRandomGame() {
     const randomGame = gamesData[Math.floor(Math.random() * gamesData.length)];
-    window.location.href = randomGame.url;
+    window.open(randomGame.url, '_blank'); // new tab
 }
 
 // View Toggle
