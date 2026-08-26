@@ -507,13 +507,57 @@ const gamesData = [
 // If there are more games in sitemap not listed above, this logic handles generic cases if needed.
 // For the purpose of this file, the list above covers the major categories from your XML.
 
+// Some entries in the source data share the same "name" (e.g. 7 different
+// Riddleschool episodes, 4 different Btd games). Favoriting/info previously
+// keyed off `name`, so acting on one silently acted on every game with that
+// name. Give every game a stable unique id (its url) and a disambiguated
+// display name for duplicates, without touching the original data above.
+const gamesById = new Map();
+(function prepareGamesData() {
+    const nameCounts = {};
+    gamesData.forEach(g => { nameCounts[g.name] = (nameCounts[g.name] || 0) + 1; });
+
+    const seenOfName = {};
+    gamesData.forEach(g => {
+        g.id = g.url;
+        if (nameCounts[g.name] > 1) {
+            seenOfName[g.name] = (seenOfName[g.name] || 0) + 1;
+            g.displayName = `${g.name} ${seenOfName[g.name]}`;
+        } else {
+            g.displayName = g.name;
+        }
+        gamesById.set(g.id, g);
+    });
+})();
+
+// Migrate favorites saved by the old (name-keyed) format, where possible.
+function loadFavorites() {
+    const stored = JSON.parse(localStorage.getItem('og-favorites-v2') || 'null');
+    if (stored) return new Set(stored);
+
+    const legacy = JSON.parse(localStorage.getItem('og-favorites') || '[]');
+    if (!legacy.length) return new Set();
+
+    // Only migrate names that map unambiguously to a single game.
+    const byName = {};
+    gamesData.forEach(g => { (byName[g.name] = byName[g.name] || []).push(g); });
+    const migrated = legacy
+        .filter(name => byName[name] && byName[name].length === 1)
+        .map(name => byName[name][0].id);
+    return new Set(migrated);
+}
+
+function saveFavorites() {
+    localStorage.setItem('og-favorites-v2', JSON.stringify([...state.favorites]));
+}
+
 // State Management
 const state = {
     games: [...gamesData],
     currentCategory: 'all',
     currentView: 'grid',
     searchQuery: '',
-    favorites: new Set(JSON.parse(localStorage.getItem('og-favorites') || '[]'))
+    favorites: loadFavorites()
 };
 
 // DOM Elements
@@ -538,8 +582,34 @@ function init() {
     // Add new categories to filters dynamically if they don't exist
     const categories = new Set(gamesData.map(g => g.category));
     updateFilters(categories);
-    
-    renderGames();
+
+    // https://olivia-games.github.io/?search=<term> - shareable/search-engine
+    // links (matches the SearchAction already declared in the page's structured data)
+    applySearchFromURL();
+
+    window.addEventListener('popstate', applySearchFromURL);
+}
+
+// Pre-fill and apply the search box from a ?search= URL param, if present
+function applySearchFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('search') || '';
+
+    state.searchQuery = query.toLowerCase().trim();
+    if (elements.searchInput) elements.searchInput.value = query;
+    filterAndRender();
+}
+
+// Keep ?search= in the address bar in sync with the current query,
+// without spamming browser history (replaceState, not pushState).
+function updateSearchURL(query) {
+    const url = new URL(window.location.href);
+    if (query) {
+        url.searchParams.set('search', query);
+    } else {
+        url.searchParams.delete('search');
+    }
+    window.history.replaceState({}, '', url);
 }
 
 function updateFilters(categories) {
@@ -586,11 +656,14 @@ function setupEventListeners() {
     if(elements.panicBtn) elements.panicBtn.addEventListener('click', togglePanicMode);
     if(elements.exitPanicBtn) elements.exitPanicBtn.addEventListener('click', togglePanicMode);
     document.addEventListener('keydown', (e) => {
-        if (e.key === '`' || e.key === 'Escape') {
-            // Only trigger if we are in panic mode or trying to enter it
-            // Optional: prevent ESC from closing full screen games if intended
-             if (e.key === '`') togglePanicMode();
-             if (e.key === 'Escape' && document.body.classList.contains('panic-mode')) togglePanicMode();
+        // Don't hijack the backtick while the user is typing it into a field
+        const typingInField = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable);
+
+        if (e.key === '`' && !typingInField) {
+            togglePanicMode();
+        }
+        if (e.key === 'Escape' && document.body.classList.contains('panic-mode')) {
+            togglePanicMode();
         }
     });
 
@@ -623,12 +696,35 @@ function setupEventListeners() {
             });
         });
     }
+
+    // Game card actions (favorite / info) - delegated, since cards are re-rendered often
+    if (elements.gamesContainer) elements.gamesContainer.addEventListener('click', handleCardAction);
+    if (elements.favoritesContainer) elements.favoritesContainer.addEventListener('click', handleCardAction);
 }
 
-// Search Handler
+// Handle clicks on a game card's favorite/info buttons
+function handleCardAction(e) {
+    const favBtn = e.target.closest('.favorite-btn');
+    if (favBtn) {
+        window.toggleFavorite(favBtn.dataset.id);
+        return;
+    }
+    const infoBtn = e.target.closest('.info-btn');
+    if (infoBtn) {
+        window.showInfo(infoBtn.dataset.id);
+    }
+}
+
+// Search Handler (debounced - filtering 500+ games on every keystroke was choppy)
+let searchDebounceTimer = null;
 function handleSearch(e) {
-    state.searchQuery = e.target.value.toLowerCase().trim();
-    filterAndRender();
+    const value = e.target.value;
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+        state.searchQuery = value.toLowerCase().trim();
+        updateSearchURL(state.searchQuery);
+        filterAndRender();
+    }, 150);
 }
 
 // Filter Handler
@@ -656,6 +752,7 @@ function filterAndRender() {
     if (state.searchQuery) {
         filtered = filtered.filter(game =>
             game.name.toLowerCase().includes(state.searchQuery) ||
+            (game.displayName && game.displayName.toLowerCase().includes(state.searchQuery)) ||
             (game.category && game.category.toLowerCase().includes(state.searchQuery)) ||
             (game.description && game.description.toLowerCase().includes(state.searchQuery))
         );
@@ -684,26 +781,27 @@ function renderGames() {
 
 // Create Game Card
 function createGameCard(game) {
-    const isFav = state.favorites.has(game.name);
+    const isFav = state.favorites.has(game.id);
+    const title = game.displayName || game.name;
     return `
         <article class="game-card">
             <div class="game-header">
                 <span class="game-category">${game.category || 'Game'}</span>
-                <button class="favorite-btn ${isFav ? 'active' : ''}" 
-                        onclick="window.toggleFavorite('${game.name}')"
-                        aria-label="Toggle Favorite">
+                <button class="favorite-btn ${isFav ? 'active' : ''}"
+                        data-id="${game.id}"
+                        aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}">
                     ${isFav ? '⭐' : '☆'}
                 </button>
             </div>
             <div class="game-content">
-                <h3 class="game-title">${game.name}</h3>
+                <h3 class="game-title">${title}</h3>
                 <p class="game-description">${game.description}</p>
             </div>
             <div class="game-footer">
-                <a href="${game.url}" class="play-btn" target="_blank" rel="noopener" aria-label="Play ${game.name}">
+                <a href="${game.url}" class="play-btn" target="_blank" rel="noopener" aria-label="Play ${title}">
                    ▶️ Play Now
                 </a>
-                <button class="info-btn" onclick="window.showInfo('${game.name}')" aria-label="Game Info">
+                <button class="info-btn" data-id="${game.id}" aria-label="Game Info">
                     ℹ️
                 </button>
             </div>
@@ -714,9 +812,9 @@ function createGameCard(game) {
 // Render Favorites
 function renderFavorites() {
     if (!elements.favoritesContainer) return;
-    
-    const favoriteGames = gamesData.filter(game => state.favorites.has(game.name));
-    
+
+    const favoriteGames = gamesData.filter(game => state.favorites.has(game.id));
+
     if (favoriteGames.length === 0) {
         elements.favoritesContainer.innerHTML = `
             <div class="empty-state">
@@ -729,31 +827,40 @@ function renderFavorites() {
     }
 }
 
-// Global Functions (attached to window for HTML onclick access)
-window.toggleFavorite = function(gameName) {
-    if (state.favorites.has(gameName)) {
-        state.favorites.delete(gameName);
+// Update every visible favorite-btn for a given game id, without a full re-render
+function updateFavoriteButtons(id, isFav) {
+    document.querySelectorAll(`.favorite-btn[data-id="${CSS.escape(id)}"]`).forEach(btn => {
+        btn.classList.toggle('active', isFav);
+        btn.textContent = isFav ? '⭐' : '☆';
+        btn.setAttribute('aria-label', isFav ? 'Remove from favorites' : 'Add to favorites');
+    });
+}
+
+// Global Functions (attached to window for card action handlers)
+window.toggleFavorite = function(id) {
+    const isNowFav = !state.favorites.has(id);
+    if (isNowFav) {
+        state.favorites.add(id);
     } else {
-        state.favorites.add(gameName);
+        state.favorites.delete(id);
     }
-    localStorage.setItem('og-favorites', JSON.stringify([...state.favorites]));
-    
-    // Re-render only if necessary to save performance, but here we just re-render all for simplicity
-    // If we are currently viewing favorites tab, we must re-render favorites
+    saveFavorites();
+    updateFavoriteButtons(id, isNowFav);
+
+    // Favorites list gains/loses entries, so it needs a real re-render;
+    // the main grid only needs its star icon updated, handled above.
     const favoritesSection = document.getElementById('favorites');
     if (favoritesSection && favoritesSection.style.display !== 'none') {
         renderFavorites();
     }
-    
-    // Also re-render main grid to update stars there
-    renderGames(); 
 };
 
-window.showInfo = function(gameName) {
-    const game = gamesData.find(g => g.name === gameName);
+window.showInfo = function(id) {
+    const game = gamesById.get(id);
     if (!game) return;
-    
-    alert(`🎮 ${game.name}\n\n📁 Category: ${game.category}\n\n📝 ${game.description}\n\nClick Play Now to start!`);
+
+    const title = game.displayName || game.name;
+    alert(`🎮 ${title}\n\n📁 Category: ${game.category}\n\n📝 ${game.description}\n\nClick Play Now to start!`);
 };
 
 // Play Random Game
@@ -840,7 +947,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Keyboard Shortcuts
 document.addEventListener('keydown', (e) => {
     // Ctrl/Cmd + K to focus search
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k' && elements.searchInput) {
         e.preventDefault();
         elements.searchInput.focus();
     }
