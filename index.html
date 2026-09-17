@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Olivia Games - Play 500+ Online Instantly</title>
-
-<!-- SEO Meta Tags -->
 <meta name="description" content="Play 500+ free online games instantly in your browser. Action, puzzle, strategy games and more. No downloads, no registration required. Start playing now!">
 <meta name="keywords" content="free online games, browser games, flash games, unblocked games, action games, puzzle games, Papa's games, restaurant games, play free games online">
 <meta name="author" content="Olivia Games">
@@ -45,7 +43,7 @@
 <link rel="shortcut icon" href="https://olivia-games.github.io/favicon.ico">
 <link rel="manifest" href="https://olivia-games.github.io/manifest.json">
 
-<!-- Fonts (self-hosted via jsDelivr CDN, no Google Fonts) -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/500.css">
@@ -73,7 +71,7 @@ main {flex: 1;}
 /* Header & Nav */
 header{position:sticky;top:0;z-index:1000;background:#0a0a0fcc;backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 nav{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
-.logo{display:flex;align-items:center;gap:.75rem;font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.logo{display:flex;align-items:center;gap:.75rem;font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;flex-shrink:0}
 .logo-icon{font-size:2rem}
 .nav-links{display:flex;gap:.5rem;list-style:none}
 .nav-link{padding:.5rem 1rem;color:var(--text-muted);text-decoration:none;font-weight:500;border-radius:12px;transition:var(--transition)}
@@ -149,6 +147,34 @@ h1{font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:clamp(2.5re
 .info-btn{padding:.75rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;color:var(--text-muted);cursor:pointer;transition:var(--transition)}
 .info-btn:hover{background:#ffffff1a;color:var(--text)}
 
+/* Game Thumbnail */
+.game-thumb{width:calc(100% + 3rem);height:140px;margin:-1.5rem -1.5rem 1rem;background-size:cover;background-position:center;background-color:var(--bg-card-hover);border-radius:0;flex-shrink:0}
+.games-grid.list-view .game-thumb{width:100px;height:100px;margin:0;border-radius:12px}
+
+/* Game Info Modal */
+body.modal-open{overflow:hidden}
+.game-modal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:1.5rem}
+.game-modal.active{display:flex}
+.game-modal-backdrop{position:absolute;inset:0;background:#000000b3;backdrop-filter:blur(4px)}
+.game-modal-content{position:relative;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border-hover);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);animation:fadeInUp .25s ease}
+.game-modal-close{position:absolute;top:.75rem;right:.75rem;width:36px;height:36px;border-radius:50%;border:none;background:#000000b3;color:#fff;font-size:1rem;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.game-modal-close:hover{background:#000000e6}
+.game-modal-thumb{width:100%;height:220px;background-size:cover;background-position:center;background-color:var(--bg-card-hover);border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.game-modal-body{padding:1.5rem}
+.game-modal-tags{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.game-modal-genre{background:#ec489926;color:var(--secondary)}
+.game-modal-title{font-size:1.5rem;font-weight:700;margin-bottom:.75rem;color:var(--text)}
+.game-modal-description{color:var(--text-muted);font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}
+.game-modal-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.game-modal-actions .play-btn{flex:1;min-width:140px}
+.game-modal-fav{flex:1;min-width:140px;padding:.75rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;font-weight:600;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.game-modal-fav.active,.game-modal-fav:hover{color:var(--accent);border-color:var(--border-hover)}
+@media (max-width:480px){
+.game-modal-content{max-height:95vh}
+.game-modal-thumb{height:160px}
+.game-modal-body{padding:1.25rem}
+}
+
 /* Footer Styles (ADDED) */
 .footer {background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 4rem;}
 .footer-content {max-width: 1400px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 1rem; align-items: center;}
@@ -188,7 +214,7 @@ to{opacity:1;transform:translateY(0)}
 .info-slot{display:flex;justify-content:center;margin:0 auto;max-width:1400px;padding:0 2rem}
 .info-slot__inner{width:100%;background:var(--bg-card);border:1px dashed var(--border-hover);border-radius:12px;color:var(--text-dim);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;align-items:center;justify-content:center;overflow:hidden}
 .info-slot--leaderboard .info-slot__inner{width:728px;max-width:100%;height:90px;display:none}
-.info-slot--rectangle .info-slot__inner{width:300px;height:250px;display:none}
+.info-slot--rectangle .info-slot__inner{width:300px;max-width:100%;height:250px;display:none}
 @media (min-width:1025px) {
 .info-slot--leaderboard{display:flex}
 .info-slot--leaderboard .info-slot__inner{display:flex}
@@ -214,6 +240,7 @@ nav{padding:1rem}
 .panic-btn{width:50px;height:50px;bottom:1rem;right:1rem}
 .games-grid.list-view .game-card{flex-direction:column;align-items:flex-start}
 .games-grid.list-view .game-header,.games-grid.list-view .game-footer{width:100%}
+.games-grid.list-view .game-thumb{width:calc(100% + 2rem);height:140px;margin:-1rem -1rem 0;border-radius:0}
 .mobile-nav{padding:1rem;gap:1.5rem}
 .nav-link{font-size:1.25rem}
 .footer-panic{display:none}
@@ -225,10 +252,20 @@ nav{padding:1rem}
 .games-grid{grid-template-columns:1fr;gap:.85rem}
 .hero-subtitle{font-size:1.05rem}
 .game-card{padding:1.1rem}
+.game-thumb{margin:-1.1rem -1.1rem 1rem;width:calc(100% + 2.2rem)}
 .filters{gap:.5rem}
 .filter-chip{padding:.5rem 1rem;font-size:.8rem}
 .search-box{padding:.85rem .85rem .85rem 3rem}
 .section-title{font-size:1.5rem}
+}
+@media (max-width: 360px) {
+.logo{font-size:1.15rem}
+.logo-icon{font-size:1.5rem}
+nav{padding:.75rem}
+.hero{padding:2.5rem .75rem}
+h1{font-size:clamp(2rem,10vw,2.75rem)}
+.btn{padding:.85rem 1.25rem;font-size:.9rem}
+.game-modal-actions .play-btn,.game-modal-fav{min-width:100%}
 }
 </style>
 <!-- Google tag (gtag.js) -->
@@ -349,10 +386,14 @@ aria-label="Search games">
 
 <div class="filters" id="filters">
 <button class="filter-chip active" data-category="all">All Games</button>
-<button class="filter-chip" data-category="action">Action</button>
+<button class="filter-chip" data-category="arcade">Arcade</button>
+<button class="filter-chip" data-category="platformer">Platformer</button>
+<button class="filter-chip" data-category="adventure">Adventure</button>
 <button class="filter-chip" data-category="puzzle">Puzzle</button>
+<button class="filter-chip" data-category="simulation">Simulation</button>
 <button class="filter-chip" data-category="restaurant">Restaurant</button>
-<!-- <button class="filter-chip" data-category="adventure">Adventure</button> -->
+<button class="filter-chip" data-category="racing">Racing</button>
+<button class="filter-chip" data-category="rpg">RPG</button>
 <button class="filter-chip" data-category="strategy">Strategy</button>
 </div>
 </section>
@@ -407,6 +448,26 @@ aria-label="Search games">
 -->
 </main>
 
+<div class="game-modal" id="game-modal" aria-hidden="true">
+<div class="game-modal-backdrop" data-modal-close></div>
+<div class="game-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+<button class="game-modal-close" data-modal-close aria-label="Close">✕</button>
+<div class="game-modal-thumb" id="modal-thumb"></div>
+<div class="game-modal-body">
+<div class="game-modal-tags">
+<span class="game-category" id="modal-category">Game</span>
+<span class="game-category game-modal-genre" id="modal-genre">Genre</span>
+</div>
+<h3 class="game-modal-title" id="modal-title">Game Title</h3>
+<p class="game-modal-description" id="modal-description">Description goes here.</p>
+<div class="game-modal-actions">
+<a href="#" class="play-btn" id="modal-play-btn" target="_blank" rel="noopener">▶️ Play Now</a>
+<button class="favorite-btn game-modal-fav" id="modal-favorite-btn" data-id="">☆ Add to Favorites</button>
+</div>
+</div>
+</div>
+</div>
+
 <button class="panic-btn" id="panic-btn" title="School Panic Mode (Press ` or ESC)" aria-label="School Panic Mode">🚨</button>
 <button class="exit-panic-btn" id="exit-panic-btn" aria-label="Exit Panic Mode">✕ Exit Panic Mode</button>
 
@@ -420,6 +481,6 @@ Press <code>`</code> key or click the red button for School Panic Mode
 </div>
 </div>
 </footer>
-<script src="index.js?v=2.1"></script>
+<script src="index.js?v=2.1.4"></script>
 </body>
 </html>
