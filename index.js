@@ -1110,3 +1110,4 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+document.getElementById('currentYear').textContent = new Date().getFullYear();
