@@ -1,4 +1,3 @@
-// Game Data - Populated from Sitemap
 const gamesData = [
   { name: "Slope", url: "https://olivia-games.github.io/seraph/games/slope/", category: "action", description: "Fast-paced action challenge featuring Slope.", backgroundImage: "/seraph/images/thumbnails/slope.jpg", genre: "platformer" },
   { name: "Subwaysurfers", url: "https://olivia-games.github.io/seraph/games/subwaysurfers/", category: "action", description: "React quickly and survive intense action in Subwaysurfers.", backgroundImage: "/seraph/images/thumbnails/subwaysurfers.jpeg", genre: "platformer" },
@@ -573,13 +572,51 @@ function saveFavorites() {
     localStorage.setItem('og-favorites-v2', JSON.stringify([...state.favorites]));
 }
 
+function loadView() {
+    return localStorage.getItem('og-view') === 'list' ? 'list' : 'grid';
+}
+
+function saveView(view) {
+    localStorage.setItem('og-view', view);
+}
+
+const RECENT_LIMIT = 24;
+const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || 'https://olivia-games.github.io/';
+
+function loadRecent() {
+    try {
+        const stored = JSON.parse(localStorage.getItem('og-recent-v1') || '[]');
+        return Array.isArray(stored) ? stored : [];
+    } catch {
+        return [];
+    }
+}
+
+function saveRecent() {
+    localStorage.setItem('og-recent-v1', JSON.stringify(state.recentlyPlayed));
+}
+
+// Records a play: moves the game to the front of the list (deduping any
+// earlier occurrence) and caps the history so it doesn't grow forever.
+function recordPlayed(id) {
+    if (!id || !gamesById.has(id)) return;
+    state.recentlyPlayed = [id, ...state.recentlyPlayed.filter(existing => existing !== id)].slice(0, RECENT_LIMIT);
+    saveRecent();
+
+    const recentSection = document.getElementById('recent');
+    if (recentSection && recentSection.style.display !== 'none') {
+        renderRecent();
+    }
+}
+
 // State Management
 const state = {
     games: [...gamesData],
     currentCategory: 'all',
-    currentView: 'grid',
+    currentView: loadView(),
     searchQuery: '',
-    favorites: loadFavorites()
+    favorites: loadFavorites(),
+    recentlyPlayed: loadRecent()
 };
 
 // DOM Elements
@@ -588,6 +625,7 @@ const elements = {
     filtersContainer: document.getElementById('filters'),
     gamesContainer: document.getElementById('games-container'),
     favoritesContainer: document.getElementById('favorites-container'),
+    recentContainer: document.getElementById('recent-container'),
     panicBtn: document.getElementById('panic-btn'),
     exitPanicBtn: document.getElementById('exit-panic-btn'),
     exploreBtn: document.getElementById('explore-btn'),
@@ -601,7 +639,8 @@ const elements = {
 function init() {
     setupEventListeners();
     initGameModal();
-    
+    applyView(state.currentView);
+
     // Add new categories to filters dynamically if they don't exist
     const categories = new Set(gamesData.map(g => g.effectiveCategory));
     updateFilters(categories);
@@ -610,7 +649,21 @@ function init() {
     // links (matches the SearchAction already declared in the page's structured data)
     applySearchFromURL();
 
+    // https://olivia-games.github.io/?game=<id> - a share link from the
+    // 🔗 Share button; open that game's info modal directly.
+    applySharedGameFromURL();
+
     window.addEventListener('popstate', applySearchFromURL);
+}
+
+// If the page was opened via a ?game=<id> share link, pop that game's
+// info modal open automatically.
+function applySharedGameFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const gameId = params.get('game');
+    if (gameId && gamesById.has(gameId)) {
+        openGameModal(gamesById.get(gameId));
+    }
 }
 
 // Pre-fill and apply the search box from a ?search= URL param, if present
@@ -657,6 +710,29 @@ function updateFilters(categories) {
         'simulation': 'Simulation'
     };
 
+    // Icons for the filter chips - keep in sync with the ones hardcoded
+    // in index.html for 'all'/arcade/platformer/adventure/puzzle/
+    // simulation/restaurant/racing/rpg/strategy.
+    const categoryIcons = {
+        'action': '⚡',
+        'puzzle': '🧩',
+        'restaurant': '🍔',
+        'adventure': '🗺️',
+        'strategy': '♟️',
+        'racing': '🏎️',
+        'rpg': '⚔️',
+        'horror': '👻',
+        'fighting': '🥊',
+        'sports': '⚽',
+        'tool': '🛠️',
+        'arcade': '🕹️',
+        'music': '🎵',
+        'platformer': '🏃',
+        'mobile': '📱',
+        'minecraft': '⛏️',
+        'simulation': '🏗️'
+    };
+
     const existingButtons = Array.from(elements.filtersContainer.children).map(btn => btn.dataset.category);
     
     categories.forEach(cat => {
@@ -664,7 +740,9 @@ function updateFilters(categories) {
             const btn = document.createElement('button');
             btn.className = 'filter-chip';
             btn.dataset.category = cat;
-            btn.textContent = displayNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+            const label = displayNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+            const icon = categoryIcons[cat] || '🎯';
+            btn.textContent = `${icon} ${label}`;
             elements.filtersContainer.appendChild(btn);
         }
     });
@@ -695,13 +773,65 @@ function setupEventListeners() {
 
     // CTA buttons
     if(elements.exploreBtn) elements.exploreBtn.addEventListener('click', () => {
+        // Bug fix: this used to just scroll to #games, which did nothing
+        // visible if the Favorites section was currently showing (Games
+        // was display:none). Switch sections first, then scroll.
+        showSection('#games');
         document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
     });
 
     if(elements.randomBtn) elements.randomBtn.addEventListener('click', playRandomGame);
 
+    // Favorites "close" button - back out of the Favorites view
+    const favoritesCloseBtn = document.getElementById('favorites-close-btn');
+    if (favoritesCloseBtn) favoritesCloseBtn.addEventListener('click', () => {
+        showSection('#games');
+        document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Recently Played "close" button - back out of the Recent view
+    const recentCloseBtn = document.getElementById('recent-close-btn');
+    if (recentCloseBtn) recentCloseBtn.addEventListener('click', () => {
+        showSection('#games');
+        document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Recently Played "clear history" button
+    const recentClearBtn = document.getElementById('recent-clear-btn');
+    if (recentClearBtn) recentClearBtn.addEventListener('click', () => {
+        if (state.recentlyPlayed.length === 0) return;
+        if (!confirm('Clear your recently played history?')) return;
+        state.recentlyPlayed = [];
+        saveRecent();
+        renderRecent();
+        showToast('Recently played history cleared');
+    });
+
+    // Footer: share the whole site (not a specific game)
+    const footerShareCopy = document.getElementById('footer-share-copy');
+    if (footerShareCopy) footerShareCopy.addEventListener('click', () => {
+        copyToClipboard(SITE_URL)
+            .then(() => showToast('Link copied!'))
+            .catch(() => showToast('Could not copy link'));
+    });
+
+    // "More" only makes sense where the native share sheet exists (mostly
+    // mobile) - it surfaces every app installed, not just the 4 hardcoded
+    // above, which is what "and other" apps means in practice.
+    const footerShareMore = document.getElementById('footer-share-more');
+    if (footerShareMore && navigator.share) {
+        footerShareMore.style.display = '';
+        footerShareMore.addEventListener('click', () => {
+            navigator.share({
+                title: 'Olivia Games',
+                text: 'Check out Olivia Games - play 500+ free online games instantly!',
+                url: SITE_URL
+            }).catch(() => {}); // user cancelled the share sheet - nothing to do
+        });
+    }
+
     // View toggle
-    document.querySelectorAll('.view-btn').forEach(btn => {
+    document.querySelectorAll('.view-btn[data-view]').forEach(btn => {
         btn.addEventListener('click', handleViewToggle);
     });
 
@@ -723,9 +853,10 @@ function setupEventListeners() {
         });
     }
 
-    // Game card actions (favorite / info) - delegated, since cards are re-rendered often
+    // Game card actions (favorite / info / share / play) - delegated, since cards are re-rendered often
     if (elements.gamesContainer) elements.gamesContainer.addEventListener('click', handleCardAction);
     if (elements.favoritesContainer) elements.favoritesContainer.addEventListener('click', handleCardAction);
+    if (elements.recentContainer) elements.recentContainer.addEventListener('click', handleCardAction);
 }
 
 // Handle clicks on a game card's favorite/info buttons
@@ -740,9 +871,15 @@ function handleCardAction(e) {
         window.showInfo(infoBtn.dataset.id);
         return;
     }
-    // Clicking anywhere else on the card (it's styled as clickable) opens
-    // info, as long as it's not the play link itself (let that navigate).
-    if (e.target.closest('.play-btn')) return;
+    // Clicking Play navigates in a new tab - let it, but log it to
+    // Recently Played first.
+    const playBtn = e.target.closest('.play-btn');
+    if (playBtn) {
+        const card = playBtn.closest('.game-card');
+        if (card && card.dataset.id) recordPlayed(card.dataset.id);
+        return;
+    }
+    // Clicking anywhere else on the card (it's styled as clickable) opens info.
     const card = e.target.closest('.game-card');
     if (card && card.dataset.id) {
         window.showInfo(card.dataset.id);
@@ -797,8 +934,14 @@ function filterAndRender() {
 }
 
 // Render Games
+// Renders the first screenful synchronously (so results feel instant), then
+// appends the rest in small batches via requestAnimationFrame so painting
+// 500+ cards doesn't block the main thread / janks the page.
+let renderToken = 0;
 function renderGames() {
     if (!elements.gamesContainer) return;
+
+    const myToken = ++renderToken; // lets a newer search/filter cancel a stale in-flight render
 
     if (state.games.length === 0) {
         elements.gamesContainer.innerHTML = `
@@ -810,19 +953,38 @@ function renderGames() {
         return;
     }
 
-    elements.gamesContainer.innerHTML = state.games.map(game => createGameCard(game)).join('');
+    const FIRST_BATCH = 24;
+    const BATCH_SIZE = 40;
+    const games = state.games;
+
+    elements.gamesContainer.innerHTML = games.slice(0, FIRST_BATCH).map(createGameCard).join('');
+
+    if (games.length <= FIRST_BATCH) return;
+
+    let i = FIRST_BATCH;
+    function renderNextBatch() {
+        if (myToken !== renderToken) return; // a newer render superseded this one
+        const next = games.slice(i, i + BATCH_SIZE);
+        if (next.length === 0) return;
+        elements.gamesContainer.insertAdjacentHTML('beforeend', next.map(createGameCard).join(''));
+        i += BATCH_SIZE;
+        if (i < games.length) {
+            requestAnimationFrame(renderNextBatch);
+        }
+    }
+    requestAnimationFrame(renderNextBatch);
 }
 
 // Create Game Card
 function createGameCard(game) {
     const isFav = state.favorites.has(game.id);
     const title = game.displayName || game.name;
-    const thumbStyle = game.backgroundImage
-        ? ` style="background-image:url('${game.backgroundImage}')"`
+    const thumbImg = game.backgroundImage
+        ? `<img class="game-thumb" src="${game.backgroundImage}" alt="${title}" loading="lazy" decoding="async" width="280" height="140">`
         : '';
     return `
         <article class="game-card" data-id="${game.id}">
-            ${game.backgroundImage ? `<div class="game-thumb"${thumbStyle}></div>` : ''}
+            ${thumbImg}
             <div class="game-header">
                 <span class="game-category">${game.effectiveCategory || 'Game'}</span>
                 <button class="favorite-btn ${isFav ? 'active' : ''}"
@@ -865,6 +1027,27 @@ function renderFavorites() {
     }
 }
 
+// Render Recently Played - ordered most-recently-played first (not
+// data/alphabetical order), unlike Favorites.
+function renderRecent() {
+    if (!elements.recentContainer) return;
+
+    const recentGames = state.recentlyPlayed
+        .map(id => gamesById.get(id))
+        .filter(Boolean);
+
+    if (recentGames.length === 0) {
+        elements.recentContainer.innerHTML = `
+            <div class="empty-state">
+                <h3>No recently played games</h3>
+                <p>Games you play will show up here</p>
+            </div>
+        `;
+    } else {
+        elements.recentContainer.innerHTML = recentGames.map(game => createGameCard(game)).join('');
+    }
+}
+
 // Update every visible favorite-btn for a given game id, without a full re-render
 function updateFavoriteButtons(id, isFav) {
     document.querySelectorAll(`.favorite-btn[data-id="${CSS.escape(id)}"]`).forEach(btn => {
@@ -898,6 +1081,57 @@ window.showInfo = function(id) {
     if (!game) return;
     openGameModal(game);
 };
+
+// Builds a shareable ?game=<id> deep link (opening it pops that game's info
+// modal automatically - see applySharedGameFromURL), copies it to the
+// clipboard, and shows a toast confirming the copy.
+window.shareGame = function(id) {
+    const game = gamesById.get(id);
+    if (!game) return;
+
+    const title = game.displayName || game.name;
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('game', id);
+    const shareUrl = url.toString();
+
+    copyToClipboard(shareUrl)
+        .then(() => showToast(`Link to ${title} copied!`))
+        .catch(() => showToast('Could not copy link'));
+};
+
+function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+    }
+    // Fallback for browsers/contexts without the async Clipboard API
+    return new Promise((resolve, reject) => {
+        try {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            ok ? resolve() : reject(new Error('execCommand copy failed'));
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+let toastTimer = null;
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2500);
+}
 
 // Game Info Modal
 function openGameModal(game) {
@@ -945,8 +1179,12 @@ function openGameModal(game) {
     const playBtn = document.getElementById('modal-play-btn');
     if (playBtn) {
         playBtn.href = game.url;
+        playBtn.dataset.id = game.id;
         playBtn.setAttribute('aria-label', `Play ${title}`);
     }
+
+    const shareBtn = document.getElementById('modal-share-btn');
+    if (shareBtn) shareBtn.dataset.id = game.id;
 
     const favBtn = document.getElementById('modal-favorite-btn');
     if (favBtn) {
@@ -991,6 +1229,18 @@ function initGameModal() {
         });
     }
 
+    const shareBtn = document.getElementById('modal-share-btn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => window.shareGame(shareBtn.dataset.id));
+    }
+
+    const playBtn = document.getElementById('modal-play-btn');
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (playBtn.dataset.id) recordPlayed(playBtn.dataset.id);
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeGameModal();
@@ -1001,27 +1251,30 @@ function initGameModal() {
 // Play Random Game
 function playRandomGame() {
     const randomGame = gamesData[Math.floor(Math.random() * gamesData.length)];
+    recordPlayed(randomGame.id);
     window.open(randomGame.url, '_blank'); // new tab
 }
 
 // View Toggle
+// Keeps the Games and Favorites view-controls (and the grid/list-view
+// classes on both containers) all in sync, whichever one was clicked.
+function applyView(view) {
+    state.currentView = view;
+    document.querySelectorAll('.view-btn[data-view]').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === view);
+    });
+    const isList = view === 'list';
+    if (elements.gamesContainer) elements.gamesContainer.classList.toggle('list-view', isList);
+    if (elements.favoritesContainer) elements.favoritesContainer.classList.toggle('list-view', isList);
+    if (elements.recentContainer) elements.recentContainer.classList.toggle('list-view', isList);
+}
+
 function handleViewToggle(e) {
-    const btn = e.target.closest('.view-btn');
+    const btn = e.target.closest('.view-btn[data-view]');
     if (!btn) return;
 
-    document.querySelectorAll('.view-btn').forEach(b => 
-        b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    state.currentView = btn.dataset.view;
-    
-    if (state.currentView === 'list') {
-        elements.gamesContainer.classList.add('list-view');
-        if(elements.favoritesContainer) elements.favoritesContainer.classList.add('list-view');
-    } else {
-        elements.gamesContainer.classList.remove('list-view');
-        if(elements.favoritesContainer) elements.favoritesContainer.classList.remove('list-view');
-    }
+    applyView(btn.dataset.view);
+    saveView(btn.dataset.view);
 }
 
 // Panic Mode
@@ -1037,34 +1290,56 @@ function togglePanicMode() {
     }
 }
 
+// Section switching (Home / Games / Categories / Favorites / Recently Played)
+// Centralized here so the desktop nav, the mobile nav, the Explore button,
+// and the Favorites/Recent close buttons all agree on what's visible -
+// previously each one duplicated (or skipped) this logic and could fall out of sync.
+function showSection(targetId) {
+    // Bug fix: only the single clicked link got .active before, so
+    // navigating via the mobile menu left the desktop nav's highlight
+    // stale (and vice versa). Sync every nav-link that points here.
+    document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === targetId);
+    });
+
+    const gamesSection = document.getElementById('games');
+    const favoritesSection = document.getElementById('favorites');
+    const recentSection = document.getElementById('recent');
+    const categoriesSection = document.getElementById('categories');
+
+    // Hide every "special" section first, then show the one requested
+    // (or fall back to the main Games/Categories view).
+    if(favoritesSection) favoritesSection.style.display = 'none';
+    if(recentSection) recentSection.style.display = 'none';
+
+    if (targetId === '#favorites') {
+        if(gamesSection) gamesSection.style.display = 'none';
+        if(categoriesSection) categoriesSection.style.display = 'none';
+        if(favoritesSection) {
+            favoritesSection.style.display = 'block';
+            renderFavorites();
+        }
+    } else if (targetId === '#recent') {
+        if(gamesSection) gamesSection.style.display = 'none';
+        if(categoriesSection) categoriesSection.style.display = 'none';
+        if(recentSection) {
+            recentSection.style.display = 'block';
+            renderRecent();
+        }
+    } else {
+        if(gamesSection) gamesSection.style.display = 'block';
+        if(categoriesSection) categoriesSection.style.display = 'block';
+    }
+}
+
 // Smooth Scroll Navigation
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        const targetId = e.target.getAttribute('href');
-        
-        document.querySelectorAll('.nav-link').forEach(l => 
-            l.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        // Handle section visibility
-        const gamesSection = document.getElementById('games');
-        const favoritesSection = document.getElementById('favorites');
-        const categoriesSection = document.getElementById('categories');
+        const targetId = e.target.closest('.nav-link').getAttribute('href');
 
-        if (targetId === '#favorites') {
-            if(gamesSection) gamesSection.style.display = 'none';
-            if(categoriesSection) categoriesSection.style.display = 'none';
-            if(favoritesSection) {
-                favoritesSection.style.display = 'block';
-                renderFavorites();
-            }
-        } else {
-            if(favoritesSection) favoritesSection.style.display = 'none';
-            if(gamesSection) gamesSection.style.display = 'block';
-            if(categoriesSection) categoriesSection.style.display = 'block';
-        }
-        
+        showSection(targetId);
+
         if (targetId === '#home') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
