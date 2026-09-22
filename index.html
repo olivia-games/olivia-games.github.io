@@ -43,63 +43,47 @@
 <link rel="shortcut icon" href="https://olivia-games.github.io/favicon.ico">
 <link rel="manifest" href="https://olivia-games.github.io/manifest.json">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/400.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/500.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/700.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@5.1.1/800.css">
-
+<!-- Fonts (Google Fonts CDN) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+</noscript>
 <style>
-/* Base Reset & Variables */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--primary:#279d2c;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#ec4899;--accent:#f59e0b;--success:#10b981;--bg-dark:#0a0a0f;--bg-darker:#050508;--bg-card:#16161f;--bg-card-hover:#1c1c28;--text:#fff;--text-muted:#d2e3fa;--text-dim:#adcefc;--border:#ffffff14;--border-hover:#ffffff26;--glow:#6366f14d;--shadow-sm:0 2px 8px #0003;--shadow-md:0 8px 24px #0000004d;--shadow-lg:0 16px 48px #0006;--radius:16px;--radius-lg:24px;--transition:all .3s cubic-bezier(0.4,0,0.2,1)}
-
 html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--border-hover) var(--bg-darker)}
-body{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-darker);color:var(--text);line-height:1.6;overflow-x:hidden;min-height: 100vh;display: flex;flex-direction: column;}
-main {flex: 1;}
-
-/* Tiny webkit scrollbar */
+body{font-family:'Inter','Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-darker);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+main{flex:1}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:var(--bg-darker)}
 ::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:var(--primary)}
-
 .bg-gradient{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(circle at 20% 50%,#6366f126 0%,transparent 50%),radial-gradient(circle at 80% 80%,#ec489926 0%,transparent 50%),radial-gradient(circle at 40% 90%,#f59e0b1a 0%,transparent 50%)}
-
-/* Header & Nav */
 header{position:sticky;top:0;z-index:1000;background:#0a0a0fcc;backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 nav{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
-.logo{display:flex;align-items:center;gap:.75rem;font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:.75rem;font-family:'Manrope',sans-serif;letter-spacing:-.02em;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;flex-shrink:0}
 .logo-icon{font-size:2rem}
 .nav-links{display:flex;gap:.5rem;list-style:none}
 .nav-link{padding:.5rem 1rem;color:var(--text-muted);text-decoration:none;font-weight:500;border-radius:12px;transition:var(--transition)}
 .nav-link:hover,.nav-link.active{color:var(--text);background:#ffffff0d}
-
-/* Mobile Menu */
 .mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:.5rem}
 .mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0ffa;backdrop-filter:blur(20px);z-index:2000;padding:2rem;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
 .mobile-nav.active{display:flex}
 .mobile-nav .nav-link{font-size:1.5rem}
 .mobile-close-btn{position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--text);font-size:2rem;cursor:pointer}
-
-/* Hero Section */
 .hero{max-width:1400px;margin:0 auto;padding:4rem 2rem 6rem;text-align:center}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.25rem;background:#6366f11a;border:1px solid #6366f14d;border-radius:100px;color:var(--primary-light);font-size:.875rem;font-weight:600;margin-bottom:2rem;animation:fadeInUp .6s ease-out}
-h1{font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:clamp(2.5rem,8vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;animation:fadeInUp .6s ease-out .1s both}
+h1{font-family:'Manrope',sans-serif;letter-spacing:-.02em;font-size:clamp(2.5rem,8vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;animation:fadeInUp .6s ease-out .1s both}
 .gradient-text{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 50%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:gradient-shift 3s ease infinite}
 .hero-subtitle{font-size:1.25rem;color:var(--text-muted);max-width:600px;margin:0 auto 3rem;animation:fadeInUp .6s ease-out .2s both}
 .cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s ease-out .3s both}
-
-/* Buttons */
 .btn{padding:1rem 2rem;font-size:1rem;font-weight:600;border:none;border-radius:var(--radius);cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
 .btn-primary{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;box-shadow:0 4px 16px #6366f166}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px #6366f180}
 .btn-secondary{background:#ffffff0d;color:var(--text);border:1px solid var(--border)}
 .btn-secondary:hover{background:#ffffff1a;border-color:var(--border-hover)}
-
-/* Controls & Filters */
 .controls{max-width:1400px;margin:0 auto;padding:2rem}
 .search-wrapper{position:relative;max-width:600px;margin:0 auto 2rem}
 .search-box{width:100%;padding:1rem 1rem 1rem 3.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:1rem;transition:var(--transition)}
@@ -109,49 +93,46 @@ h1{font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:clamp(2.5re
 .filter-chip{padding:.625rem 1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-size:.875rem;font-weight:500;cursor:pointer;transition:var(--transition)}
 .filter-chip:hover{background:var(--bg-card-hover);border-color:var(--border-hover);transform:translateY(-2px)}
 .filter-chip.active{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-color:var(--primary);color:#fff}
-
-/* Games Grid */
 .games-section{max-width:1400px;margin:0 auto;padding:2rem}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
-.section-title{font-family:'Manrope',sans-serif;letter-spacing:-0.02em;font-size:2rem;font-weight:700}
+.section-title{font-family:'Manrope',sans-serif;letter-spacing:-.02em;font-size:2rem;font-weight:700}
 .view-controls{display:flex;gap:.5rem;background:var(--bg-card);padding:.25rem;border-radius:12px}
 .view-btn{padding:.5rem 1rem;background:transparent;border:none;color:var(--text-muted);cursor:pointer;border-radius:8px;transition:var(--transition);font-size:.875rem;display:flex;align-items:center;gap:.5rem}
 .view-btn.active{background:var(--primary);color:#fff}
-
+.favorites-close-row{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+.close-btn{display:flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;color:var(--text-muted);cursor:pointer;transition:var(--transition);font-size:.9rem;font-weight:600}
+.close-btn:hover{background:#ffffff1a;color:var(--text);border-color:var(--border-hover)}
+.clear-btn{display:flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;background:#ef444414;border:1px solid #ef444440;border-radius:12px;color:#fca5a5;cursor:pointer;transition:var(--transition);font-size:.9rem;font-weight:600}
+.clear-btn:hover{background:#ef444426;border-color:#ef444466}
 .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
 .games-grid.list-view{grid-template-columns:1fr}
-/* List view styles */
-.games-grid.list-view .game-card{display:flex;flex-direction:row;align-items:center;gap:1.5rem;padding: 1rem;}
-.games-grid.list-view .game-header{flex-direction:column;gap:.5rem;margin-bottom:0; min-width: 100px;}
-.games-grid.list-view .game-content{flex:1; text-align: left;}
-.games-grid.list-view .game-description{margin-bottom: 0; -webkit-line-clamp:1;}
-.games-grid.list-view .game-footer{flex-direction:column;min-width:140px; gap: 0.5rem;}
-
-.game-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden; display: flex; flex-direction: column;}
+.games-grid.list-view .game-card{display:flex;flex-direction:row;align-items:center;gap:1.5rem;padding:1rem}
+.games-grid.list-view .game-header{flex-direction:column;gap:.5rem;margin-bottom:0;min-width:100px}
+.games-grid.list-view .game-content{flex:1;min-width:0;text-align:left}
+.games-grid.list-view .game-description{margin-bottom:0;-webkit-line-clamp:1}
+.games-grid.list-view .game-footer{flex-direction:column;min-width:140px;gap:.5rem}
+.game-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:auto 320px}
 .game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--secondary));transform:scaleX(0);transition:var(--transition)}
 .game-card:hover{transform:translateY(-8px);border-color:var(--border-hover);box-shadow:var(--shadow-lg)}
 .game-card:hover::before{transform:scaleX(1)}
-
 .game-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:1rem}
 .game-category{padding:.25rem .75rem;background:#6366f11a;color:var(--primary-light);font-size:.75rem;font-weight:600;text-transform:uppercase;border-radius:6px}
 .favorite-btn{background:none;border:none;color:var(--text-dim);font-size:1.25rem;cursor:pointer;transition:var(--transition)}
 .favorite-btn:hover,.favorite-btn.active{color:var(--accent);transform:scale(1.2)}
-
-.game-content {flex-grow: 1; margin-bottom: 1.5rem;}
+.game-content{flex-grow:1;margin-bottom:1.5rem}
 .game-title{font-size:1.25rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
 .game-description{color:var(--text-muted);font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-
-.game-footer{display:flex;gap:.75rem; margin-top: auto;}
-.play-btn{flex:1;padding:.75rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;text-align:center; display: flex; align-items: center; justify-content: center; gap: 0.5rem;}
+.game-footer{display:flex;gap:.75rem;margin-top:auto}
+.play-btn{flex:1;padding:.75rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:#fff;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:.5rem}
 .play-btn:hover{transform:scale(1.02);box-shadow:0 4px 16px #6366f166}
 .info-btn{padding:.75rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;color:var(--text-muted);cursor:pointer;transition:var(--transition)}
 .info-btn:hover{background:#ffffff1a;color:var(--text)}
-
-/* Game Thumbnail */
-.game-thumb{width:calc(100% + 3rem);height:140px;margin:-1.5rem -1.5rem 1rem;background-size:cover;background-position:center;background-color:var(--bg-card-hover);border-radius:0;flex-shrink:0}
-.games-grid.list-view .game-thumb{width:100px;height:100px;margin:0;border-radius:12px}
-
-/* Game Info Modal */
+.game-modal-share{padding:.75rem 1rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;color:var(--text-muted);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:.4rem;font-weight:600;font-size:.95rem}
+.game-modal-share:hover{background:#ffffff1a;color:var(--text)}
+.toast{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%) translateY(20px);background:var(--bg-card);border:1px solid var(--border-hover);color:var(--text);padding:.85rem 1.5rem;border-radius:12px;box-shadow:var(--shadow-lg);font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:.5rem;z-index:9600;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.game-thumb{display:block;width:calc(100% + 3rem);height:140px;margin:-1.5rem -1.5rem 1rem;object-fit:cover;object-position:center;background-color:var(--bg-card-hover);border-radius:0;flex-shrink:0}
+.games-grid.list-view .game-thumb{width:100px;height:100px;margin:0;border-radius:12px;flex-shrink:0}
 body.modal-open{overflow:hidden}
 .game-modal{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:1.5rem}
 .game-modal.active{display:flex}
@@ -168,36 +149,32 @@ body.modal-open{overflow:hidden}
 .game-modal-actions{display:flex;gap:.75rem;flex-wrap:wrap}
 .game-modal-actions .play-btn{flex:1;min-width:140px}
 .game-modal-fav{flex:1;min-width:140px;padding:.75rem;background:#ffffff0d;border:1px solid var(--border);border-radius:12px;font-weight:600;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
-.game-modal-fav.active,.game-modal-fav:hover{color:var(--accent);border-color:var(--border-hover)}
-@media (max-width:480px){
+.game-modal-fav.active,.game-modal-fav:hover{color:var(--accent);border-color:var(--border-hover);transform:scale(1.1)}
+@media (max-width:480px) {
 .game-modal-content{max-height:95vh}
 .game-modal-thumb{height:160px}
 .game-modal-body{padding:1.25rem}
 }
-
-/* Footer Styles (ADDED) */
-.footer {background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: 4rem;}
-.footer-content {max-width: 1400px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 1rem; align-items: center;}
-.footer-title {font-family: 'Manrope', sans-serif;letter-spacing:-0.02em; font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
-.footer-text {color: var(--text-muted);}
-.footer-panic {margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 8px; color: #fca5a5; font-size: 0.9rem;}
-.footer-panic code {background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace;}
-
-/* Panic Buttons */
+.footer{background:var(--bg-card);border-top:1px solid var(--border);padding:3rem 2rem;margin-top:4rem}
+.footer-content{max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:1rem;align-items:center}
+.footer-title{font-family:'Manrope',sans-serif;letter-spacing:-.02em;font-size:1.5rem;font-weight:700;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-text{color:var(--text-muted)}
+.footer-share{margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.footer-share-label{color:var(--text-muted);font-size:.875rem;font-weight:600}
+.footer-share-icons{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem}
+.footer-share-btn{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);font-size:1.1rem;text-decoration:none;cursor:pointer;transition:var(--transition)}
+.footer-share-btn:hover{background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px)}
+.footer-panic{margin-top:1rem;padding:.5rem 1rem;background:#dc26261a;border:1px solid #dc26264d;border-radius:8px;color:#fca5a5;font-size:.9rem}
+.footer-panic code{background:#0000004d;padding:2px 6px;border-radius:4px;font-family:monospace}
 .panic-btn{position:absolute;bottom:2rem;right:2rem;width:60px;height:60px;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:var(--shadow-lg);transition:var(--transition);z-index:9000;display:none;align-items:center;justify-content:center}
 .panic-btn:hover{transform:scale(1.1)}
-
 .exit-panic-btn{display:none;position:fixed;top:2rem;right:2rem;padding:.75rem 1.5rem;background:linear-gradient(135deg,#ef4444,#dc2626);border:none;border-radius:12px;color:#fff;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);z-index:9001;transition:var(--transition)}
 .exit-panic-btn:hover{transform:scale(1.05)}
-
-/* Panic Mode Active State */
 body.panic-mode .exit-panic-btn{display:block}
 body.panic-mode{background:#fff!important;color:#000!important}
 body.panic-mode *{background:transparent!important;color:#000!important;border:none!important;box-shadow:none!important}
-body.panic-mode header,body.panic-mode .hero,body.panic-mode .controls,body.panic-mode .games-section,body.panic-mode .panic-btn, body.panic-mode .footer, body.panic-mode .bg-gradient {display:none!important}
+body.panic-mode header,body.panic-mode .hero,body.panic-mode .controls,body.panic-mode .games-section,body.panic-mode .panic-btn,body.panic-mode .footer,body.panic-mode .bg-gradient{display:none!important}
 body.panic-mode::before{content:"📚 Google Classroom - Student Dashboard\A\A🎯 Today's Assignments:\A• Mathematics: Algebra Problems (Due: Tomorrow)\A• English Literature: Essay Analysis (In Progress)\A• Science: Chemistry Lab Report (Submitted)\A• History: World War II Timeline (Due: Friday)\A\A📊 Current Grade Summary:\A• Mathematics: A- (92%)\A• English: B+ (88%)\A• Science: A (95%)\A• History: B (85%)";white-space:pre-line;padding:2rem;display:block;font-family:Arial,sans-serif;line-height:1.8}
-
-/* Animations */
 @keyframes fadeInUp {
 from{opacity:0;transform:translateY(30px)}
 to{opacity:1;transform:translateY(0)}
@@ -206,11 +183,8 @@ to{opacity:1;transform:translateY(0)}
 0%,100%{background-position:0 50%}
 50%{background-position:100% 50%}
 }
-
-/* Utilities */
-.loading, .empty-state{text-align:center;padding:4rem 2rem;color:var(--text-muted)}
+.loading,.empty-state{text-align:center;padding:4rem 2rem;color:var(--text-muted)}
 .empty-state h3{font-size:1.5rem;margin-bottom:.5rem}
-
 .info-slot{display:flex;justify-content:center;margin:0 auto;max-width:1400px;padding:0 2rem}
 .info-slot__inner{width:100%;background:var(--bg-card);border:1px dashed var(--border-hover);border-radius:12px;color:var(--text-dim);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;align-items:center;justify-content:center;overflow:hidden}
 .info-slot--leaderboard .info-slot__inner{width:728px;max-width:100%;height:90px;display:none}
@@ -229,6 +203,10 @@ to{opacity:1;transform:translateY(0)}
 .hero{padding:3.5rem 1.5rem 4rem}
 .games-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 nav{padding:1rem 1.5rem}
+.games-grid.list-view .game-card{gap:1rem}
+.games-grid.list-view .game-thumb{width:80px;height:80px}
+.games-grid.list-view .game-header{min-width:80px}
+.games-grid.list-view .game-footer{min-width:120px}
 }
 @media (max-width: 768px) {
 nav{padding:1rem}
@@ -238,9 +216,12 @@ nav{padding:1rem}
 .cta-buttons{flex-direction:column}
 .games-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
 .panic-btn{width:50px;height:50px;bottom:1rem;right:1rem}
-.games-grid.list-view .game-card{flex-direction:column;align-items:flex-start}
-.games-grid.list-view .game-header,.games-grid.list-view .game-footer{width:100%}
-.games-grid.list-view .game-thumb{width:calc(100% + 2rem);height:140px;margin:-1rem -1rem 0;border-radius:0}
+.games-grid.list-view .game-card{gap:.75rem;padding:.75rem}
+.games-grid.list-view .game-thumb{width:72px;height:72px;border-radius:10px}
+.games-grid.list-view .game-header{min-width:72px;gap:.35rem}
+.games-grid.list-view .game-content{min-width:0}
+.games-grid.list-view .game-footer{flex-wrap:wrap;min-width:auto}
+.games-grid.list-view .game-footer .info-btn{display:none}
 .mobile-nav{padding:1rem;gap:1.5rem}
 .nav-link{font-size:1.25rem}
 .footer-panic{display:none}
@@ -257,6 +238,14 @@ nav{padding:1rem}
 .filter-chip{padding:.5rem 1rem;font-size:.8rem}
 .search-box{padding:.85rem .85rem .85rem 3rem}
 .section-title{font-size:1.5rem}
+.games-grid.list-view .game-thumb{width:56px;height:56px;border-radius:8px}
+.games-grid.list-view .game-header{min-width:56px}
+.games-grid.list-view .game-category{display:none}
+.games-grid.list-view .favorite-btn{font-size:1.1rem}
+.section-header-actions{gap:.5rem}
+.view-btn{padding:.5rem .65rem}
+.view-btn span:last-child{display:none}
+.close-btn,.clear-btn{padding:.65rem 1.25rem;font-size:.85rem}
 }
 @media (max-width: 360px) {
 .logo{font-size:1.15rem}
@@ -265,7 +254,7 @@ nav{padding:.75rem}
 .hero{padding:2.5rem .75rem}
 h1{font-size:clamp(2rem,10vw,2.75rem)}
 .btn{padding:.85rem 1.25rem;font-size:.9rem}
-.game-modal-actions .play-btn,.game-modal-fav{min-width:100%}
+.game-modal-actions .play-btn,.game-modal-fav,.game-modal-share{min-width:100%}
 }
 </style>
 <!-- Google tag (gtag.js) -->
@@ -298,6 +287,7 @@ navigator.serviceWorker.register('/sw.js').catch(function () {});
 <li><a href="#home" class="nav-link active">Home</a></li>
 <li><a href="#games" class="nav-link">Games</a></li>
 <li><a href="#categories" class="nav-link">Categories</a></li>
+<li><a href="#recent" class="nav-link">Recently Played</a></li>
 <li><a href="#favorites" class="nav-link">Favorites</a></li>
 </ul>
 <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
@@ -309,6 +299,7 @@ navigator.serviceWorker.register('/sw.js').catch(function () {});
 <a href="#home" class="nav-link">Home</a>
 <a href="#games" class="nav-link">Games</a>
 <a href="#categories" class="nav-link">Categories</a>
+<a href="#recent" class="nav-link">Recently Played</a>
 <a href="#favorites" class="nav-link">Favorites</a>
 </div>
 
@@ -385,16 +376,16 @@ aria-label="Search games">
 </div>
 
 <div class="filters" id="filters">
-<button class="filter-chip active" data-category="all">All Games</button>
-<button class="filter-chip" data-category="arcade">Arcade</button>
-<button class="filter-chip" data-category="platformer">Platformer</button>
-<button class="filter-chip" data-category="adventure">Adventure</button>
-<button class="filter-chip" data-category="puzzle">Puzzle</button>
-<button class="filter-chip" data-category="simulation">Simulation</button>
-<button class="filter-chip" data-category="restaurant">Restaurant</button>
-<button class="filter-chip" data-category="racing">Racing</button>
-<button class="filter-chip" data-category="rpg">RPG</button>
-<button class="filter-chip" data-category="strategy">Strategy</button>
+<button class="filter-chip active" data-category="all">🎮 All Games</button>
+<button class="filter-chip" data-category="arcade">🕹️ Arcade</button>
+<button class="filter-chip" data-category="platformer">🏃 Platformer</button>
+<button class="filter-chip" data-category="adventure">🗺️ Adventure</button>
+<button class="filter-chip" data-category="puzzle">🧩 Puzzle</button>
+<button class="filter-chip" data-category="simulation">🏗️ Simulation</button>
+<button class="filter-chip" data-category="restaurant">🍔 Restaurant</button>
+<button class="filter-chip" data-category="racing">🏎️ Racing</button>
+<button class="filter-chip" data-category="rpg">⚔️ RPG</button>
+<button class="filter-chip" data-category="strategy">♟️ Strategy</button>
 </div>
 </section>
 
@@ -402,6 +393,16 @@ aria-label="Search games">
 <section class="games-section" id="favorites" style="display: none;">
 <div class="section-header">
 <h2 class="section-title">⭐ Favorite Games</h2>
+<div class="view-controls" id="favorites-view-controls">
+<button class="view-btn" data-view="grid" aria-label="Grid view">
+<span>⊞</span>
+<span>Grid</span>
+</button>
+<button class="view-btn" data-view="list" aria-label="List view">
+<span>☰</span>
+<span>List</span>
+</button>
+</div>
 </div>
 <div class="games-grid" id="favorites-container">
 <div class="empty-state">
@@ -409,17 +410,56 @@ aria-label="Search games">
 <p>Click the star icon on any game to add it to your favorites</p>
 </div>
 </div>
+<div class="favorites-close-row">
+<button class="close-btn" id="favorites-close-btn" aria-label="Close favorites">
+<span>✕</span>
+<span>Close Favorites</span>
+</button>
+</div>
+</section>
+
+<!-- Recently Played Section -->
+<section class="games-section" id="recent" style="display: none;">
+<div class="section-header">
+<h2 class="section-title">🕒 Recently Played</h2>
+<div class="view-controls" id="recent-view-controls">
+<button class="view-btn" data-view="grid" aria-label="Grid view">
+<span>⊞</span>
+<span>Grid</span>
+</button>
+<button class="view-btn" data-view="list" aria-label="List view">
+<span>☰</span>
+<span>List</span>
+</button>
+</div>
+</div>
+<div class="games-grid" id="recent-container">
+<div class="empty-state">
+<h3>No recently played games</h3>
+<p>Games you play will show up here</p>
+</div>
+</div>
+<div class="favorites-close-row">
+<button class="clear-btn" id="recent-clear-btn" aria-label="Clear recently played history">
+<span>🗑️</span>
+<span>Clear History</span>
+</button>
+<button class="close-btn" id="recent-close-btn" aria-label="Close recently played">
+<span>✕</span>
+<span>Close</span>
+</button>
+</div>
 </section>
 
 <section class="games-section" id="games">
 <div class="section-header">
 <h2 class="section-title">Featured Games</h2>
 <div class="view-controls">
-<button class="view-btn active" data-view="grid">
+<button class="view-btn" data-view="grid" aria-label="Grid view">
 <span>⊞</span>
 <span>Grid</span>
 </button>
-<button class="view-btn" data-view="list">
+<button class="view-btn" data-view="list" aria-label="List view">
 <span>☰</span>
 <span>List</span>
 </button>
@@ -463,6 +503,7 @@ aria-label="Search games">
 <div class="game-modal-actions">
 <a href="#" class="play-btn" id="modal-play-btn" target="_blank" rel="noopener">▶️ Play Now</a>
 <button class="favorite-btn game-modal-fav" id="modal-favorite-btn" data-id="">☆ Add to Favorites</button>
+<button class="game-modal-share" id="modal-share-btn" data-id="" aria-label="Copy share link">🔗 Share</button>
 </div>
 </div>
 </div>
@@ -476,11 +517,38 @@ aria-label="Search games">
 <h3 class="footer-title">🎮 Olivia Games</h3>
 <p class="footer-text">The ultimate hub for instant web gaming</p>
 <p class="footer-text">&copy; <span id="currentYear"></span> Olivia Games. Play responsibly and enjoy the experience!</p>
+
+<div class="footer-share">
+<span class="footer-share-label">Share this site:</span>
+<div class="footer-share-icons">
+<button class="footer-share-btn" id="footer-share-copy" type="button" aria-label="Copy website link">
+<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/></svg>
+</button>
+<a class="footer-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Folivia-games.github.io%2F&text=Check%20out%20Olivia%20Games%20-%20play%20500%2B%20free%20online%20games%20instantly%21" target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+</a>
+<a class="footer-share-btn" href="https://wa.me/?text=Check%20out%20Olivia%20Games%20-%20play%20500%2B%20free%20online%20games%20instantly%21%20https%3A%2F%2Folivia-games.github.io%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp">
+<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
+</a>
+<a class="footer-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Folivia-games.github.io%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>
+</a>
+<a class="footer-share-btn" href="https://reddit.com/submit?url=https%3A%2F%2Folivia-games.github.io%2F&title=Check%20out%20Olivia%20Games%20-%20play%20500%2B%20free%20online%20games%20instantly%21" target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">
+<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a1 1 0 112 0 1 1 0 01-2 0zm6 0a1 1 0 112 0 1 1 0 01-2 0zm.049 2.137a.593.593 0 11.735.933c-.717.565-1.81.93-2.783.93s-2.066-.365-2.784-.93a.593.593 0 11.735-.933c.413.325 1.23.675 2.049.675s1.636-.35 2.049-.675zM16 8a2 2 0 00-3.748-.972c-1.028-.562-2.28-.926-3.645-1.01L9.8 3.338l2.284.659a1.5 1.5 0 10.094-1.209l-2.545-.735a.593.593 0 00-.707.329L7.305 6.023c-1.33.094-2.551.453-3.557 1.004a2 2 0 10-2.555 2.802A3.661 3.661 0 001 10.999c0 2.761 3.134 5 7 5s7-2.239 7-5c0-.403-.067-.795-.193-1.17A2 2 0 0016 7.999zm-2.5-5.062a.563.563 0 110 1.126.563.563 0 010-1.126zM1 8a1 1 0 011.904-.427 5.292 5.292 0 00-1.276 1.355A1.001 1.001 0 011 8zm7 6.813c-3.21 0-5.813-1.707-5.813-3.813S4.789 7.187 8 7.187c3.21 0 5.813 1.707 5.813 3.813S11.211 14.813 8 14.813zm6.372-5.885a5.276 5.276 0 00-1.276-1.355C13.257 7.235 13.601 7 14 7a1.001 1.001 0 01.372 1.928z"/></svg>
+</a>
+<a class="footer-share-btn" href="https://t.me/share/url?url=https%3A%2F%2Folivia-games.github.io%2F&text=Check%20out%20Olivia%20Games%20-%20play%20500%2B%20free%20online%20games%20instantly%21" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
+<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/></svg>
+</a>
+<button class="footer-share-btn" id="footer-share-more" type="button" aria-label="More sharing options" style="display:none">⋯</button>
+</div>
+</div>
+
 <div class="footer-panic">
 Press <code>`</code> key or click the red button for School Panic Mode
 </div>
 </div>
 </footer>
-<script src="index.js?v=2.1.4"></script>
+<script src="index.js?v=2.2" defer></script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
