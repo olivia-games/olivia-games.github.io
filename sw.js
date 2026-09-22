@@ -1,7 +1,7 @@
 const CACHE_NAME = 'cache-v2';
 const urlsToCache = [
   '/index.html',
-  '/index.js?v=2.1.4',
+  '/index.js?v=2.2',
 ];
 
 self.addEventListener('install', event => {
