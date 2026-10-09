@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-spots="on">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,14 +42,23 @@
 <!-- Favicon -->
 <link rel="shortcut icon" href="https://olivia-games.github.io/favicon.ico">
 <link rel="manifest" href="https://olivia-games.github.io/manifest.json">
-
-<!-- Fonts (Google Fonts CDN) -->
+<link rel="preconnect" href="https://gamesdoodle.pages.dev">
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 </noscript>
+<style data-gx>
+.gx-spot{display:block;width:300px;height:250px;margin:20px calc(50% - 150px);overflow:hidden;contain:layout paint;text-align:center}
+@media(min-width:768px){.gx-spot{width:728px;height:90px;margin:20px calc(50% - 364px)}}
+.gx-spot[data-spot="side"]{display:none}
+@media(min-width:1660px){.gx-spot[data-spot="side"]{display:block;position:fixed;top:84px;right:calc((100vw - 1280px)/2 - 176px);width:160px;height:600px;margin:0;z-index:1}}
+.gx-spot iframe,.gx-spot img{display:block;border:0;margin:0 auto;max-width:none}
+.gx-spot a{display:block;line-height:0}
+.gx-spot[hidden],html[data-spots="off"] .gx-spot{display:none!important}
+</style>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--primary:#279d2c;--primary-dark:#4f46e5;--primary-light:#818cf8;--secondary:#ec4899;--accent:#f59e0b;--success:#10b981;--bg-dark:#0a0a0f;--bg-darker:#050508;--bg-card:#16161f;--bg-card-hover:#1c1c28;--text:#fff;--text-muted:#d2e3fa;--text-dim:#adcefc;--border:#ffffff14;--border-hover:#ffffff26;--glow:#6366f14d;--shadow-sm:0 2px 8px #0003;--shadow-md:0 8px 24px #0000004d;--shadow-lg:0 16px 48px #0006;--radius:16px;--radius-lg:24px;--transition:all .3s cubic-bezier(0.4,0,0.2,1)}
@@ -185,20 +194,6 @@ to{opacity:1;transform:translateY(0)}
 }
 .loading,.empty-state{text-align:center;padding:4rem 2rem;color:var(--text-muted)}
 .empty-state h3{font-size:1.5rem;margin-bottom:.5rem}
-.info-slot{display:flex;justify-content:center;margin:0 auto;max-width:1400px;padding:0 2rem}
-.info-slot__inner{width:100%;background:var(--bg-card);border:1px dashed var(--border-hover);border-radius:12px;color:var(--text-dim);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;align-items:center;justify-content:center;overflow:hidden}
-.info-slot--leaderboard .info-slot__inner{width:728px;max-width:100%;height:90px;display:none}
-.info-slot--rectangle .info-slot__inner{width:300px;max-width:100%;height:250px;display:none}
-@media (min-width:1025px) {
-.info-slot--leaderboard{display:flex}
-.info-slot--leaderboard .info-slot__inner{display:flex}
-.info-slot--rectangle{display:none}
-}
-@media (max-width:1024px) {
-.info-slot--rectangle{display:flex}
-.info-slot--rectangle .info-slot__inner{display:flex}
-.info-slot--leaderboard{display:none}
-}
 @media (min-width: 769px) and (max-width: 1024px) {
 .hero{padding:3.5rem 1.5rem 4rem}
 .games-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
@@ -322,7 +317,9 @@ Play Amazing Games<br>
 Discover the best collection of free online games. 
 From action-packed adventures to brain-teasing puzzles - all playable instantly in your browser!
 </p>
-
+  
+<div class="gx-spot" data-spot="top" role="complementary" aria-label="Partner content"></div>
+  
 <div class="cta-buttons">
 <button class="btn btn-primary" id="explore-btn">
 <span>🚀</span>
@@ -335,34 +332,6 @@ From action-packed adventures to brain-teasing puzzles - all playable instantly 
 </div>
 </section>
 
-<div class="info-slot info-slot--leaderboard" aria-label="advertisement">
-<div class="info-slot__inner" id="info-slot-top-leaderboard">
-<script>
-  atOptions = {
-    'key' : 'ba0b90d3c7ad27d917fad3bf087f24ed',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/ba0b90d3c7ad27d917fad3bf087f24ed"></script>
-</div>
-</div>
-<div class="info-slot info-slot--rectangle" aria-label="advertisement">
-<div class="info-slot__inner" id="info-slot-top-rectangle">
-<script>
-  atOptions = {
-    'key' : '4f50c2015c84dded4596caa5e9cf50ac',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/4f50c2015c84dded4596caa5e9cf50ac"></script>
-</div>
-</div>
 
 <section class="controls" id="categories">
 <div class="search-wrapper">
@@ -387,6 +356,7 @@ aria-label="Search games">
 <button class="filter-chip" data-category="rpg">⚔️ RPG</button>
 <button class="filter-chip" data-category="strategy">♟️ Strategy</button>
 </div>
+<div class="gx-spot" data-spot="after" role="complementary" aria-label="Partner content"></div>
 </section>
 
 <!-- Favorites Section -->
@@ -474,35 +444,8 @@ aria-label="Search games">
 </section>
 
 
+<div class="gx-spot" data-spot="middle" role="complementary" aria-label="Partner content"></div>
 
-<div class="info-slot info-slot--leaderboard" aria-label="advertisement">
-<div class="info-slot__inner" id="info-slot-bottom-leaderboard">
-<script>
-  atOptions = {
-    'key' : 'ba0b90d3c7ad27d917fad3bf087f24ed',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/ba0b90d3c7ad27d917fad3bf087f24ed"></script>
-</div>
-</div>
-<div class="info-slot info-slot--rectangle" aria-label="advertisement">
-<div class="info-slot__inner" id="info-slot-bottom-rectangle">
-<script>
-  atOptions = {
-    'key' : '4f50c2015c84dded4596caa5e9cf50ac',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/4f50c2015c84dded4596caa5e9cf50ac"></script>
-</div>
-</div>
 
 </main>
 
@@ -567,6 +510,7 @@ Press <code>`</code> key or click the red button for School Panic Mode
 </div>
 </footer>
 <script src="index.js?v=2.2" defer></script>
+<script src="https://gamesdoodle.pages.dev/pages.js?v=3.1" defer fetchpriority="low" onerror="document.documentElement.setAttribute('data-spots','off')"></script>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
