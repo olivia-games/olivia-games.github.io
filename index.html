@@ -268,7 +268,27 @@ h1{font-size:clamp(2rem,10vw,2.75rem)}
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-navigator.serviceWorker.register('/sw.js').catch(function () {});
+    navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).then(function (reg) {
+
+      // Check for a new sw.js every hour and when the tab becomes visible again
+      setInterval(function () { reg.update(); }, 60 * 60 * 1000);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') reg.update();
+      });
+
+      // Ask for an hourly background refresh (installed PWA on Chrome/Edge/Android)
+      if ('periodicSync' in reg) {
+        navigator.permissions.query({ name: 'periodic-background-sync' }).then(function (s) {
+          if (s.state === 'granted') reg.periodicSync.register('hourly-refresh', { minInterval: 60 * 60 * 1000 });
+        }).catch(function () {});
+      }
+    }).catch(function () {});
+
+    // Reload once when a new worker takes over, so the user sees the new version
+    var hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (hadController) location.reload();
+    });
   });
 }
 </script>
