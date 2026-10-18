@@ -1,4 +1,57 @@
 const gamesData = [
+  //  NEW games (added 2026-10-18; show a NEW badge for 30 days) 
+  { name: "Conquer The World", url: "https://conquertheworld.pages.dev", category: "strategy", description: "Grab territory, build your army and take over the map one country at a time.", backgroundImage: "/img/conquer-the-world.jpg", genre: "strategy", added: "2026-10-18" },
+  { name: "Doodle Cricket", url: "https://googlecricket.netlify.app", category: "sports", description: "Swing the bat in a doodle-style cricket game and rack up the runs.", backgroundImage: "/img/doodle-cricket.jpg", genre: "sports", added: "2026-10-18" },
+  { name: "Doodle Baseball", url: "https://doodlebaseball.pages.dev", category: "sports", description: "Step up to the plate and hit home runs in a doodle-style baseball game.", backgroundImage: "/img/doodle-baseball.jpg", genre: "sports", added: "2026-10-18" },
+  { name: "Doodle Jump 2", url: "https://doodlejumping.pages.dev", category: "platformer", description: "Bounce higher and higher on platforms while dodging monsters on the way up.", backgroundImage: "/img/doodle-jump-2.jpg", genre: "platformer", added: "2026-10-18" },
+  { name: "Doodle Solitaire", url: "https://googlesolitaire.netlify.app", category: "puzzle", description: "Classic Klondike solitaire with a clean, quick-to-play doodle look.", backgroundImage: "/img/doodle-solitaire.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Doodle Minesweeper", url: "https://googleminesweeper.pages.dev", category: "puzzle", description: "Clear the board without hitting a mine in this doodle-style minesweeper.", backgroundImage: "/img/doodle-minesweeper.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Snake Mods", url: "https://googlesnakemods.pages.dev", category: "arcade", description: "Classic snake with extra mods and modes to mix things up.", backgroundImage: "/img/snake-mods.jpg", genre: "arcade", added: "2026-10-18" },
+  { name: "Flappy Bird 3", url: "https://flappybird3.pages.dev", category: "arcade", description: "Tap to flap through the pipes in another round of the arcade classic.", backgroundImage: "/img/flappy-bird-3.jpg", genre: "arcade", added: "2026-10-18" },
+  { name: "Artle", url: "https://artle.pages.dev", category: "words", description: "Identify famous artworks one guess at a time in a Wordle-style art puzzle.", backgroundImage: "/img/artle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Angle", url: "https://angle-game.pages.dev", category: "words", description: "Guess the angle in degrees and see how close your eye can get.", backgroundImage: "/img/angle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Birthdayle", url: "https://birthdayle.pages.dev", category: "words", description: "A Wordle-style guessing game built around dates and birthdays.", backgroundImage: "/img/birthdayle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Connections", url: "https://connections-unlimited.pages.dev", category: "words", description: "Group sixteen words into four hidden categories, with unlimited rounds.", backgroundImage: "/img/connections.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Colordle", url: "https://colordlegame.pages.dev", category: "words", description: "Guess the hidden color with hints after every try.", backgroundImage: "/img/colordle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Cutle", url: "https://cutle.pages.dev", category: "words", description: "A Wordle-style guessing puzzle: use the clues to crack it in as few tries as you can.", backgroundImage: "/img/cutle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Quick Draw", url: "https://drawquick.pages.dev/game/", category: "arcade", description: "Doodle fast and see if the AI can guess what you drew.", backgroundImage: "/img/quick-draw.jpg", genre: "arcade", added: "2026-10-18" },
+  { name: "Flagle", url: "https://flagle.pages.dev", category: "words", description: "Guess the country from its flag, with more revealed after each try.", backgroundImage: "/img/flagle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Freecell Solitaire", url: "https://freecellsolitaire.pages.dev", category: "puzzle", description: "Sort every card with free cells and clever planning.", backgroundImage: "/img/freecell-solitaire.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Globle", url: "https://globle-game.pages.dev", category: "words", description: "Find the mystery country on a globe: warmer colors mean closer guesses.", backgroundImage: "/img/globle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Guess The Country", url: "https://guess-the-country.pages.dev", category: "words", description: "Test your geography and name the country from the clues.", backgroundImage: "/img/guess-the-country.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Guess The Time", url: "https://guess-the-time.pages.dev", category: "words", description: "Test your sense of time: guess the time and see how close you land.", backgroundImage: "/img/guess-the-time.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Guess The Song", url: "https://guessthesong.pages.dev", category: "words", description: "Name that tune from the first few seconds of audio.", backgroundImage: "/img/guess-the-song.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Hang Man", url: "https://hang-man.pages.dev", category: "words", description: "Guess the letters before the drawing is complete.", backgroundImage: "/img/hang-man.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Hearts Card", url: "https://heartscardgame.pages.dev", category: "puzzle", description: "Play the classic trick-taking card game Hearts against the computer.", backgroundImage: "/img/hearts-card.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Infinite Crafts", url: "https://infinite-crafts.pages.dev", category: "simulation", description: "Combine elements to craft endless new things.", backgroundImage: "/img/infinite-crafts.jpg", genre: "simulation", added: "2026-10-18" },
+  { name: "Idle Breakout", url: "https://idle-breakout.netlify.app", category: "strategy", description: "Idle brick-breaking: upgrade your balls and let them smash the bricks.", backgroundImage: "/img/idle-breakout.jpg", genre: "strategy", added: "2026-10-18" },
+  { name: "Lewdle", url: "https://lewdle.pages.dev", category: "words", description: "A Wordle-style word game with a cheekier word list. Mature humor.", backgroundImage: "/img/lewdle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Loldle", url: "https://loldle-unlimited.pages.dev", category: "words", description: "Guess the League of Legends champion from the clues.", backgroundImage: "/img/loldle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Linkora", url: "https://linkoragame.pages.dev", category: "puzzle", description: "A casual link-and-connect puzzle game.", backgroundImage: "/img/linkora.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Minecraft Wordle", url: "https://minecraft-wordle.pages.dev", category: "words", description: "A Wordle-style guessing game themed around Minecraft.", backgroundImage: "/img/minecraft-wordle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Moviedle", url: "https://moviedlegame.pages.dev", category: "words", description: "Guess the movie from just a few seconds of footage.", backgroundImage: "/img/moviedle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Numberle", url: "https://numberle-game.pages.dev", category: "words", description: "Wordle with math: guess the hidden equation.", backgroundImage: "/img/numberle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "One Piece Wordle", url: "https://onepiecewordle.pages.dev", category: "words", description: "Guess the One Piece character in a Wordle-style game.", backgroundImage: "/img/one-piece-wordle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Pacxon", url: "https://pacxon.pages.dev", category: "arcade", description: "Claim the board while dodging enemies in this Pac-Man meets Xonix arcade game.", backgroundImage: "/img/pacxon.jpg", genre: "arcade", added: "2026-10-18" },
+  { name: "Pips NYT", url: "https://pipsnytgame.pages.dev", category: "puzzle", description: "Place dominoes to satisfy each region's rules in this NYT-style puzzle.", backgroundImage: "/img/pips-nyt.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Pokedoku", url: "https://pokedoku.pages.dev", category: "words", description: "Fill the 3x3 grid with Pokemon that match both the row and the column.", backgroundImage: "/img/pokedoku.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Polygonle", url: "https://polygonle.pages.dev", category: "words", description: "Guess the mystery shape in a Wordle-style puzzle.", backgroundImage: "/img/polygonle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Poople", url: "https://poople.pages.dev", category: "words", description: "A Wordle-style guessing game: use each clue to narrow it down.", backgroundImage: "/img/poople.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Quintessential", url: "https://quintessential-unlimited.pages.dev", category: "words", description: "A Wordle-style word challenge with unlimited rounds.", backgroundImage: "/img/quintessential.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Rankdle", url: "https://rankdle.pages.dev", category: "words", description: "A Wordle-style ranking guessing game: use the hints to find the answer.", backgroundImage: "/img/rankdle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Redactle", url: "https://redactle.pages.dev", category: "words", description: "Uncover the hidden Wikipedia article from its redacted text.", backgroundImage: "/img/redactle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Rngdle", url: "https://rngdle.pages.dev", category: "words", description: "A guessing game driven by random picks: can you crack it?", backgroundImage: "/img/rngdle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Slope Rider", url: "https://slope-rider.pages.dev", category: "racing", description: "Race down neon slopes, dodge obstacles and survive at speed.", backgroundImage: "/img/slope-rider.jpg", genre: "racing", added: "2026-10-18" },
+  { name: "Snow Rider", url: "https://snowriderunblocked.pages.dev", category: "racing", description: "Sled down snowy hills, dodge trees and collect gifts.", backgroundImage: "/img/snow-rider.jpg", genre: "racing", added: "2026-10-18" },
+  { name: "Sonic Dash", url: "https://sonicdashgame.netlify.app", category: "platformer", description: "Run with Sonic through endless levels and collect rings.", backgroundImage: "/img/sonic-dash.jpg", genre: "platformer", added: "2026-10-18" },
+  { name: "Spacebar Clicker", url: "https://spacebarclicker.pages.dev", category: "arcade", description: "How fast can you tap the spacebar? Beat your best score.", backgroundImage: "/img/spacebar-clicker.jpg", genre: "arcade", added: "2026-10-18" },
+  { name: "Sports Connections", url: "https://sports-connections.pages.dev", category: "words", description: "Group sports names into four hidden categories.", backgroundImage: "/img/sports-connections.jpg", genre: "words", added: "2026-10-18" },
+  { name: "The Password Game", url: "https://thepassword-game.netlify.app", category: "puzzle", description: "Create a password that follows ever-crazier rules.", backgroundImage: "/img/the-password-game.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "WebSudoku", url: "https://websudoku.pages.dev", category: "puzzle", description: "Classic sudoku puzzles from easy to evil.", backgroundImage: "/img/websudoku.jpg", genre: "puzzle", added: "2026-10-18" },
+  { name: "Wordblast", url: "https://wordblast.pages.dev", category: "words", description: "Race to make words from the letters before time runs out.", backgroundImage: "/img/wordblast.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Wordhurdle", url: "https://wordhurdle.pages.dev", category: "words", description: "Clear each hurdle by guessing the right word.", backgroundImage: "/img/wordhurdle.jpg", genre: "words", added: "2026-10-18" },
+  { name: "Typing Racer", url: "https://typingracer.pages.dev", category: "words", description: "Race the clock and rivals: type fast and accurately.", backgroundImage: "/img/typing-racer.jpg", genre: "words", added: "2026-10-18" },
+  //  end of NEW games 
   { name: "Slope", url: "https://olivia-games.github.io/seraph/games/slope/", category: "action", description: "Fast-paced action challenge featuring Slope.", backgroundImage: "/seraph/images/thumbnails/slope.jpg", genre: "platformer" },
   { name: "Subwaysurfers", url: "https://olivia-games.github.io/seraph/games/subwaysurfers/", category: "action", description: "React quickly and survive intense action in Subwaysurfers.", backgroundImage: "/seraph/images/thumbnails/subwaysurfers.jpeg", genre: "platformer" },
   { name: "Flappy", url: "https://olivia-games.github.io/seraph/games/flappy/", category: "action", description: "Flappy delivers nonstop arcade-style action.", backgroundImage: "/seraph/images/thumbnails/flappybird.jpg", genre: "mobile" },
@@ -126,8 +179,8 @@ const gamesData = [
   { name: "Doodledefender", url: "https://olivia-games.github.io/seraph/games/doodledefender/", category: "action", description: "React quickly and survive intense action in Doodledefender.", backgroundImage: "/seraph/images/thumbnails/doodledefender.jpg", genre: "arcade" },
   { name: "Learntofly2", url: "https://olivia-games.github.io/seraph/games/learntofly2/", category: "action", description: "Learntofly2 delivers nonstop arcade-style action.", backgroundImage: "/seraph/images/thumbnails/learntofly2.jpg", genre: "adventure" },
   { name: "Papasscooperia", url: "https://olivia-games.github.io/seraph/games/papasscooperia/", category: "restaurant", description: "Cook, serve, and manage customers in Papasscooperia.", backgroundImage: "/seraph/images/thumbnails/papasscooperia.jpg", genre: "simulation" },
-  { name: "Papassushiria", url: "https://olivia-games.github.io/seraph/games/papassushiria/", category: "restaurant", description: "Papassushiria lets you run your own virtual restaurant.", backgroundImage: "/seraph/images/thumbnails/papaswingeria.jpg", genre: "simulation" },
-  { name: "Papaswingeria", url: "https://olivia-games.github.io/seraph/games/papaswingeria/", category: "restaurant", description: "Prepare meals and satisfy customers in Papaswingeria.", backgroundImage: "/seraph/images/thumbnails/papassushiria.jpg", genre: "simulation" },
+  { name: "Papassushiria", url: "https://olivia-games.github.io/seraph/games/papassushiria/", category: "restaurant", description: "Papassushiria lets you run your own virtual restaurant.", backgroundImage: "/seraph/images/thumbnails/papassushiria.jpg", genre: "simulation" },
+  { name: "Papaswingeria", url: "https://olivia-games.github.io/seraph/games/papaswingeria/", category: "restaurant", description: "Prepare meals and satisfy customers in Papaswingeria.", backgroundImage: "/seraph/images/thumbnails/papaswingeria.jpg", genre: "simulation" },
   { name: "Raftwars", url: "https://olivia-games.github.io/seraph/games/raftwars/", category: "action", description: "Fast-paced action challenge featuring Raftwars.", backgroundImage: "/seraph/images/thumbnails/raftwars.jpg", genre: "arcade" },
   { name: "Unfairmario", url: "https://olivia-games.github.io/seraph/games/unfairmario/", category: "platformer", description: "Unfairmario challenges your timing and movement skills.", backgroundImage: "/seraph/images/thumbnails/unfairmario.jpg", genre: "platformer" },
   { name: "Boxingphysics2", url: "https://olivia-games.github.io/seraph/games/boxingphysics2/", category: "fighting", description: "Test your reflexes and combos in Boxingphysics2.", backgroundImage: "/seraph/images/thumbnails/boxingphysics2.jpg", genre: "arcade" },
@@ -190,12 +243,12 @@ const gamesData = [
   { name: "Supermarioflash", url: "https://olivia-games.github.io/seraph/games/supermarioflash/", category: "platformer", description: "A skill-based platforming adventure called Supermarioflash.", backgroundImage: "/seraph/images/thumbnails/supermarioflash.jpg", genre: "platformer" },
   { name: "Goldensun", url: "https://olivia-games.github.io/seraph/games/goldensun/", category: "action", description: "Fast-paced action challenge featuring Goldensun.", backgroundImage: "/seraph/images/thumbnails/goldensun.jpg", genre: "adventure" },
   { name: "Metroidfusion", url: "https://olivia-games.github.io/seraph/games/metroidfusion/", category: "platformer", description: "Metroidfusion challenges your timing and movement skills.", backgroundImage: "/seraph/images/thumbnails/metroidfusion.jpg", genre: "adventure" },
-  { name: "Dbzsupersonicwarriors", url: "https://olivia-games.github.io/seraph/games/dbzsupersonicwarriors/", category: "platformer", description: "A skill-based platforming adventure called Dbzsupersonicwarriors.", backgroundImage: "/seraph/images/thumbnails/goldensun.jpg", genre: "arcade" },
+  { name: "Dbzsupersonicwarriors", url: "https://olivia-games.github.io/seraph/games/dbzsupersonicwarriors/", category: "platformer", description: "A skill-based platforming adventure called Dbzsupersonicwarriors.", backgroundImage: "/seraph/images/thumbnails/dbzsupersonicwarriors.jpg", genre: "arcade" },
   { name: "Warioland4", url: "https://olivia-games.github.io/seraph/games/warioland4/", category: "action", description: "Fast-paced action challenge featuring Warioland4.", backgroundImage: "/seraph/images/thumbnails/warioland4.jpg", genre: "platformer" },
   { name: "Ducklife5", url: "https://olivia-games.github.io/seraph/games/ducklife5/", category: "action", description: "React quickly and survive intense action in Ducklife5.", backgroundImage: "/seraph/images/thumbnails/ducklife5.jpg", genre: "simulation" },
   { name: "Learntofly3", url: "https://olivia-games.github.io/seraph/games/learntofly3/", category: "action", description: "Learntofly3 delivers nonstop arcade-style action.", backgroundImage: "/seraph/images/thumbnails/learntofly3.jpg", genre: "arcade" },
   { name: "Bloxors", url: "https://olivia-games.github.io/seraph/games/bloxors/", category: "action", description: "Fast-paced action challenge featuring Bloxors.", backgroundImage: "/seraph/images/thumbnails/bloxors.jpg", genre: "puzzle" },
-  { name: "Electricman2", url: "https://olivia-games.github.io/seraph/games/electricman2/", category: "action", description: "React quickly and survive intense action in Electricman2.", backgroundImage: "/seraph/images/thumbnails/electricman2.jpg", genre: "aracde" },
+  { name: "Electricman2", url: "https://olivia-games.github.io/seraph/games/electricman2/", category: "action", description: "React quickly and survive intense action in Electricman2.", backgroundImage: "/seraph/images/thumbnails/electricman2.jpg", genre: "arcade" },
   { name: "Portal", url: "https://olivia-games.github.io/seraph/games/portal/", category: "action", description: "Portal delivers nonstop arcade-style action.", backgroundImage: "/seraph/images/thumbnails/portal.jpg", genre: "puzzle" },
   { name: "Portal2", url: "https://olivia-games.github.io/seraph/games/portal2/", category: "action", description: "Fast-paced action challenge featuring Portal2.", backgroundImage: "/seraph/images/thumbnails/portal2.jpg", genre: "puzzle" },
   { name: "Skywire2", url: "https://olivia-games.github.io/seraph/games/skywire2/", category: "action", description: "React quickly and survive intense action in Skywire2.", backgroundImage: "/seraph/images/thumbnails/skywire2.jpg", genre: "arcade" },
@@ -502,27 +555,44 @@ const gamesData = [
   { name: "Steakandjakemidnightmarch", url: "https://olivia-games.github.io/seraph/games/steakandjakemidnightmarch/", category: "action", description: "Steakandjakemidnightmarch delivers nonstop arcade-style action.", backgroundImage: "/seraph/images/thumbnails/steakandjakemidnightmarch.jpg", genre: "platformer" },
 ];
 
+// 
+// Olivia Games - app logic (v3.0)
+// 
 
-// If there are more games in sitemap not listed above, this logic handles generic cases if needed.
-// For the purpose of this file, the list above covers the major categories from your XML.
+//  Safe storage 
+// localStorage can throw (private mode, blocked cookies, corrupt JSON). Every
+// read/write goes through here so the site never crashes because of it.
+const store = {
+    getJSON(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw === null ? fallback : JSON.parse(raw);
+        } catch { return fallback; }
+    },
+    setJSON(key, value) {
+        try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
+    },
+    getRaw(key, fallback) {
+        try { const v = localStorage.getItem(key); return v === null ? fallback : v; } catch { return fallback; }
+    },
+    setRaw(key, value) {
+        try { localStorage.setItem(key, value); } catch { /* ignore */ }
+    }
+};
 
-// Some entries in the source data share the same "name" (e.g. 7 different
-// Riddleschool episodes, 4 different Btd games). Favoriting/info previously
-// keyed off `name`, so acting on one silently acted on every game with that
-// name. Give every game a stable unique id (its url) and a disambiguated
-// display name for duplicates, without touching the original data above.
-//
-// The scraped `category` field is only meaningful some of the time: values
-// like "restaurant", "rpg", "horror", "racing", "fighting" and "music" are
-// accurate, but ~76% of the catalog was left tagged with the generic
-// "action" catch-all regardless of what the game actually is. `genre`,
-// pulled from the site's own thumbnail metadata, is far more descriptive,
-// so for games stuck with the "action" catch-all it's promoted to
-// `effectiveCategory` and used everywhere a category is shown or filtered
-// on; games with a real, specific category keep it. A couple of genre
-// values in the source data are typos or bad scrapes (e.g. "aracde", or a
-// genre that's just the game's own name) and are normalized/dropped here
-// rather than surfaced as-is.
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const compact = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+const rand = (n) => Math.floor(Math.random() * n);
+const hashStr = (s) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
+
+//  Categories --
+// `category` in the scraped data is only meaningful some of the time: ~76% of
+// the catalog was left on the generic "action" catch-all. `genre` is far more
+// descriptive, so for games stuck on "action" it's promoted to
+// `effectiveCategory`. A few typos / bad scrapes are normalized here, and a
+// small override table fixes games that are clearly in the wrong bucket
+// (Mario Kart is not a platformer, Mario Tennis is not a platformer, ...).
 const GENRE_ALIASES = { aracde: 'arcade', simulator: 'simulation', tetris: 'puzzle' };
 function normalizeGenre(genre, name) {
     if (!genre) return null;
@@ -531,6 +601,80 @@ function normalizeGenre(genre, name) {
     return GENRE_ALIASES[cleaned] || cleaned;
 }
 
+const CATEGORY_OVERRIDES = {
+    supermariokart: 'racing', mariokartsupercircuit: 'racing', mariokartds: 'racing', mariokart64: 'racing',
+    waverace64: 'racing', excitebike64: 'racing', fzero: 'racing', fzerox: 'racing', simpsonsroadrage: 'racing',
+    cars2: 'racing', hexgl: 'racing', bikechamp: 'racing', bikechamp2: 'racing',
+    marioparty: 'arcade', marioparty2: 'arcade', marioparty3: 'arcade', mariopartyds: 'arcade',
+    mariopartyadvance: 'arcade', mariopaint: 'arcade', mariopinballland: 'arcade',
+    mariotennis: 'sports', mariogolf: 'sports', supertennis: 'sports', retrobowl: 'sports', stickmangolf: 'sports',
+    basketbrosio: 'sports', basketrandom: 'sports', soccerrandom: 'sports', volleyrandom: 'sports',
+    '1on1soccer': 'sports', rocketsoccer: 'sports', pool: 'sports',
+    punchout: 'fighting',
+    wordle: 'words',
+    chess: 'strategy', monopoly: 'strategy', connect4: 'strategy', battleships: 'strategy', advancewars: 'strategy',
+    advancewars2: 'strategy', advancewarsdayofruin: 'strategy', fireemblem: 'strategy'
+};
+
+// Display order for the filter chips. Anything not listed is appended A-Z.
+const CATEGORY_META = {
+    new:        { label: 'New',           icon: '🆕' },
+    arcade:     { label: 'Arcade',        icon: '🕹️' },
+    platformer: { label: 'Platformer',    icon: '🏃' },
+    adventure:  { label: 'Adventure',     icon: '🗺️' },
+    puzzle:     { label: 'Puzzle',        icon: '🧩' },
+    words:      { label: 'Word & Trivia', icon: '🔤' },
+    simulation: { label: 'Simulation',    icon: '🏗️' },
+    restaurant: { label: 'Restaurant',    icon: '🍔' },
+    racing:     { label: 'Racing',        icon: '🏎️' },
+    sports:     { label: 'Sports',        icon: '⚽' },
+    rpg:        { label: 'RPG',           icon: '⚔️' },
+    strategy:   { label: 'Strategy',      icon: '♟️' },
+    fighting:   { label: 'Fighting',      icon: '🥊' },
+    horror:     { label: 'Horror',        icon: '👻' },
+    music:      { label: 'Music',         icon: '🎵' },
+    mobile:     { label: 'Mobile',        icon: '📱' },
+    minecraft:  { label: 'Minecraft',     icon: '⛏️' },
+    tool:       { label: 'Apps/Tools',    icon: '🛠️' },
+    action:     { label: 'Action',        icon: '⚡' }
+};
+const categoryLabel = (c) => (CATEGORY_META[c] && CATEGORY_META[c].label) || (c ? c.charAt(0).toUpperCase() + c.slice(1) : 'Game');
+const categoryIcon = (c) => (CATEGORY_META[c] && CATEGORY_META[c].icon) || '🎯';
+
+//  Descriptions 
+// The scraped descriptions were generic filler that didn't match the game
+// ("Monopoly: React quickly and survive intense action"). Legacy games get a
+// description built from their final category instead; the new games keep the
+// hand-written one from the data.
+const DESC_TEMPLATES = {
+    arcade:     ['{t} is an easy-to-start arcade game: chase a high score and beat your best.', 'Quick rounds, simple controls and a score to beat in {t}.'],
+    platformer: ['Run, jump and time your moves through {t}.', '{t} is a platformer that rewards good timing and quick reflexes.'],
+    adventure:  ['Explore, solve problems and uncover the story in {t}.', '{t} is an adventure that rewards curiosity and patience.'],
+    puzzle:     ['Think it through and solve the puzzles in {t}.', '{t} is a brain-teaser: plan ahead and find the solution.'],
+    words:      ['Guess, spell and think your way to the answer in {t}.', '{t} is a word and trivia game: how few tries will you need?'],
+    simulation: ['Build, manage and grow your own world in {t}.', '{t} is a relaxed simulation game with plenty to manage.'],
+    restaurant: ['Cook, serve and keep every customer happy in {t}.', 'Run your own busy kitchen in {t}.'],
+    racing:     ['Hit the gas and master the tracks in {t}.', '{t} is a fast racing game: nail the corners and beat the clock.'],
+    sports:     ['Get in the game and play to win in {t}.', '{t} is a quick sports game for a few minutes of friendly competition.'],
+    rpg:        ['Level up, build your team and explore a big world in {t}.', '{t} is a role-playing adventure with lots of depth.'],
+    strategy:   ['Plan ahead and outsmart the opposition in {t}.', '{t} rewards smart decisions and long-term planning.'],
+    fighting:   ['Test your reflexes and combos in {t}.', 'Battle it out in skill-based combat in {t}.'],
+    horror:     ['Survive the tension and atmosphere of {t}.', '{t} is a tense, spooky experience. Keep your nerve.'],
+    music:      ['Follow the rhythm and hit every beat in {t}.', '{t} mixes music with fast, rhythmic gameplay.'],
+    mobile:     ['A pick-up-and-play mobile-style hit: {t}.', '{t} is a casual game that is easy to learn and hard to put down.'],
+    minecraft:  ['Block-building survival and sandbox fun in {t}.', '{t} brings the Minecraft sandbox to your browser.'],
+    action:     ['Fast reactions and quick thinking are the key in {t}.', '{t} is a fast-paced action challenge.']
+};
+function buildDescription(game) {
+    const list = DESC_TEMPLATES[game.effectiveCategory] || DESC_TEMPLATES.action;
+    return list[hashStr(game.id) % list.length].replace('{t}', game.displayName);
+}
+
+//  Prepare data 
+// Some entries share a "name" (7 Riddleschool episodes, 4 Btd games, ...), so
+// every game gets a stable unique id (its url) plus a disambiguated display
+// name. Original data above is never mutated apart from derived fields.
+const NEW_BADGE_DAYS = 30;
 const gamesById = new Map();
 (function prepareGamesData() {
     const nameCounts = {};
@@ -546,70 +690,48 @@ const gamesById = new Map();
             g.displayName = g.name;
         }
         g.genre = normalizeGenre(g.genre, g.name);
-        g.effectiveCategory = (g.category === 'action' && g.genre) ? g.genre : g.category;
+        const override = CATEGORY_OVERRIDES[g.name.toLowerCase()];
+        g.effectiveCategory = override || ((g.category === 'action' && g.genre) ? g.genre : g.category);
+
+        // NEW badge: only for games with an `added` date, and only for 30 days
+        const ageDays = g.added ? (Date.now() - Date.parse(g.added)) / 86400000 : Infinity;
+        g.isNew = ageDays <= NEW_BADGE_DAYS;
+
+        if (!g.added) g.description = buildDescription(g);
+
+        // Pre-computed search text (spaces ignored, so "super mario" finds "Supermariobros")
+        g._hay = [g.displayName, g.name, categoryLabel(g.effectiveCategory), g.effectiveCategory, g.genre || '', g.category, g.isNew ? 'new' : ''].join(' ').toLowerCase();
+        g._compact = compact(g._hay);
         gamesById.set(g.id, g);
     });
 })();
 
-// Migrate favorites saved by the old (name-keyed) format, where possible.
+//  Persisted state 
 function loadFavorites() {
-    const stored = JSON.parse(localStorage.getItem('og-favorites-v2') || 'null');
-    if (stored) return new Set(stored);
+    const stored = store.getJSON('og-favorites-v2', null);
+    if (Array.isArray(stored)) return new Set(stored.filter(id => gamesById.has(id)));
 
-    const legacy = JSON.parse(localStorage.getItem('og-favorites') || '[]');
-    if (!legacy.length) return new Set();
-
-    // Only migrate names that map unambiguously to a single game.
+    // Migrate favorites saved by the old (name-keyed) format, where possible.
+    const legacy = store.getJSON('og-favorites', []);
+    if (!Array.isArray(legacy) || !legacy.length) return new Set();
     const byName = {};
     gamesData.forEach(g => { (byName[g.name] = byName[g.name] || []).push(g); });
-    const migrated = legacy
-        .filter(name => byName[name] && byName[name].length === 1)
-        .map(name => byName[name][0].id);
-    return new Set(migrated);
+    // Only names that map unambiguously to one game.
+    return new Set(legacy.filter(n => byName[n] && byName[n].length === 1).map(n => byName[n][0].id));
 }
-
-function saveFavorites() {
-    localStorage.setItem('og-favorites-v2', JSON.stringify([...state.favorites]));
-}
-
-function loadView() {
-    return localStorage.getItem('og-view') === 'list' ? 'list' : 'grid';
-}
-
-function saveView(view) {
-    localStorage.setItem('og-view', view);
-}
+function saveFavorites() { store.setJSON('og-favorites-v2', [...state.favorites]); }
 
 const RECENT_LIMIT = 24;
+function loadRecent() {
+    const stored = store.getJSON('og-recent-v1', []);
+    return Array.isArray(stored) ? stored.filter(id => gamesById.has(id)).slice(0, RECENT_LIMIT) : [];
+}
+function saveRecent() { store.setJSON('og-recent-v1', state.recentlyPlayed); }
+const loadView = () => store.getRaw('og-view', 'grid') === 'list' ? 'list' : 'grid';
+const saveView = (v) => store.setRaw('og-view', v);
+
 const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || 'https://olivia-games.github.io/';
 
-function loadRecent() {
-    try {
-        const stored = JSON.parse(localStorage.getItem('og-recent-v1') || '[]');
-        return Array.isArray(stored) ? stored : [];
-    } catch {
-        return [];
-    }
-}
-
-function saveRecent() {
-    localStorage.setItem('og-recent-v1', JSON.stringify(state.recentlyPlayed));
-}
-
-// Records a play: moves the game to the front of the list (deduping any
-// earlier occurrence) and caps the history so it doesn't grow forever.
-function recordPlayed(id) {
-    if (!id || !gamesById.has(id)) return;
-    state.recentlyPlayed = [id, ...state.recentlyPlayed.filter(existing => existing !== id)].slice(0, RECENT_LIMIT);
-    saveRecent();
-
-    const recentSection = document.getElementById('recent');
-    if (recentSection && recentSection.style.display !== 'none') {
-        renderRecent();
-    }
-}
-
-// State Management
 const state = {
     games: [...gamesData],
     currentCategory: 'all',
@@ -619,185 +741,139 @@ const state = {
     recentlyPlayed: loadRecent()
 };
 
-// DOM Elements
+// Moves the game to the front of Recently Played (deduped, capped).
+function recordPlayed(id) {
+    if (!id || !gamesById.has(id)) return;
+    state.recentlyPlayed = [id, ...state.recentlyPlayed.filter(x => x !== id)].slice(0, RECENT_LIMIT);
+    saveRecent();
+    const recentSection = $('recent');
+    if (recentSection && recentSection.style.display !== 'none') renderRecent();
+}
+
+//  DOM 
 const elements = {
-    searchInput: document.getElementById('search-input'),
-    filtersContainer: document.getElementById('filters'),
-    gamesContainer: document.getElementById('games-container'),
-    favoritesContainer: document.getElementById('favorites-container'),
-    recentContainer: document.getElementById('recent-container'),
-    panicBtn: document.getElementById('panic-btn'),
-    exitPanicBtn: document.getElementById('exit-panic-btn'),
-    exploreBtn: document.getElementById('explore-btn'),
-    randomBtn: document.getElementById('random-btn'),
-    mobileMenuBtn: document.getElementById('mobile-menu-btn'),
-    mobileNav: document.getElementById('mobile-nav'),
-    mobileCloseBtn: document.getElementById('mobile-close-btn')
+    searchInput: $('search-input'),
+    filtersContainer: $('filters'),
+    gamesContainer: $('games-container'),
+    favoritesContainer: $('favorites-container'),
+    recentContainer: $('recent-container'),
+    panicBtn: $('panic-btn'),
+    exitPanicBtn: $('exit-panic-btn'),
+    exploreBtn: $('explore-btn'),
+    randomBtn: $('random-btn'),
+    mobileMenuBtn: $('mobile-menu-btn'),
+    mobileNav: $('mobile-nav'),
+    mobileCloseBtn: $('mobile-close-btn'),
+    resultsCount: $('results-count')
 };
 
-// Initialize App
 function init() {
     setupEventListeners();
     initGameModal();
+    initLucky();
     applyView(state.currentView);
+    renderFilters();
 
-    // Add new categories to filters dynamically if they don't exist
-    const categories = new Set(gamesData.map(g => g.effectiveCategory));
-    updateFilters(categories);
+    const heroCount = $('hero-count');
+    if (heroCount) heroCount.textContent = `${gamesData.length} Games Available`;
 
-    // https://olivia-games.github.io/?search=<term> - shareable/search-engine
-    // links (matches the SearchAction already declared in the page's structured data)
+    // ?search=<term> - shareable / search-engine links (matches the SearchAction in the page's structured data)
     applySearchFromURL();
-
-    // https://olivia-games.github.io/?game=<id> - a share link from the
-    // 🔗 Share button; open that game's info modal directly.
+    // ?game=<id> - share link from the Share button; opens that game's info modal
     applySharedGameFromURL();
 
-    window.addEventListener('popstate', applySearchFromURL);
+    window.addEventListener('popstate', () => { applySearchFromURL(); applySharedGameFromURL(); });
 }
 
-// If the page was opened via a ?game=<id> share link, pop that game's
-// info modal open automatically.
+// Builds the filter chips from the data: All, New (only if there are new games),
+// then every category that actually has games, with counts.
+function renderFilters() {
+    const container = elements.filtersContainer;
+    if (!container) return;
+
+    const counts = {};
+    let newCount = 0;
+    gamesData.forEach(g => {
+        counts[g.effectiveCategory] = (counts[g.effectiveCategory] || 0) + 1;
+        if (g.isNew) newCount++;
+    });
+
+    const known = Object.keys(CATEGORY_META).filter(c => c !== 'new' && counts[c]);
+    const extra = Object.keys(counts).filter(c => c && !CATEGORY_META[c]).sort();
+    const chips = [['all', '🎮', 'All Games', gamesData.length]];
+    if (newCount) chips.push(['new', categoryIcon('new'), 'New', newCount]);
+    [...known, ...extra].forEach(c => chips.push([c, categoryIcon(c), categoryLabel(c), counts[c]]));
+
+    // If the active category no longer exists (shouldn't happen), fall back to All.
+    if (!chips.some(c => c[0] === state.currentCategory)) state.currentCategory = 'all';
+
+    container.innerHTML = chips.map(([key, icon, label, n]) =>
+        `<button class="filter-chip${key === state.currentCategory ? ' active' : ''}" data-category="${esc(key)}">${icon} ${esc(label)}<span class="chip-count">${n}</span></button>`
+    ).join('');
+}
+
+//  URL helpers -
 function applySharedGameFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const gameId = params.get('game');
-    if (gameId && gamesById.has(gameId)) {
-        openGameModal(gamesById.get(gameId));
-    }
+    const gameId = new URLSearchParams(window.location.search).get('game');
+    if (gameId && gamesById.has(gameId)) openGameModal(gamesById.get(gameId), { updateURL: false });
 }
 
-// Pre-fill and apply the search box from a ?search= URL param, if present
 function applySearchFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const query = params.get('search') || '';
-
+    const query = new URLSearchParams(window.location.search).get('search') || '';
     state.searchQuery = query.toLowerCase().trim();
     if (elements.searchInput) elements.searchInput.value = query;
     filterAndRender();
 }
 
-// Keep ?search= in the address bar in sync with the current query,
-// without spamming browser history (replaceState, not pushState).
-function updateSearchURL(query) {
-    const url = new URL(window.location.href);
-    if (query) {
-        url.searchParams.set('search', query);
-    } else {
-        url.searchParams.delete('search');
-    }
-    window.history.replaceState({}, '', url);
+// Keep ?search= in the address bar in sync (replaceState: no history spam).
+function setURLParam(key, value) {
+    try {
+        const url = new URL(window.location.href);
+        if (value) url.searchParams.set(key, value); else url.searchParams.delete(key);
+        window.history.replaceState({}, '', url);
+    } catch { /* file:// or sandboxed - ignore */ }
 }
 
-function updateFilters(categories) {
-    // Mapping internal categories to display names
-    const displayNames = {
-        'action': 'Action',
-        'puzzle': 'Puzzle',
-        'restaurant': 'Restaurant',
-        'adventure': 'Adventure',
-        'strategy': 'Strategy',
-        'racing': 'Racing',
-        'rpg': 'RPG',
-        'horror': 'Horror',
-        'fighting': 'Fighting',
-        'sports': 'Sports',
-        'tool': 'Apps/Tools',
-        'arcade': 'Arcade',
-        'music': 'Music',
-        'platformer': 'Platformer',
-        'mobile': 'Mobile',
-        'minecraft': 'Minecraft',
-        'simulation': 'Simulation'
-    };
-
-    // Icons for the filter chips - keep in sync with the ones hardcoded
-    // in index.html for 'all'/arcade/platformer/adventure/puzzle/
-    // simulation/restaurant/racing/rpg/strategy.
-    const categoryIcons = {
-        'action': '⚡',
-        'puzzle': '🧩',
-        'restaurant': '🍔',
-        'adventure': '🗺️',
-        'strategy': '♟️',
-        'racing': '🏎️',
-        'rpg': '⚔️',
-        'horror': '👻',
-        'fighting': '🥊',
-        'sports': '⚽',
-        'tool': '🛠️',
-        'arcade': '🕹️',
-        'music': '🎵',
-        'platformer': '🏃',
-        'mobile': '📱',
-        'minecraft': '⛏️',
-        'simulation': '🏗️'
-    };
-
-    const existingButtons = Array.from(elements.filtersContainer.children).map(btn => btn.dataset.category);
-    
-    categories.forEach(cat => {
-        if (!existingButtons.includes(cat) && cat !== undefined) {
-            const btn = document.createElement('button');
-            btn.className = 'filter-chip';
-            btn.dataset.category = cat;
-            const label = displayNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
-            const icon = categoryIcons[cat] || '🎯';
-            btn.textContent = `${icon} ${label}`;
-            elements.filtersContainer.appendChild(btn);
-        }
-    });
-}
-
-// Event Listeners
+//  Events --
 function setupEventListeners() {
-    // Search
-    if(elements.searchInput) elements.searchInput.addEventListener('input', handleSearch);
-    
-    // Filters
-    if(elements.filtersContainer) elements.filtersContainer.addEventListener('click', handleFilter);
-    
-    // Panic mode
-    if(elements.panicBtn) elements.panicBtn.addEventListener('click', togglePanicMode);
-    if(elements.exitPanicBtn) elements.exitPanicBtn.addEventListener('click', togglePanicMode);
+    if (elements.searchInput) elements.searchInput.addEventListener('input', handleSearch);
+    if (elements.filtersContainer) elements.filtersContainer.addEventListener('click', handleFilter);
+
+    if (elements.panicBtn) elements.panicBtn.addEventListener('click', togglePanicMode);
+    if (elements.exitPanicBtn) elements.exitPanicBtn.addEventListener('click', togglePanicMode);
+
+    // One keyboard handler for everything
     document.addEventListener('keydown', (e) => {
-        // Don't hijack the backtick while the user is typing it into a field
-        const typingInField = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable);
+        const t = e.target;
+        const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
 
-        if (e.key === '`' && !typingInField) {
-            togglePanicMode();
+        if (e.key === 'Escape') {
+            if (document.body.classList.contains('panic-mode')) return togglePanicMode();
+            if ($('lucky-modal')?.classList.contains('active')) return closeLucky();
+            if ($('game-modal')?.classList.contains('active')) return closeGameModal();
+            return;
         }
-        if (e.key === 'Escape' && document.body.classList.contains('panic-mode')) {
-            togglePanicMode();
+        if (e.key === '`' && !typing) { togglePanicMode(); return; }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k' && elements.searchInput) {
+            e.preventDefault();
+            elements.searchInput.focus();
+            return;
+        }
+        if (e.key === '/' && !typing && elements.searchInput) {
+            e.preventDefault();
+            elements.searchInput.focus();
         }
     });
 
-    // CTA buttons
-    if(elements.exploreBtn) elements.exploreBtn.addEventListener('click', () => {
-        // Bug fix: this used to just scroll to #games, which did nothing
-        // visible if the Favorites section was currently showing (Games
-        // was display:none). Switch sections first, then scroll.
-        showSection('#games');
-        document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+    if (elements.exploreBtn) elements.exploreBtn.addEventListener('click', () => goToGames());
+    if (elements.randomBtn) elements.randomBtn.addEventListener('click', () => openLucky());
+
+    ['favorites-close-btn', 'recent-close-btn'].forEach(id => {
+        const btn = $(id);
+        if (btn) btn.addEventListener('click', () => goToGames());
     });
 
-    if(elements.randomBtn) elements.randomBtn.addEventListener('click', playRandomGame);
-
-    // Favorites "close" button - back out of the Favorites view
-    const favoritesCloseBtn = document.getElementById('favorites-close-btn');
-    if (favoritesCloseBtn) favoritesCloseBtn.addEventListener('click', () => {
-        showSection('#games');
-        document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Recently Played "close" button - back out of the Recent view
-    const recentCloseBtn = document.getElementById('recent-close-btn');
-    if (recentCloseBtn) recentCloseBtn.addEventListener('click', () => {
-        showSection('#games');
-        document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Recently Played "clear history" button
-    const recentClearBtn = document.getElementById('recent-clear-btn');
+    const recentClearBtn = $('recent-clear-btn');
     if (recentClearBtn) recentClearBtn.addEventListener('click', () => {
         if (state.recentlyPlayed.length === 0) return;
         if (!confirm('Clear your recently played history?')) return;
@@ -807,325 +883,297 @@ function setupEventListeners() {
         showToast('Recently played history cleared');
     });
 
-    // Footer: share the whole site (not a specific game)
-    const footerShareCopy = document.getElementById('footer-share-copy');
+    const footerShareCopy = $('footer-share-copy');
     if (footerShareCopy) footerShareCopy.addEventListener('click', () => {
-        copyToClipboard(SITE_URL)
-            .then(() => showToast('Link copied!'))
-            .catch(() => showToast('Could not copy link'));
+        copyToClipboard(SITE_URL).then(() => showToast('Link copied!')).catch(() => showToast('Could not copy link'));
     });
 
-    // "More" only makes sense where the native share sheet exists (mostly
-    // mobile) - it surfaces every app installed, not just the 4 hardcoded
-    // above, which is what "and other" apps means in practice.
-    const footerShareMore = document.getElementById('footer-share-more');
+    // "More" only where the native share sheet exists (mostly mobile)
+    const footerShareMore = $('footer-share-more');
     if (footerShareMore && navigator.share) {
         footerShareMore.style.display = '';
         footerShareMore.addEventListener('click', () => {
             navigator.share({
                 title: 'Olivia Games',
-                text: 'Check out Olivia Games - play 500+ free online games instantly!',
+                text: `Check out Olivia Games - play ${gamesData.length}+ free online games instantly!`,
                 url: SITE_URL
-            }).catch(() => {}); // user cancelled the share sheet - nothing to do
+            }).catch(() => {});
         });
     }
 
-    // View toggle
-    document.querySelectorAll('.view-btn[data-view]').forEach(btn => {
-        btn.addEventListener('click', handleViewToggle);
-    });
+    document.querySelectorAll('.view-btn[data-view]').forEach(btn => btn.addEventListener('click', handleViewToggle));
 
-    // Mobile menu
-    if(elements.mobileMenuBtn) elements.mobileMenuBtn.addEventListener('click', () => {
-        elements.mobileNav.classList.add('active');
-    });
+    if (elements.mobileMenuBtn) elements.mobileMenuBtn.addEventListener('click', () => elements.mobileNav.classList.add('active'));
+    if (elements.mobileCloseBtn) elements.mobileCloseBtn.addEventListener('click', () => elements.mobileNav.classList.remove('active'));
 
-    if(elements.mobileCloseBtn) elements.mobileCloseBtn.addEventListener('click', () => {
-        elements.mobileNav.classList.remove('active');
-    });
-
-    // Mobile nav links
-    if(elements.mobileNav) {
-        elements.mobileNav.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                elements.mobileNav.classList.remove('active');
-            });
+    // Nav links (desktop + mobile). Registered once here; the old code attached a
+    // second listener to the mobile links just to close the menu.
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            if (elements.mobileNav) elements.mobileNav.classList.remove('active');
+            showSection(targetId);
+            if (targetId === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
-    }
+    });
 
-    // Game card actions (favorite / info / share / play) - delegated, since cards are re-rendered often
-    if (elements.gamesContainer) elements.gamesContainer.addEventListener('click', handleCardAction);
-    if (elements.favoritesContainer) elements.favoritesContainer.addEventListener('click', handleCardAction);
-    if (elements.recentContainer) elements.recentContainer.addEventListener('click', handleCardAction);
+    // Game card actions - delegated because cards are re-rendered often
+    [elements.gamesContainer, elements.favoritesContainer, elements.recentContainer].forEach(c => {
+        if (c) c.addEventListener('click', handleCardAction);
+    });
+
+    // Reset-filters button inside the "no results" state
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-reset-filters]')) resetFilters();
+    });
+
+    // Broken thumbnail? Swap in a generated placeholder instead of a broken-image icon.
+    document.addEventListener('error', (e) => {
+        const img = e.target;
+        if (img && img.tagName === 'IMG' && (img.classList.contains('game-thumb') || img.id === 'lucky-thumb') && !img.dataset.fallback) {
+            img.dataset.fallback = '1';
+            img.src = placeholderThumb(img.alt);
+        }
+    }, true);
 }
 
-// Handle clicks on a game card's favorite/info buttons
+function placeholderThumb(title) {
+    const hue = hashStr(title || 'x') % 360;
+    const initial = esc((title || '?').trim().charAt(0).toUpperCase());
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="140"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue},60%,40%)"/><stop offset="1" stop-color="hsl(${(hue + 40) % 360},60%,18%)"/></linearGradient></defs><rect width="280" height="140" fill="url(#g)"/><text x="140" y="92" font-family="Arial,sans-serif" font-size="64" font-weight="700" fill="rgba(255,255,255,.85)" text-anchor="middle">${initial}</text></svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
+function goToGames() {
+    showSection('#games');
+    $('games')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 function handleCardAction(e) {
     const favBtn = e.target.closest('.favorite-btn');
-    if (favBtn) {
-        window.toggleFavorite(favBtn.dataset.id);
-        return;
-    }
+    if (favBtn) { window.toggleFavorite(favBtn.dataset.id); return; }
+
     const infoBtn = e.target.closest('.info-btn');
-    if (infoBtn) {
-        window.showInfo(infoBtn.dataset.id);
-        return;
-    }
-    // Clicking Play navigates in a new tab - let it, but log it to
-    // Recently Played first.
+    if (infoBtn) { window.showInfo(infoBtn.dataset.id); return; }
+
+    // Play opens a new tab on its own; just log it to Recently Played.
     const playBtn = e.target.closest('.play-btn');
     if (playBtn) {
         const card = playBtn.closest('.game-card');
         if (card && card.dataset.id) recordPlayed(card.dataset.id);
         return;
     }
-    // Clicking anywhere else on the card (it's styled as clickable) opens info.
+    // Anywhere else on the card (styled as clickable) opens the info modal.
     const card = e.target.closest('.game-card');
-    if (card && card.dataset.id) {
-        window.showInfo(card.dataset.id);
-    }
+    if (card && card.dataset.id) window.showInfo(card.dataset.id);
 }
 
-// Search Handler (debounced - filtering 500+ games on every keystroke was choppy)
+//  Search & filters 
+// Debounced: filtering 500+ games on every keystroke was choppy.
 let searchDebounceTimer = null;
 function handleSearch(e) {
     const value = e.target.value;
     clearTimeout(searchDebounceTimer);
     searchDebounceTimer = setTimeout(() => {
         state.searchQuery = value.toLowerCase().trim();
-        updateSearchURL(state.searchQuery);
+        setURLParam('search', state.searchQuery);
         filterAndRender();
     }, 150);
 }
 
-// Filter Handler
 function handleFilter(e) {
-    if (!e.target.classList.contains('filter-chip')) return;
-    
-    document.querySelectorAll('.filter-chip').forEach(chip => 
-        chip.classList.remove('active'));
-    e.target.classList.add('active');
-    
-    state.currentCategory = e.target.dataset.category;
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    state.currentCategory = chip.dataset.category;
+    elements.filtersContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c === chip));
     filterAndRender();
 }
 
-// Filter and Render
+function resetFilters() {
+    state.currentCategory = 'all';
+    state.searchQuery = '';
+    if (elements.searchInput) elements.searchInput.value = '';
+    setURLParam('search', '');
+    elements.filtersContainer?.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.category === 'all'));
+    filterAndRender();
+}
+
+function matchesSearch(game, query) {
+    if (!query) return true;
+    // every word must match somewhere (name, category, genre, "new"); spaces are ignored
+    return query.split(/\s+/).every(word => game._hay.includes(word) || game._compact.includes(compact(word)));
+}
+
 function filterAndRender() {
-    let filtered = [...gamesData];
-
-    // Apply category filter
-    if (state.currentCategory !== 'all') {
-        filtered = filtered.filter(game => game.effectiveCategory === state.currentCategory);
+    let filtered = gamesData;
+    if (state.currentCategory === 'new') {
+        filtered = filtered.filter(g => g.isNew);
+    } else if (state.currentCategory !== 'all') {
+        filtered = filtered.filter(g => g.effectiveCategory === state.currentCategory);
     }
-
-    // Apply search filter
-    if (state.searchQuery) {
-        filtered = filtered.filter(game =>
-            game.name.toLowerCase().includes(state.searchQuery) ||
-            (game.displayName && game.displayName.toLowerCase().includes(state.searchQuery)) ||
-            (game.effectiveCategory && game.effectiveCategory.toLowerCase().includes(state.searchQuery)) ||
-            (game.description && game.description.toLowerCase().includes(state.searchQuery))
-        );
-    }
+    if (state.searchQuery) filtered = filtered.filter(g => matchesSearch(g, state.searchQuery));
 
     state.games = filtered;
+    if (elements.resultsCount) {
+        const total = gamesData.length;
+        elements.resultsCount.textContent = filtered.length === total
+            ? `${total} games`
+            : `${filtered.length} of ${total} games`;
+    }
     renderGames();
 }
 
-// Render Games
-// Renders the first screenful synchronously (so results feel instant), then
-// appends the rest in small batches via requestAnimationFrame so painting
-// 500+ cards doesn't block the main thread / janks the page.
+//  Rendering -
+// First screenful renders synchronously (feels instant); the rest is appended in
+// batches via requestAnimationFrame so painting 500+ cards never blocks the page.
 let renderToken = 0;
 function renderGames() {
     if (!elements.gamesContainer) return;
-
-    const myToken = ++renderToken; // lets a newer search/filter cancel a stale in-flight render
+    const myToken = ++renderToken; // a newer search/filter cancels a stale in-flight render
 
     if (state.games.length === 0) {
         elements.gamesContainer.innerHTML = `
             <div class="empty-state">
                 <h3>No games found</h3>
-                <p>Try adjusting your search or filter</p>
-            </div>
-        `;
+                <p>Try a different search or category.</p>
+                <button class="close-btn" data-reset-filters type="button" style="margin:1.25rem auto 0">↺ Reset filters</button>
+            </div>`;
         return;
     }
 
-    const FIRST_BATCH = 24;
-    const BATCH_SIZE = 40;
+    const FIRST_BATCH = 24, BATCH_SIZE = 40;
     const games = state.games;
-
     elements.gamesContainer.innerHTML = games.slice(0, FIRST_BATCH).map(createGameCard).join('');
-
     if (games.length <= FIRST_BATCH) return;
 
     let i = FIRST_BATCH;
-    function renderNextBatch() {
-        if (myToken !== renderToken) return; // a newer render superseded this one
+    (function renderNextBatch() {
+        if (myToken !== renderToken) return;
         const next = games.slice(i, i + BATCH_SIZE);
-        if (next.length === 0) return;
+        if (!next.length) return;
         elements.gamesContainer.insertAdjacentHTML('beforeend', next.map(createGameCard).join(''));
         i += BATCH_SIZE;
-        if (i < games.length) {
-            requestAnimationFrame(renderNextBatch);
-        }
-    }
-    requestAnimationFrame(renderNextBatch);
+        if (i < games.length) requestAnimationFrame(renderNextBatch);
+    })();
 }
 
-// Create Game Card
 function createGameCard(game) {
     const isFav = state.favorites.has(game.id);
-    const title = game.displayName || game.name;
+    const title = esc(game.displayName);
     const thumbImg = game.backgroundImage
-        ? `<img class="game-thumb" src="${game.backgroundImage}" alt="${title}" loading="lazy" decoding="async" width="280" height="140">`
+        ? `<img class="game-thumb" src="${esc(game.backgroundImage)}" alt="${title}" loading="lazy" decoding="async" width="280" height="140">`
         : '';
     return `
-        <article class="game-card" data-id="${game.id}">
+        <article class="game-card" data-id="${esc(game.id)}">
+            ${game.isNew ? '<span class="new-badge">NEW</span>' : ''}
             ${thumbImg}
             <div class="game-header">
-                <span class="game-category">${game.effectiveCategory || 'Game'}</span>
-                <button class="favorite-btn ${isFav ? 'active' : ''}"
-                        data-id="${game.id}"
-                        aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}">
-                    ${isFav ? '⭐' : '☆'}
-                </button>
+                <span class="game-category">${esc(categoryLabel(game.effectiveCategory))}</span>
+                <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${esc(game.id)}"
+                        aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '⭐' : '☆'}</button>
             </div>
             <div class="game-content">
                 <h3 class="game-title">${title}</h3>
-                <p class="game-description">${game.description}</p>
+                <p class="game-description">${esc(game.description)}</p>
             </div>
             <div class="game-footer">
-                <a href="${game.url}" class="play-btn" target="_blank" rel="noopener" aria-label="Play ${title}">
-                   ▶️ Play Now
-                </a>
-                <button class="info-btn" data-id="${game.id}" aria-label="Game Info">
-                    ℹ️
-                </button>
+                <a href="${esc(game.url)}" class="play-btn" target="_blank" rel="noopener" aria-label="Play ${title}">▶️ Play Now</a>
+                <button class="info-btn" data-id="${esc(game.id)}" aria-label="Game info for ${title}">ℹ️</button>
             </div>
-        </article>
-    `;
+        </article>`;
 }
 
-// Render Favorites
 function renderFavorites() {
     if (!elements.favoritesContainer) return;
-
-    const favoriteGames = gamesData.filter(game => state.favorites.has(game.id));
-
-    if (favoriteGames.length === 0) {
-        elements.favoritesContainer.innerHTML = `
-            <div class="empty-state">
-                <h3>No favorites yet</h3>
-                <p>Click the star icon on any game to add it to your favorites</p>
-            </div>
-        `;
-    } else {
-        elements.favoritesContainer.innerHTML = favoriteGames.map(game => createGameCard(game)).join('');
-    }
+    const favoriteGames = gamesData.filter(g => state.favorites.has(g.id));
+    elements.favoritesContainer.innerHTML = favoriteGames.length
+        ? favoriteGames.map(createGameCard).join('')
+        : `<div class="empty-state"><h3>No favorites yet</h3><p>Click the star icon on any game to add it to your favorites</p></div>`;
 }
 
-// Render Recently Played - ordered most-recently-played first (not
-// data/alphabetical order), unlike Favorites.
+// Most-recently-played first (not data order, unlike Favorites).
 function renderRecent() {
     if (!elements.recentContainer) return;
-
-    const recentGames = state.recentlyPlayed
-        .map(id => gamesById.get(id))
-        .filter(Boolean);
-
-    if (recentGames.length === 0) {
-        elements.recentContainer.innerHTML = `
-            <div class="empty-state">
-                <h3>No recently played games</h3>
-                <p>Games you play will show up here</p>
-            </div>
-        `;
-    } else {
-        elements.recentContainer.innerHTML = recentGames.map(game => createGameCard(game)).join('');
-    }
+    const recentGames = state.recentlyPlayed.map(id => gamesById.get(id)).filter(Boolean);
+    elements.recentContainer.innerHTML = recentGames.length
+        ? recentGames.map(createGameCard).join('')
+        : `<div class="empty-state"><h3>No recently played games</h3><p>Games you play will show up here</p></div>`;
 }
 
-// Update every visible favorite-btn for a given game id, without a full re-render
+// Updates every visible card star for a game without a full re-render.
+// (The modal's own button has its own label, so it's excluded here.)
 function updateFavoriteButtons(id, isFav) {
-    document.querySelectorAll(`.favorite-btn[data-id="${CSS.escape(id)}"]`).forEach(btn => {
+    document.querySelectorAll(`.favorite-btn[data-id="${CSS.escape(id)}"]:not(.game-modal-fav)`).forEach(btn => {
         btn.classList.toggle('active', isFav);
         btn.textContent = isFav ? '⭐' : '☆';
         btn.setAttribute('aria-label', isFav ? 'Remove from favorites' : 'Add to favorites');
     });
 }
 
-// Global Functions (attached to window for card action handlers)
-window.toggleFavorite = function(id) {
+function setModalFavState(btn, isFav) {
+    btn.classList.toggle('active', isFav);
+    btn.textContent = `${isFav ? '⭐' : '☆'} ${isFav ? 'Favorited' : 'Add to Favorites'}`;
+}
+
+window.toggleFavorite = function (id) {
+    if (!gamesById.has(id)) return;
     const isNowFav = !state.favorites.has(id);
-    if (isNowFav) {
-        state.favorites.add(id);
-    } else {
-        state.favorites.delete(id);
-    }
+    if (isNowFav) state.favorites.add(id); else state.favorites.delete(id);
     saveFavorites();
     updateFavoriteButtons(id, isNowFav);
 
-    // Favorites list gains/loses entries, so it needs a real re-render;
-    // the main grid only needs its star icon updated, handled above.
-    const favoritesSection = document.getElementById('favorites');
-    if (favoritesSection && favoritesSection.style.display !== 'none') {
-        renderFavorites();
-    }
+    const modalFav = $('modal-favorite-btn');
+    if (modalFav && modalFav.dataset.id === id) setModalFavState(modalFav, isNowFav);
+
+    // The Favorites list gains/loses entries, so it needs a real re-render.
+    const favoritesSection = $('favorites');
+    if (favoritesSection && favoritesSection.style.display !== 'none') renderFavorites();
 };
 
-window.showInfo = function(id) {
+window.showInfo = function (id) {
     const game = gamesById.get(id);
-    if (!game) return;
-    openGameModal(game);
+    if (game) openGameModal(game);
 };
 
-// Builds a shareable ?game=<id> deep link (opening it pops that game's info
-// modal automatically - see applySharedGameFromURL), copies it to the
-// clipboard, and shows a toast confirming the copy.
-window.shareGame = function(id) {
+// Builds a ?game=<id> deep link (opening it pops that game's modal), copies it, toasts.
+window.shareGame = function (id) {
     const game = gamesById.get(id);
     if (!game) return;
-
-    const title = game.displayName || game.name;
     const url = new URL(window.location.href);
     url.search = '';
+    url.hash = '';
     url.searchParams.set('game', id);
-    const shareUrl = url.toString();
-
-    copyToClipboard(shareUrl)
-        .then(() => showToast(`Link to ${title} copied!`))
+    copyToClipboard(url.toString())
+        .then(() => showToast(`Link to ${game.displayName} copied!`))
         .catch(() => showToast('Could not copy link'));
 };
 
 function copyToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-        return navigator.clipboard.writeText(text);
-    }
-    // Fallback for browsers/contexts without the async Clipboard API
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
     return new Promise((resolve, reject) => {
         try {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.focus();
-            textarea.select();
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
             const ok = document.execCommand('copy');
-            document.body.removeChild(textarea);
-            ok ? resolve() : reject(new Error('execCommand copy failed'));
-        } catch (err) {
-            reject(err);
-        }
+            document.body.removeChild(ta);
+            ok ? resolve() : reject(new Error('copy failed'));
+        } catch (err) { reject(err); }
     });
 }
 
 let toastTimer = null;
 function showToast(message) {
-    const toast = document.getElementById('toast');
+    const toast = $('toast');
     if (!toast) return;
     toast.textContent = message;
     toast.classList.add('visible');
@@ -1133,256 +1181,311 @@ function showToast(message) {
     toastTimer = setTimeout(() => toast.classList.remove('visible'), 2500);
 }
 
-// Game Info Modal
-function openGameModal(game) {
-    const modal = document.getElementById('game-modal');
+//  Game info modal --
+let modalOpener = null;
+
+function openGameModal(game, { updateURL = true } = {}) {
+    const modal = $('game-modal');
     if (!modal) return;
 
-    const title = game.displayName || game.name;
-    const isFav = state.favorites.has(game.id);
+    const title = game.displayName;
+    modalOpener = document.activeElement;
 
-    const thumb = document.getElementById('modal-thumb');
+    const thumb = $('modal-thumb');
     if (thumb) {
         if (game.backgroundImage) {
-            thumb.style.backgroundImage = `url('${game.backgroundImage}')`;
+            thumb.style.backgroundImage = `url("${game.backgroundImage}")`;
             thumb.style.display = 'block';
         } else {
             thumb.style.display = 'none';
         }
     }
 
-    const titleEl = document.getElementById('modal-title');
-    if (titleEl) titleEl.textContent = title;
+    $('modal-title').textContent = title;
+    $('modal-category').textContent = categoryLabel(game.effectiveCategory);
 
-    const categoryEl = document.getElementById('modal-category');
-    if (categoryEl) categoryEl.textContent = game.effectiveCategory || 'Game';
+    const newTag = $('modal-new');
+    if (newTag) newTag.style.display = game.isNew ? '' : 'none';
 
-    const genreEl = document.getElementById('modal-genre');
+    // Secondary tag only when it adds information beyond the primary badge.
+    const genreEl = $('modal-genre');
     if (genreEl) {
-        // Only show the secondary tag when it adds real information beyond
-        // the primary badge above (e.g. "Restaurant" games are also tagged
-        // "Simulation" via genre, worth surfacing both).
         const secondary = game.genre && game.genre !== game.effectiveCategory
             ? game.genre
-            : (game.category !== game.effectiveCategory ? game.category : null);
-        if (secondary) {
-            genreEl.textContent = secondary;
-            genreEl.style.display = '';
-        } else {
-            genreEl.style.display = 'none';
-        }
+            : (game.category !== game.effectiveCategory && game.category !== 'action' ? game.category : null);
+        if (secondary) { genreEl.textContent = categoryLabel(secondary); genreEl.style.display = ''; }
+        else genreEl.style.display = 'none';
     }
 
-    const descEl = document.getElementById('modal-description');
-    if (descEl) descEl.textContent = game.description || '';
+    $('modal-description').textContent = game.description || '';
 
-    const playBtn = document.getElementById('modal-play-btn');
+    const playBtn = $('modal-play-btn');
     if (playBtn) {
         playBtn.href = game.url;
         playBtn.dataset.id = game.id;
         playBtn.setAttribute('aria-label', `Play ${title}`);
     }
-
-    const shareBtn = document.getElementById('modal-share-btn');
+    const shareBtn = $('modal-share-btn');
     if (shareBtn) shareBtn.dataset.id = game.id;
 
-    const favBtn = document.getElementById('modal-favorite-btn');
+    const favBtn = $('modal-favorite-btn');
     if (favBtn) {
         favBtn.dataset.id = game.id;
-        favBtn.classList.toggle('active', isFav);
-        favBtn.innerHTML = `${isFav ? '⭐' : '☆'} ${isFav ? 'Favorited' : 'Add to Favorites'}`;
+        setModalFavState(favBtn, state.favorites.has(game.id));
     }
 
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
+    modal.querySelector('.game-modal-close')?.focus();
+    if (updateURL) setURLParam('game', game.id);
 }
 
 function closeGameModal() {
-    const modal = document.getElementById('game-modal');
-    if (!modal) return;
+    const modal = $('game-modal');
+    if (!modal || !modal.classList.contains('active')) return;
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
+    setURLParam('game', ''); // otherwise a refresh would re-open the modal forever
+    if (modalOpener && document.contains(modalOpener) && modalOpener.focus) modalOpener.focus();
+    modalOpener = null;
 }
 window.closeGameModal = closeGameModal;
 
 function initGameModal() {
-    const modal = document.getElementById('game-modal');
+    const modal = $('game-modal');
     if (!modal) return;
 
-    modal.addEventListener('click', (e) => {
-        if (e.target.closest('[data-modal-close]')) {
-            closeGameModal();
-        }
+    modal.addEventListener('click', (e) => { if (e.target.closest('[data-modal-close]')) closeGameModal(); });
+
+    const favBtn = $('modal-favorite-btn');
+    if (favBtn) favBtn.addEventListener('click', () => { if (favBtn.dataset.id) window.toggleFavorite(favBtn.dataset.id); });
+
+    const shareBtn = $('modal-share-btn');
+    if (shareBtn) shareBtn.addEventListener('click', () => window.shareGame(shareBtn.dataset.id));
+
+    const playBtn = $('modal-play-btn');
+    if (playBtn) playBtn.addEventListener('click', () => { if (playBtn.dataset.id) recordPlayed(playBtn.dataset.id); });
+}
+
+//  "I'm Feeling Lucky" -
+// Replaces the old instant random-tab-open. Opens a small slot-machine style
+// picker: spin, see what you got, then Play / Info / Spin again. You can narrow
+// the pool (a category, New, your Favorites) and it skips games you've played
+// recently, and never lands on the same game twice in a row.
+const lucky = { spinning: false, current: null, timer: null, opener: null };
+
+function luckyPool() {
+    const key = $('lucky-pool')?.value || 'all';
+    let pool = gamesData;
+    if (key === 'new') pool = pool.filter(g => g.isNew);
+    else if (key === 'favorites') pool = pool.filter(g => state.favorites.has(g.id));
+    else if (key !== 'all') pool = pool.filter(g => g.effectiveCategory === key);
+
+    if ($('lucky-fresh')?.checked) {
+        const recent = new Set(state.recentlyPlayed);
+        const fresh = pool.filter(g => !recent.has(g.id));
+        if (fresh.length) pool = fresh; // everything played already? ignore the filter
+    }
+    if (pool.length > 1 && lucky.current) pool = pool.filter(g => g.id !== lucky.current.id);
+    return pool;
+}
+
+function fillLuckyPoolOptions() {
+    const select = $('lucky-pool');
+    if (!select) return;
+    const previous = select.value || 'all';
+
+    const counts = {};
+    gamesData.forEach(g => { counts[g.effectiveCategory] = (counts[g.effectiveCategory] || 0) + 1; });
+    const opts = [['all', '🎲 Any game']];
+    if (gamesData.some(g => g.isNew)) opts.push(['new', '🆕 New games']);
+    if (state.favorites.size) opts.push(['favorites', '⭐ My favorites']);
+    Object.keys(counts)
+        .sort((a, b) => categoryLabel(a).localeCompare(categoryLabel(b)))
+        .forEach(c => opts.push([c, `${categoryIcon(c)} ${categoryLabel(c)}`]));
+
+    select.innerHTML = opts.map(([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`).join('');
+    select.value = opts.some(o => o[0] === previous) ? previous : 'all';
+}
+
+function showLuckyGame(game) {
+    const img = $('lucky-thumb');
+    if (img) {
+        delete img.dataset.fallback;
+        img.alt = game.displayName;
+        img.src = game.backgroundImage || placeholderThumb(game.displayName);
+    }
+    $('lucky-name').textContent = game.displayName;
+    $('lucky-tag').textContent = `${categoryIcon(game.effectiveCategory)} ${categoryLabel(game.effectiveCategory)}${game.isNew ? ' · NEW' : ''}`;
+}
+
+function setLuckyPlayEnabled(enabled, game) {
+    const play = $('lucky-play');
+    const info = $('lucky-info');
+    play.classList.toggle('disabled', !enabled);
+    play.setAttribute('aria-disabled', String(!enabled));
+    play.tabIndex = enabled ? 0 : -1;
+    if (info) info.disabled = !enabled;
+    if (enabled && game) {
+        play.href = game.url;
+        play.dataset.id = game.id;
+        play.setAttribute('aria-label', `Play ${game.displayName}`);
+    } else {
+        play.removeAttribute('href');
+    }
+}
+
+function spinLucky() {
+    if (lucky.spinning) return;
+    const pool = luckyPool();
+    if (!pool.length) { showToast('No games to pick from'); return; }
+
+    const pick = pool[rand(pool.length)];
+    const reel = $('lucky-reel');
+    reel.classList.remove('landed');
+    setLuckyPlayEnabled(false);
+
+    const land = () => {
+        lucky.spinning = false;
+        lucky.current = pick;
+        reel.classList.remove('spinning');
+        showLuckyGame(pick);
+        reel.classList.add('landed');
+        setLuckyPlayEnabled(true, pick);
+        $('lucky-play').focus({ preventScroll: true });
+    };
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { land(); return; }
+
+    lucky.spinning = true;
+    reel.classList.add('spinning');
+    $('lucky-spin').disabled = true;
+    const STEPS = 14;
+    let i = 0;
+    (function tick() {
+        if (i >= STEPS) { $('lucky-spin').disabled = false; land(); return; }
+        showLuckyGame(gamesData[rand(gamesData.length)]);
+        i++;
+        lucky.timer = setTimeout(tick, 45 + i * i * 0.8); // starts fast, slows down
+    })();
+}
+
+function openLucky() {
+    const modal = $('lucky-modal');
+    if (!modal) { // markup missing: degrade to the old behaviour
+        const g = gamesData[rand(gamesData.length)];
+        recordPlayed(g.id);
+        window.open(g.url, '_blank', 'noopener');
+        return;
+    }
+    lucky.opener = document.activeElement;
+    fillLuckyPoolOptions();
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    spinLucky();
+}
+
+function closeLucky() {
+    const modal = $('lucky-modal');
+    if (!modal || !modal.classList.contains('active')) return;
+    clearTimeout(lucky.timer);
+    lucky.spinning = false;
+    $('lucky-spin').disabled = false;
+    $('lucky-reel').classList.remove('spinning');
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (lucky.opener && document.contains(lucky.opener) && lucky.opener.focus) lucky.opener.focus();
+    lucky.opener = null;
+}
+
+function initLucky() {
+    const modal = $('lucky-modal');
+    if (!modal) return;
+    modal.addEventListener('click', (e) => { if (e.target.closest('[data-lucky-close]')) closeLucky(); });
+    $('lucky-spin').addEventListener('click', spinLucky);
+    $('lucky-pool').addEventListener('change', () => { lucky.current = null; spinLucky(); });
+    $('lucky-fresh').addEventListener('change', spinLucky);
+    $('lucky-play').addEventListener('click', (e) => {
+        const play = e.currentTarget;
+        if (lucky.spinning || play.classList.contains('disabled')) { e.preventDefault(); return; }
+        if (play.dataset.id) recordPlayed(play.dataset.id);
     });
-
-    const favBtn = document.getElementById('modal-favorite-btn');
-    if (favBtn) {
-        favBtn.addEventListener('click', () => {
-            const id = favBtn.dataset.id;
-            if (!id) return;
-            window.toggleFavorite(id);
-            const isFav = state.favorites.has(id);
-            favBtn.classList.toggle('active', isFav);
-            favBtn.innerHTML = `${isFav ? '⭐' : '☆'} ${isFav ? 'Favorited' : 'Add to Favorites'}`;
-        });
-    }
-
-    const shareBtn = document.getElementById('modal-share-btn');
-    if (shareBtn) {
-        shareBtn.addEventListener('click', () => window.shareGame(shareBtn.dataset.id));
-    }
-
-    const playBtn = document.getElementById('modal-play-btn');
-    if (playBtn) {
-        playBtn.addEventListener('click', () => {
-            if (playBtn.dataset.id) recordPlayed(playBtn.dataset.id);
-        });
-    }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeGameModal();
-        }
+    $('lucky-info').addEventListener('click', () => {
+        const game = lucky.current;
+        if (!game) return;
+        closeLucky();
+        openGameModal(game);
     });
 }
 
-// Play Random Game
-function playRandomGame() {
-    const randomGame = gamesData[Math.floor(Math.random() * gamesData.length)];
-    recordPlayed(randomGame.id);
-    window.open(randomGame.url, '_blank'); // new tab
-}
-
-// View Toggle
-// Keeps the Games and Favorites view-controls (and the grid/list-view
-// classes on both containers) all in sync, whichever one was clicked.
+//  View toggle --
+// Keeps every view-control and the grid/list class on all three containers in sync.
 function applyView(view) {
     state.currentView = view;
-    document.querySelectorAll('.view-btn[data-view]').forEach(b => {
-        b.classList.toggle('active', b.dataset.view === view);
-    });
+    document.querySelectorAll('.view-btn[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === view));
     const isList = view === 'list';
-    if (elements.gamesContainer) elements.gamesContainer.classList.toggle('list-view', isList);
-    if (elements.favoritesContainer) elements.favoritesContainer.classList.toggle('list-view', isList);
-    if (elements.recentContainer) elements.recentContainer.classList.toggle('list-view', isList);
+    [elements.gamesContainer, elements.favoritesContainer, elements.recentContainer].forEach(c => {
+        if (c) c.classList.toggle('list-view', isList);
+    });
 }
 
 function handleViewToggle(e) {
     const btn = e.target.closest('.view-btn[data-view]');
     if (!btn) return;
-
     applyView(btn.dataset.view);
     saveView(btn.dataset.view);
 }
 
-// Panic Mode
+//  Panic mode -
+const ORIGINAL_TITLE = document.title;
 function togglePanicMode() {
-    document.body.classList.toggle('panic-mode');
-    
-    // Manage title
-    if (document.body.classList.contains('panic-mode')) {
-        document.title = "Google Classroom";
-        // Change favicon to google classroom if possible, or transparent
+    const on = document.body.classList.toggle('panic-mode');
+    if (on) {
+        // Hide anything that could still be on screen
+        closeLucky();
+        closeGameModal();
+        document.title = 'Google Classroom';
     } else {
-        document.title = "Olivia Games - Play 500+ Online Instantly";
+        document.title = ORIGINAL_TITLE;
     }
 }
 
-// Section switching (Home / Games / Categories / Favorites / Recently Played)
-// Centralized here so the desktop nav, the mobile nav, the Explore button,
-// and the Favorites/Recent close buttons all agree on what's visible -
-// previously each one duplicated (or skipped) this logic and could fall out of sync.
+//  Section switching (Home / Games / Categories / Favorites / Recently Played) --
+// Centralized so the desktop nav, mobile nav, Explore button and the close
+// buttons all agree on what's visible.
 function showSection(targetId) {
-    // Bug fix: only the single clicked link got .active before, so
-    // navigating via the mobile menu left the desktop nav's highlight
-    // stale (and vice versa). Sync every nav-link that points here.
-    document.querySelectorAll('.nav-link').forEach(l => {
-        l.classList.toggle('active', l.getAttribute('href') === targetId);
-    });
+    // Sync every nav link pointing here (desktop AND mobile).
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === targetId));
 
-    const gamesSection = document.getElementById('games');
-    const favoritesSection = document.getElementById('favorites');
-    const recentSection = document.getElementById('recent');
-    const categoriesSection = document.getElementById('categories');
+    const gamesSection = $('games');
+    const favoritesSection = $('favorites');
+    const recentSection = $('recent');
+    const categoriesSection = $('categories');
 
-    // Hide every "special" section first, then show the one requested
-    // (or fall back to the main Games/Categories view).
-    if(favoritesSection) favoritesSection.style.display = 'none';
-    if(recentSection) recentSection.style.display = 'none';
+    if (favoritesSection) favoritesSection.style.display = 'none';
+    if (recentSection) recentSection.style.display = 'none';
 
     if (targetId === '#favorites') {
-        if(gamesSection) gamesSection.style.display = 'none';
-        if(categoriesSection) categoriesSection.style.display = 'none';
-        if(favoritesSection) {
-            favoritesSection.style.display = 'block';
-            renderFavorites();
-        }
+        if (gamesSection) gamesSection.style.display = 'none';
+        if (categoriesSection) categoriesSection.style.display = 'none';
+        if (favoritesSection) { favoritesSection.style.display = 'block'; renderFavorites(); }
     } else if (targetId === '#recent') {
-        if(gamesSection) gamesSection.style.display = 'none';
-        if(categoriesSection) categoriesSection.style.display = 'none';
-        if(recentSection) {
-            recentSection.style.display = 'block';
-            renderRecent();
-        }
+        if (gamesSection) gamesSection.style.display = 'none';
+        if (categoriesSection) categoriesSection.style.display = 'none';
+        if (recentSection) { recentSection.style.display = 'block'; renderRecent(); }
     } else {
-        if(gamesSection) gamesSection.style.display = 'block';
-        if(categoriesSection) categoriesSection.style.display = 'block';
+        if (gamesSection) gamesSection.style.display = 'block';
+        if (categoriesSection) categoriesSection.style.display = 'block';
     }
 }
 
-// Smooth Scroll Navigation
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = e.target.closest('.nav-link').getAttribute('href');
+//  Boot 
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
 
-        showSection(targetId);
-
-        if (targetId === '#home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            const targetElement = document.querySelector(targetId);
-            if(targetElement) {
-                targetElement.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-    });
-});
-
-// Keyboard Shortcuts
-document.addEventListener('keydown', (e) => {
-    // Ctrl/Cmd + K to focus search
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k' && elements.searchInput) {
-        e.preventDefault();
-        elements.searchInput.focus();
-    }
-});
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target); // Stop observing once animated
-        }
-    });
-}, observerOptions);
-
-// Initialize on DOM ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
-document.getElementById('currentYear').textContent = new Date().getFullYear();
+const yearEl = $('currentYear');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
