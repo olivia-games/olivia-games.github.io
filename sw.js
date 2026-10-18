@@ -7,7 +7,7 @@ const STAMP_HEADER = 'sw-cached-at';
 const CORE_URLS = [
   '/',
   '/index.html',
-  '/index.js?v=2.2',
+  '/index.js?v=3',
   '/manifest.json',
 ];
 const ICON_URLS = [
