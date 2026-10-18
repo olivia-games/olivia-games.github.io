@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v4';
+const CACHE_NAME = 'cache-v3.1';
 const MAX_AGE = 60 * 60 * 1000;          // 1 hour
 const HOME_URL = '/index.html';
 const STAMP_HEADER = 'sw-cached-at';
