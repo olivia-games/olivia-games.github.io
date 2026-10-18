@@ -1,1 +1,50 @@
-test
+Conquer The World - conquertheworld.pages.dev
+Doodle Cricket - googlecricket.netlify.app
+Doodle Baseball - doodlebaseball.pages.dev
+Doodle Jump 2 - doodlejumping.pages.dev
+Doodle Solitaire - googlesolitaire.netlify.app
+Doodle Minesweeper - googleminesweeper.pages.dev
+Snake Mods - googlesnakemods.pages.dev
+Flappy Bird 3 - flappybird3.pages.dev
+Artle - artle.pages.dev
+Angle - angle-game.pages.dev
+Birthdayle - birthdayle.pages.dev
+Connections - connections-unlimited.pages.dev
+Colordle - colordlegame.pages.dev
+Cutle - cutle.pages.dev
+Quick Draw - drawquick.pages.dev/game/
+Flagle - flagle.pages.dev
+Freecell Solitaire - freecellsolitaire.pages.dev
+Globle - globle-game.pages.dev
+guess the country - guess-the-country.pages.dev
+guess the time - guess-the-time.pages.dev
+guess the song - guessthesong.pages.dev
+hang man - hang-man.pages.dev
+hearts card - heartscardgame.pages.dev
+Infinite Crafts - infinite-crafts.pages.dev
+lewdle - lewdle.pages.dev
+loldle - loldle-unlimited.pages.dev
+linkora - linkoragame.pages.dev
+Minecraft Wordle - minecraft-wordle.pages.dev
+moviedle - moviedlegame.pages.dev
+numberle - numberle-game.pages.dev
+onepiece wordle - onepiecewordle.pages.dev
+pacxon - pacxon.pages.dev
+pips nyt - pipsnytgame.pages.dev
+pokedoku - pokedoku.pages.dev
+polygonle - polygonle.pages.dev
+poople - poople.pages.dev
+quintessential - quintessential-unlimited.pages.dev
+rankdle - rankdle.pages.dev
+redactle - redactle.pages.dev
+rngdle - rngdle.pages.dev
+slope rider - slope-rider.pages.dev
+snow rider - snowriderunblocked.pages.dev
+sonicdash - sonicdashgame.netlify.app
+spacebar clicker - spacebarclicker.pages.dev
+sports connections - sports-connections.pages.dev
+The Password Game - thepassword-game.netlify.app
+websudoku - websudoku.pages.dev
+wordblast - wordblast.pages.dev
+wordhurdle - wordhurdle.pages.dev
+typingracer - typingracer.pages.dev
