@@ -22,6 +22,7 @@ guess the song - guessthesong.pages.dev
 hang man - hang-man.pages.dev
 hearts card - heartscardgame.pages.dev
 Infinite Crafts - infinite-crafts.pages.dev
+idle breakout - idle-breakout.netlify.app
 lewdle - lewdle.pages.dev
 loldle - loldle-unlimited.pages.dev
 linkora - linkoragame.pages.dev
