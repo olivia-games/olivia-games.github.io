@@ -418,7 +418,7 @@ function openGameModal(game, { updateURL = true } = {}) {
     $('modal-new').style.display = game.isNew ? '' : 'none';
     $('modal-description').textContent = game.description || '';
     $('modal-note').innerHTML = playNote(game);
-    setPlayAnchor($('modal-play-btn'), game, 'Play');
+    setPlayAnchor($('modal-play-btn'), game, 'Play Now');
     $('modal-share-btn').dataset.id = game.id;
     const fav = $('modal-favorite-btn');
     fav.dataset.id = game.id;
