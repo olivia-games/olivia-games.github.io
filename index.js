@@ -1,8 +1,5 @@
 'use strict';
 
-// 
-// Helpers
-// 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const compact = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -235,7 +232,7 @@ function createGameCard(game) {
     <p class="card-desc">${esc(game.description)}</p>
   </div>
   <div class="card-actions">
-    ${playLinkHTML(game, 'Play Now')}
+    ${playLinkHTML(game, 'Play')}
     <button class="btn-icon info-btn" type="button" data-id="${esc(game.id)}" aria-label="Info about ${title}">${ico('info')}</button>
   </div>
 </article>`;
@@ -421,7 +418,7 @@ function openGameModal(game, { updateURL = true } = {}) {
     $('modal-new').style.display = game.isNew ? '' : 'none';
     $('modal-description').textContent = game.description || '';
     $('modal-note').innerHTML = playNote(game);
-    setPlayAnchor($('modal-play-btn'), game, 'Play Now');
+    setPlayAnchor($('modal-play-btn'), game, 'Play');
     $('modal-share-btn').dataset.id = game.id;
     const fav = $('modal-favorite-btn');
     fav.dataset.id = game.id;
