@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v3.23';
+const CACHE_NAME = 'cache-v3.231';
 const MAX_AGE = 60 * 60 * 1000;          // 1 hour
 const HOME_URL = '/index.html';
 const STAMP_HEADER = 'sw-cached-at';
@@ -7,8 +7,8 @@ const STAMP_HEADER = 'sw-cached-at';
 const CORE_URLS = [
   '/',
   '/index.html',
-  '/index.js?v=3.21',
-  '/gamesdata.js?v=3.21',
+  '/index.js?v=3.22',
+  '/gamesdata.js?v=3.22',
   '/manifest.json',
 ];
 const ICON_URLS = [
