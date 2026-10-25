@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v3.232';
+const CACHE_NAME = 'cache-v3.25';
 const MAX_AGE = 60 * 60 * 1000;          // 1 hour
 const HOME_URL = '/index.html';
 const STAMP_HEADER = 'sw-cached-at';
@@ -7,8 +7,8 @@ const STAMP_HEADER = 'sw-cached-at';
 const CORE_URLS = [
   '/',
   '/index.html',
-  '/index.js?v=3.23',
-  '/gamesdata.js?v=3.23',
+  '/index.js?v=3.25',
+  '/gamesdata.js?v=3.25',
   '/manifest.json',
 ];
 const ICON_URLS = [
@@ -119,6 +119,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;                // ignore third-party requests
   if (url.pathname === '/sw.js') return;                          // never cache the worker itself
+  if (url.pathname.startsWith('/seraph/')) return;                // game files are large: let the browser/CDN cache them, not this worker
 
   const isHtml = request.mode === 'navigate' ||
                  url.pathname === '/' ||

@@ -73,7 +73,7 @@
       "name": "Can I save my favorite games?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Click the star icon on any game to add it to your Favorites. Your favorites and recently played games are saved in your browser."
+        "text": "Yes. Open any game and click Add to Favorites. Your favorites and recently played games are saved in your browser."
       }
     },
     {
@@ -124,7 +124,7 @@
       "@type": "HowToStep",
       "position": 3,
       "name": "Check the game info",
-      "text": "Click the info button on a game card to read its description and category before you start.",
+      "text": "Click a game card to open its details and read the description and category before you start.",
       "url": "https://olivia-games.github.io/#games"
     },
     {
@@ -137,7 +137,7 @@
       "@type": "HowToStep",
       "position": 5,
       "name": "Save it to Favorites",
-      "text": "Click the star icon to add the game to Favorites. You can find it again later under Favorites or Recently Played.",
+      "text": "Open a game and click Add to Favorites. You can find it again later under Favorites or Recently Played.",
       "url": "https://olivia-games.github.io/#favorites"
     }
   ]
@@ -147,14 +147,18 @@
 <meta name="theme-color" content="#0a0a11">
 <link rel="shortcut icon" href="https://olivia-games.github.io/favicon.ico?v=1.1">
 <link rel="alternate icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%237c5cff%22/%3E%3Cstop offset=%221%22 stop-color=%22%23ff4d8d%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22url%28%23g%29%22/%3E%3Cg transform=%22translate%2810 10%29 scale%281.83%29%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cline x1=%226%22 x2=%2210%22 y1=%2211%22 y2=%2211%22/%3E%3Cline x1=%228%22 x2=%228%22 y1=%229%22 y2=%2213%22/%3E%3Cline x1=%2215%22 x2=%2215.01%22 y1=%2212%22 y2=%2212%22/%3E%3Cline x1=%2218%22 x2=%2218.01%22 y1=%2210%22 y2=%2210%22/%3E%3Cpath d=%22M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z%22/%3E%3C/g%3E%3C/svg%3E">
-<link rel="manifest" href="https://olivia-games.github.io/manifest.json">
-<link rel="preconnect" href="https://gamesdoodle.pages.dev">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Olivia Games">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600..800&family=Inter:wght@400..700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600..800&family=Inter:wght@400..700&display=swap">
 </noscript>
 <style data-gx>
 .gx-spot{display:block;width:300px;height:250px;margin:20px calc(50% - 150px);overflow:hidden;contain:layout paint;text-align:center}
@@ -172,8 +176,8 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:clip;-webkit-tap-highlight-color:transparent}
 main{flex:1}
 button,input,select{font:inherit;color:inherit}
-button{cursor:pointer;background:none;border:0}
-a{color:inherit}
+button{cursor:pointer;background:none;border:0;touch-action:manipulation}
+a{color:inherit;touch-action:manipulation}
 img{max-width:100%}
 :focus-visible{outline:2px solid var(--brand-2);outline-offset:2px;border-radius:6px}
 ::-webkit-scrollbar{width:10px;height:10px}
@@ -190,7 +194,7 @@ body.scroll-lock{overflow:hidden}
   radial-gradient(50rem 36rem at 100% 10%,#ff4d8d1f,transparent 60%),
   radial-gradient(50rem 30rem at 50% 110%,#ffb02012,transparent 60%)}
 
-header{position:sticky;top:0;z-index:1000;background:#0a0a11d9;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--line);padding-top:var(--safe-t)}
+header{position:sticky;top:0;z-index:1000;background:#0a0a11f2;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:var(--safe-t)}
 nav{max-width:1360px;margin:0 auto;padding:.7rem calc(var(--pad) + var(--safe-r)) .7rem calc(var(--pad) + var(--safe-l));display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .logo{display:flex;align-items:center;gap:.65rem;font-family:'Manrope',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
 .logo-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--grad);color:#fff;font-size:1.25rem;box-shadow:0 6px 18px #7c5cff55}
@@ -200,8 +204,8 @@ nav{max-width:1360px;margin:0 auto;padding:.7rem calc(var(--pad) + var(--safe-r)
 .nav-link:hover{color:var(--text);background:#ffffff0f}
 .nav-link.active{color:#fff;background:#7c5cff33}
 .menu-btn{display:none;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid var(--line)}
-.mobile-nav{display:none;position:fixed;inset:0;z-index:2000;background:#0a0a11f5;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:calc(var(--safe-t) + 1rem) 1.25rem calc(var(--safe-b) + 1rem);flex-direction:column;align-items:stretch;justify-content:center;gap:.5rem}
-.mobile-nav.active{display:flex}
+.mobile-nav{display:flex;visibility:hidden;opacity:0;pointer-events:none;position:fixed;inset:0;z-index:2000;background:#0a0a11;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:calc(var(--safe-t) + 1rem) 1.25rem calc(var(--safe-b) + 1rem);flex-direction:column;align-items:stretch;justify-content:center;justify-content:safe center;gap:.5rem;transition:opacity .15s ease,visibility 0s linear .15s}
+.mobile-nav.active{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .15s ease}
 .mobile-nav .nav-link{font-size:1.25rem;padding:1rem 1.25rem;text-align:center;border:1px solid var(--line)}
 .mobile-close{position:absolute;top:calc(var(--safe-t) + 1rem);right:1.25rem;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;border:1px solid var(--line)}
 
@@ -218,6 +222,7 @@ h1{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.03em;line-h
 .btn-secondary{background:#ffffff0d;border:1px solid var(--line-2)}
 @media (hover:hover){.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px #7c5cff80}.btn-secondary:hover{background:#ffffff1a}}
 .btn:active{transform:scale(.98)}
+.btn[hidden]{display:none}
 .hero-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem;margin-top:2.25rem}
 .stat{min-width:7.5rem;padding:.75rem 1.1rem;background:#ffffff08;border:1px solid var(--line);border-radius:var(--r)}
 .stat b{display:block;font-family:'Manrope',sans-serif;font-size:1.5rem;line-height:1.2}
@@ -250,39 +255,29 @@ h1{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.03em;line-h
 .pill-btn.danger{background:#ef44441a;border-color:#ef444444;color:#fca5a5}
 
 .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,236px),1fr));gap:clamp(.85rem,2vw,1.4rem)}
-.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s;content-visibility:auto;contain-intrinsic-size:auto 340px}
-@media (hover:hover){.card:hover{transform:translateY(-5px);border-color:#7c5cff80;box-shadow:0 14px 36px #0009,0 0 0 1px #7c5cff33}.card:hover .game-thumb{transform:scale(1.05)}}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s;content-visibility:auto;contain-intrinsic-size:auto 230px}
+@media (hover:hover){.card:hover{border-color:var(--line-2);background:var(--surface-2)}.card:hover .game-thumb{opacity:.9}}
 .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--surface-3)}
 .game-thumb{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.card-media::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(transparent,#14141fcc);pointer-events:none}
-.badge-new{position:absolute;top:.6rem;left:.6rem;z-index:2;padding:.18rem .6rem;border-radius:999px;background:var(--grad-warm);color:#1a0b14;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 3px 12px #ff4d8d66}
-.fav-btn{position:absolute;top:.5rem;right:.5rem;z-index:2;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#0a0a11b3;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line-2);color:#e5e7f5;font-size:1.1rem;transition:transform .2s,color .2s,background .2s}
-@media (hover:hover){.fav-btn:hover{transform:scale(1.1);color:var(--amber)}}
-.fav-btn.active{color:var(--amber);background:#ffb02026;border-color:#ffb02080}
-.fav-btn.active .ico{fill:currentColor}
-.card-body{flex:1;display:flex;flex-direction:column;gap:.4rem;padding:1rem 1.1rem .5rem}
+.card-media .cat{position:absolute;top:.6rem;left:.6rem;z-index:2;min-width:0;max-width:calc(100% - 1.2rem);background:#0a0a11d9;color:#fff;border:1px solid var(--line-2)}
+.card-media .cat span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-open{display:block;width:100%;text-align:left;font:inherit;color:inherit;letter-spacing:inherit;overflow-wrap:inherit}
+.card-open::after{content:"";position:absolute;inset:0;z-index:1}
+.card-open:focus-visible{outline:none}
+.card-open:focus-visible::after{outline:2px solid var(--brand-2);outline-offset:-2px;border-radius:var(--r-lg)}
+.list-view .card-media .cat{top:.3rem;left:.3rem;font-size:.6rem;padding:.1rem .45rem}
+.card-body{flex:1;display:flex;flex-direction:column;gap:.4rem;padding:1rem 1.1rem 1.1rem}
 .cat{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;padding:.2rem .65rem;background:#7c5cff1f;color:var(--brand-2);font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:999px}
 .card-title{font-family:'Manrope',sans-serif;font-size:1.12rem;font-weight:800;line-height:1.25;letter-spacing:-.01em;overflow-wrap:anywhere}
-.card-desc{color:var(--muted);font-size:.88rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-actions{display:flex;gap:.6rem;padding:.7rem 1.1rem 1.1rem}
 .btn-play{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:.55rem .75rem;border-radius:12px;background:var(--grad);color:#fff;font-weight:700;font-size:.95rem;text-decoration:none;transition:filter .2s,transform .2s;box-shadow:0 4px 14px #7c5cff40}
 .btn-play .ext{font-size:.9em;opacity:.85}
 @media (hover:hover){.btn-play:hover{filter:brightness(1.12)}}
 .btn-play:active{transform:scale(.97)}
-.btn-icon{width:44px;min-height:44px;display:grid;place-items:center;border-radius:12px;background:#ffffff0d;border:1px solid var(--line);color:var(--muted);font-size:1.15rem;transition:background .2s,color .2s}
-@media (hover:hover){.btn-icon:hover{background:#ffffff1c;color:var(--text)}}
-.btn-icon:disabled{opacity:.45;cursor:not-allowed}
 
 .games-grid.list-view{grid-template-columns:1fr;gap:.75rem}
-.list-view .card{flex-direction:row;align-items:center;gap:1rem;padding:.7rem;border-radius:var(--r);contain-intrinsic-size:auto 100px}
+.list-view .card{flex-direction:row;align-items:center;gap:1rem;padding:.7rem;border-radius:var(--r);contain-intrinsic-size:auto 84px}
 .list-view .card-media{flex:none;width:132px;aspect-ratio:16/10;border-radius:10px}
-.list-view .card-media::after{display:none}
-.list-view .fav-btn{top:.3rem;right:.3rem;width:32px;height:32px;font-size:.95rem}
 .list-view .card-body{padding:0;min-width:0}
-.list-view .card-desc{-webkit-line-clamp:1}
-.list-view .card-actions{padding:0;flex:none}
-.list-view .btn-play{flex:none;padding-inline:1.25rem}
-.list-view .badge-new{top:.3rem;left:.3rem;font-size:.6rem;padding:.1rem .45rem}
 .empty-state,.loading{grid-column:1/-1;text-align:center;padding:3.5rem 1.5rem;color:var(--muted);background:var(--surface);border:1px dashed var(--line-2);border-radius:var(--r-lg)}
 .empty-state .ico{font-size:2.2rem;color:var(--brand-2);margin-bottom:.75rem}
 .empty-state h3{font-family:'Manrope',sans-serif;font-size:1.3rem;color:var(--text);margin-bottom:.35rem}
@@ -377,6 +372,7 @@ body.panic-mode #panic-screen,body.panic-mode #panic-screen *{visibility:visible
 @media (max-width:900px) {
 .nav-links{display:none}
 .menu-btn{display:flex}
+header{-webkit-backdrop-filter:none;backdrop-filter:none;background:#0a0a11}
 }
 @media (max-width:768px) {
 .filters{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:calc(var(--pad) * -1);padding:.15rem var(--pad) .6rem;scrollbar-width:none}
@@ -395,23 +391,16 @@ body.panic-mode #panic-screen,body.panic-mode #panic-screen *{visibility:visible
 .view-btn span{display:none}
 .view-btn{padding:.35rem .7rem}
 .games-grid{grid-template-columns:1fr 1fr}
-.card-desc{display:none !important}
 .list-view .card{gap:.75rem}
 .list-view .card-media{width:96px}
-.list-view .cat,.list-view .card-desc{display:none}
-.list-view .btn-play span{display:none}
-.list-view .btn-play{padding-inline:.9rem}
-.list-view .btn-play .ext{display:none}
-.list-view .btn-icon.info-btn{display:none}
+.list-view .card-media .cat{display:none}
 .cta-buttons .btn{flex:1 1 100%}
 .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .stat{min-width:0;padding:.65rem .4rem}
 .stat b{font-size:1.3rem}
 .dialog-body{padding:1.15rem}
 .panic-btn{width:42px;height:42px;font-size:1.15rem}
-.btn-play{padding:.55rem .35rem}
-.btn-play .ext{display:none}
-.card-body{padding:.3rem .7rem .3rem;gap:.3rem}
+.card-body{padding:.65rem .75rem .85rem;gap:.3rem}
 }
 @media (max-width:360px) {
 .hero{padding-inline:0}
@@ -432,17 +421,26 @@ body.panic-mode #panic-screen,body.panic-mode #panic-screen *{visibility:visible
 @media (prefers-reduced-motion:reduce){
 *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+/* ---- polish ---- */
+h1{text-wrap:balance}
+.card-media .cat{background:#0a0a11cc;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.card-title{max-height:2.5em;overflow:hidden}
+.list-view .card-title{max-height:none}
+.card-play{display:none}
+.list-view .card-play{display:inline-flex;position:relative;z-index:2;flex:none;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:.55rem 1.25rem;border-radius:12px;background:var(--brand);color:#fff;font-weight:700;font-size:.95rem;text-decoration:none;transition:filter .2s,transform .2s}
+.card-play .ext{font-size:.9em;opacity:.85}
+@media (hover:hover){.list-view .card-play:hover{filter:brightness(1.12)}}
+.card-play:active{transform:scale(.97)}
+.footer-disclaimer{width:100%;max-width:52rem;margin-top:.6rem;padding:1.1rem 1.25rem;text-align:left;background:#ffffff08;border:1px solid var(--line);border-radius:var(--r);color:var(--muted);font-size:.84rem;line-height:1.65}
+.footer-disclaimer h4{display:flex;align-items:center;gap:.5rem;margin-bottom:.55rem;font-family:'Manrope',sans-serif;font-size:.95rem;color:var(--text)}
+.footer-disclaimer h4 .ico{color:var(--brand-2)}
+.footer-disclaimer p+p{margin-top:.55rem}
+@media (max-width:560px){.list-view .card-play{padding-inline:.9rem}.list-view .card-play span,.list-view .card-play .ext{display:none}.footer-disclaimer{padding:.95rem 1rem}}
 </style>
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://www.google-analytics.com">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-100MCH01M4"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-100MCH01M4');
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e;});
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-100MCH01M4');
 </script>
 </head>
 <body>
@@ -468,7 +466,10 @@ if ('serviceWorker' in navigator) {
     // Reload once when a new worker takes over, so the user sees the new version
     var hadController = !!navigator.serviceWorker.controller;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
-      if (hadController) location.reload();
+      if (!hadController) return;
+      var pm = document.getElementById('player-modal');
+      if (pm && pm.classList.contains('active')) window.__swReload = true; // reload after the game is closed
+      else location.reload();
     });
   });
 }
@@ -511,6 +512,7 @@ if ('serviceWorker' in navigator) {
 <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
 <symbol id="i-cube" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></symbol>
 <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol>
 <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
 </svg>
 
@@ -553,6 +555,7 @@ if ('serviceWorker' in navigator) {
   <div class="cta-buttons">
     <button class="btn btn-primary" id="explore-btn" type="button"><svg class="ico" aria-hidden="true"><use href="#i-rocket"/></svg><span>Explore Games</span></button>
     <button class="btn btn-secondary" id="random-btn" type="button"><svg class="ico" aria-hidden="true"><use href="#i-shuffle"/></svg><span>I'm Feeling Lucky</span></button>
+    <button class="btn btn-secondary" id="install-btn" type="button"><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg><span>Add to Home Screen</span></button>
   </div>
 
   <div class="hero-stats" aria-label="Catalog stats">
@@ -616,6 +619,7 @@ if ('serviceWorker' in navigator) {
   </div>
   <p class="results-count" id="results-count" aria-live="polite"></p>
   <div class="games-grid" id="games-container"><div class="loading"><p>Loading games...</p></div></div>
+  <div id="games-sentinel" aria-hidden="true" style="height:1px"></div>
 </section>
 
 <div class="gx-spot" data-spot="middle" role="complementary" aria-label="Partner content"></div>
@@ -706,6 +710,13 @@ if ('serviceWorker' in navigator) {
 <h3 class="footer-title"><span class="logo-mark"><svg class="ico" aria-hidden="true"><use href="#i-gamepad"/></svg></span>Olivia Games</h3>
 <p class="footer-text">The ultimate hub for instant web gaming</p>
 <p class="footer-text">&copy; <span id="currentYear"></span> Olivia Games. Play responsibly and enjoy the experience!</p>
+<section class="footer-disclaimer" aria-labelledby="disclaimer-title">
+<h4 id="disclaimer-title"><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>Disclaimer</h4>
+<p>Olivia Games is a link directory. This site only contains links to games and other text content, such as game names, categories and short descriptions. We do not host, upload, copy or modify any game files.</p>
+<p>Every game is provided and run by its own third-party website. We have no control over their content, availability, advertising, privacy practices or security, so please play at your own discretion and keep your personal information to yourself.</p>
+<p>All game titles, characters, logos and trademarks belong to their respective owners. Mentioning a title here does not mean we are affiliated with or endorsed by its owner. If you are a rights holder and would like a link removed, please contact the site owner and it will be taken down promptly.</p>
+<p>Your favorites and recently played games are saved only in your own browser and are never sent to us. We use Google Analytics to count visits. Some games may not be suitable for young children, so parental guidance is recommended.</p>
+</section>
 
 <div class="footer-share">
 <span class="footer-share-label">Share this site:</span>
@@ -757,8 +768,13 @@ Press the <code>`</code> key or the red button for Panic Mode
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="https://olivia-games.github.io/gamesdata.js?v=3.23" defer></script>
-<script src="https://olivia-games.github.io/index.js?v=3.23" defer></script>
+<script src="https://olivia-games.github.io/gamesdata.js?v=3.25" defer></script>
+<script src="index.js?v=3.25" defer></script>
 <script src="https://gamesdoodle.pages.dev/pages.js?v=3.1" defer fetchpriority="low" onerror="document.documentElement.setAttribute('data-spots','off')"></script>
+<script>
+(function(){function go(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-100MCH01M4';document.head.appendChild(s);}
+function idle(){'requestIdleCallback' in window?requestIdleCallback(go,{timeout:5000}):setTimeout(go,3000);}
+if(document.readyState==='complete')idle();else addEventListener('load',idle,{once:true});})();
+</script>
 </body>
 </html>

@@ -118,12 +118,12 @@ const el = {
 // Toast, clipboard, URL params
 // 
 let toastTimer = null;
-function showToast(message) {
+function showToast(message, ms = 2600) {
     const toast = $('toast');
     toast.textContent = message;
     toast.classList.add('visible');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2600);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), ms);
 }
 
 function copyToClipboard(text) {
@@ -155,7 +155,7 @@ function setURLParam(key, value) {
 // Modal plumbing (info, lucky, player share it)
 // 
 function syncScrollLock() {
-    const open = document.querySelector('.modal.active') || el.mobileNav.classList.contains('active');
+    const open = document.querySelector('.modal.active'); // the mobile menu is a fixed overlay: locking body scroll for it only forces a slow page-wide relayout
     document.body.classList.toggle('scroll-lock', !!open);
 }
 function showModal(modal) {
@@ -210,56 +210,71 @@ document.addEventListener('error', (e) => {
 // 
 // Rendering
 // 
-function playLinkHTML(game, label) {
+function playLinkHTML(game) {
     const ext = !game.embeddable;
     const aria = `Play ${game.name}${ext ? ' (opens in a new tab)' : ''}`;
-    return `<a class="btn-play" href="${esc(game.url)}" data-play data-id="${esc(game.id)}" target="_blank" rel="noopener" aria-label="${esc(aria)}">${ico('play')}<span>${label}</span>${ext ? ico('external', 'ext') : ''}</a>`;
+    return `<a class="card-play" href="${esc(game.url)}" data-play data-id="${esc(game.id)}" target="_blank" rel="noopener" aria-label="${esc(aria)}">${ico('play')}<span>Play</span>${ext ? ico('external', 'ext') : ''}</a>`;
 }
 
+// Grid cards: thumbnail, category tag, title. The description lives in the modal.
+// The Play link is only shown in List view (CSS hides it in Grid view).
 function createGameCard(game) {
-    const isFav = state.favorites.has(game.id);
     const title = esc(game.name);
     return `
 <article class="card" data-id="${esc(game.id)}">
   <div class="card-media">
     <img class="game-thumb" src="${esc(game.image || placeholderThumb(game.name))}" data-title="${title}" alt="" loading="lazy" decoding="async" width="320" height="180">
-    ${game.isNew ? '<span class="badge-new">New</span>' : ''}
-    <button class="fav-btn${isFav ? ' active' : ''}" type="button" data-id="${esc(game.id)}" aria-pressed="${isFav}" aria-label="${isFav ? 'Remove' : 'Add'} ${title} ${isFav ? 'from' : 'to'} favorites">${ico('star')}</button>
+    <span class="cat">${ico(categoryIcon(game.category))}<span>${esc(categoryLabel(game.category))}</span></span>
   </div>
   <div class="card-body">
-    <span class="cat">${ico(categoryIcon(game.category))}${esc(categoryLabel(game.category))}</span>
-    <h3 class="card-title">${title}</h3>
-    <p class="card-desc">${esc(game.description)}</p>
+    <h3 class="card-title"><button class="card-open" type="button" data-id="${esc(game.id)}">${title}</button></h3>
   </div>
-  <div class="card-actions">
-    ${playLinkHTML(game, 'Play')}
-    <button class="btn-icon info-btn" type="button" data-id="${esc(game.id)}" aria-label="Info about ${title}">${ico('info')}</button>
-  </div>
+  ${playLinkHTML(game)}
 </article>`;
 }
 
 const emptyState = (icon, title, text, extra = '') =>
     `<div class="empty-state">${ico(icon)}<h3>${esc(title)}</h3><p>${esc(text)}</p>${extra}</div>`;
 
-// First screenful renders synchronously; the rest is appended in batches so 500+ cards never block the page.
-let renderToken = 0;
-function renderGames() {
-    const myToken = ++renderToken; // a newer search/filter cancels a stale in-flight render
+// Cards are added a page at a time while the user scrolls, so the DOM starts small instead of holding 500+ cards.
+const PAGE_SIZE = 48;
+const sentinel = $('games-sentinel');
+let shown = 0;
+let pager = null;
+
+function appendGamesPage() {
     const games = state.games;
+    if (shown >= games.length) return;
+    const chunk = games.slice(shown, shown + PAGE_SIZE);
+    el.games.insertAdjacentHTML('beforeend', chunk.map(createGameCard).join(''));
+    shown += chunk.length;
+    if (pager) {                       // re-observe so we are told again if the sentinel is still on screen
+        pager.unobserve(sentinel);
+        if (shown < games.length) pager.observe(sentinel);
+    }
+}
+
+function renderGames() {
+    const games = state.games;
+    shown = 0;
+    if (pager) pager.unobserve(sentinel);
     if (!games.length) {
         el.games.innerHTML = emptyState('search', 'No games found', 'Try a different search or category.',
             '<button class="pill-btn" data-reset-filters type="button" style="margin:1.25rem auto 0">Reset filters</button>');
         return;
     }
-    const FIRST = 24, BATCH = 48;
-    el.games.innerHTML = games.slice(0, FIRST).map(createGameCard).join('');
-    let i = FIRST;
-    (function next() {
-        if (myToken !== renderToken || i >= games.length) return;
-        el.games.insertAdjacentHTML('beforeend', games.slice(i, i + BATCH).map(createGameCard).join(''));
-        i += BATCH;
-        if (i < games.length) requestAnimationFrame(next);
-    })();
+    if (!('IntersectionObserver' in window)) {          // very old browsers: render everything at once
+        el.games.innerHTML = games.map(createGameCard).join('');
+        shown = games.length;
+        return;
+    }
+    if (!pager) {
+        pager = new IntersectionObserver((entries) => {
+            if (entries.some((en) => en.isIntersecting)) appendGamesPage();
+        }, { rootMargin: '900px 0px' });
+    }
+    el.games.innerHTML = '';
+    appendGamesPage();
 }
 
 function renderFavorites() {
@@ -304,7 +319,7 @@ function renderFilters() {
 function matchesSearch(game, query) {
     if (!query) return true;
     // every word must match somewhere; spaces are ignored ("super mario" finds "Super Mario Bros.")
-    return query.split(/\s+/).every((w) => game._hay.includes(w) || game._compact.includes(compact(w)));
+    return query.split(/\s+/).every((w) => { const c = compact(w); return game._hay.includes(w) || (c !== '' && game._compact.includes(c)); });
 }
 
 function filterAndRender() {
@@ -370,12 +385,7 @@ function toggleFavorite(id) {
     if (now) state.favorites.add(id); else state.favorites.delete(id);
     saveFavorites();
 
-    const name = gamesById.get(id).name;
-    document.querySelectorAll(`.fav-btn[data-id="${CSS.escape(id)}"]`).forEach((btn) => {
-        btn.classList.toggle('active', now);
-        btn.setAttribute('aria-pressed', String(now));
-        btn.setAttribute('aria-label', `${now ? 'Remove' : 'Add'} ${name} ${now ? 'from' : 'to'} favorites`);
-    });
+    showToast(now ? 'Added to favorites' : 'Removed from favorites');
     const modalFav = $('modal-favorite-btn');
     if (modalFav.dataset.id === id) setModalFavState(modalFav, now);
     if ($('favorites').style.display !== 'none') renderFavorites();
@@ -410,8 +420,8 @@ const playNote = (game) => game.embeddable
     ? `${ico('play')} Plays right here on the page.`
     : `${ico('external')} This game opens in a new tab.`;
 
-function openGameModal(game, { updateURL = true } = {}) {
-    infoOpener = document.activeElement;
+function openGameModal(game, { updateURL = true, opener = null } = {}) {
+    infoOpener = opener || document.activeElement;
     setThumb($('modal-thumb'), game);
     $('modal-title').textContent = game.name;
     $('modal-category').innerHTML = `${ico(categoryIcon(game.category))}${esc(categoryLabel(game.category))}`;
@@ -473,7 +483,10 @@ function loadPlayerFrame() {
 
 function openPlayer(game, opener) {
     if (!game.embeddable) { window.open(game.url, '_blank', 'noopener'); return; } // safety net: policy is enforced here too
-    player.opener = opener || document.activeElement;
+    // Remember where focus should return: the card the user started from, not a link inside a dialog that is about to close.
+    player.opener = infoModal.classList.contains('active') ? infoOpener
+        : luckyModal.classList.contains('active') ? lucky.opener
+        : (opener || document.activeElement);
     // Close anything else that is open first
     closeLucky({ restore: false });
     closeGameModal({ restore: false });
@@ -498,6 +511,7 @@ function closePlayer() {
     hideModal(playerModal);
     restoreFocus(player.opener);
     player.opener = null;
+    if (window.__swReload) location.reload();   // a new version arrived while the game was open
 }
 
 function reloadPlayer() {
@@ -662,7 +676,7 @@ function spinLucky() {
     (function tick() {
         if (!lucky.spinning) return;                    // closed mid-spin
         if (i >= STEPS) { land(); return; }
-        showLuckyGame(pool[rand(pool.length)]);         // flicker through games from the chosen pool
+        $('lucky-name').textContent = pool[rand(pool.length)].name;   // names only: no image downloads while spinning
         i++;
         lucky.timer = setTimeout(tick, 45 + i * i * 0.8); // starts fast, slows down
     })();
@@ -693,8 +707,9 @@ function initLucky() {
     $('lucky-info').addEventListener('click', () => {
         const game = lucky.current;
         if (!game) return;
+        const back = lucky.opener;
         closeLucky({ restore: false });
-        openGameModal(game);
+        openGameModal(game, { opener: back });
     });
 }
 
@@ -774,13 +789,17 @@ function togglePanicMode() {
 // Events
 // 
 function handleCardAction(e) {
-    const fav = e.target.closest('.fav-btn');
-    if (fav) { toggleFavorite(fav.dataset.id); return; }
-    const info = e.target.closest('.info-btn');
-    if (info) { const g = gamesById.get(info.dataset.id); if (g) openGameModal(g); return; }
     if (e.target.closest('[data-play]')) return;       // the global play handler takes it
     const card = e.target.closest('.card');
-    if (card) { const g = gamesById.get(card.dataset.id); if (g) openGameModal(g); }
+    if (!card) return;
+    const g = gamesById.get(card.dataset.id);
+    if (g) openGameModal(g, { opener: card.querySelector('.card-open') || card });
+}
+
+// Search lives on the main page: if Favorites / Recently Played is open, go back to the games list first.
+function focusSearch() {
+    if (el.searchInput.offsetParent === null) showSection('#games');
+    el.searchInput.focus();
 }
 
 function setupEvents() {
@@ -837,6 +856,7 @@ function setupEvents() {
     }));
 
     el.menuBtn.addEventListener('click', () => setMobileNav(true));
+    window.matchMedia('(min-width:901px)').addEventListener?.('change', (m) => { if (m.matches) setMobileNav(false); });
     $('mobile-close-btn').addEventListener('click', () => setMobileNav(false));
 
     // Header / mobile menu links
@@ -865,9 +885,9 @@ function setupEvents() {
             return;
         }
         if (e.key === '`' && !typing) { togglePanicMode(); return; }
-        if (playerOpen) return;   // no page shortcuts while a game is open
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); el.searchInput.focus(); return; }
-        if (e.key === '/' && !typing) { e.preventDefault(); el.searchInput.focus(); }
+        if (playerOpen || document.body.classList.contains('panic-mode')) return;   // no page shortcuts while a game is open or in panic mode
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); focusSearch(); return; }
+        if (e.key === '/' && !typing) { e.preventDefault(); focusSearch(); }
     });
 
     window.addEventListener('popstate', () => { applySearchFromURL(); applySharedGameFromURL(); });
@@ -876,10 +896,44 @@ function setupEvents() {
 // 
 // Boot
 // 
+// Add to Home Screen (PWA install)
+const installBtn = $('install-btn');
+let deferredInstall = window.__bip || null;     // captured by a tiny inline script in case the event fired early
+const isStandalone = () => (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+function initInstall() {
+    if (!installBtn) return;
+    if (isStandalone()) { installBtn.hidden = true; return; }       // already running as an installed app
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstall = e; });
+    window.addEventListener('appinstalled', () => {
+        deferredInstall = null; window.__bip = null;
+        installBtn.hidden = true;
+        showToast('Olivia Games was added to your device');
+    });
+    installBtn.addEventListener('click', async () => {
+        if (deferredInstall) {
+            const promptEvent = deferredInstall;
+            deferredInstall = null; window.__bip = null;            // an install prompt can only be used once
+            try {
+                promptEvent.prompt();
+                const choice = await promptEvent.userChoice;
+                if (choice && choice.outcome === 'accepted') return;
+            } catch { /* fall through to the manual hint */ }
+            showToast('You can install later from your browser menu.', 4000);
+            return;
+        }
+        showToast(isIOS()
+            ? 'Tap the Share button, then "Add to Home Screen".'
+            : 'Open your browser menu and choose "Install app" or "Add to Home Screen".', 5500);
+    });
+}
+
 function init() {
     setupEvents();
     initPlayer();
     initLucky();
+    initInstall();
     applyView(state.currentView);
     renderFilters();
     fillLuckyPoolOptions();
