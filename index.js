@@ -5,6 +5,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const compact = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
 const rand = (n) => Math.floor(Math.random() * n);
 const hashStr = (s) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
+const asArray = (v) => (Array.isArray(v) ? v : []);
 const ico = (name, cls = '') => `<svg class="ico ${cls}" aria-hidden="true" focusable="false"><use href="#i-${name}"></use></svg>`;
 
 // localStorage can throw (private mode, blocked cookies, corrupt JSON): never let it crash the site.
@@ -57,10 +58,13 @@ const categoryIcon = (c) => (CATEGORY_META[c] && CATEGORY_META[c].icon) || 'game
 // 
 // Prepare data (derived fields only; the file itself stays plain data)
 // 
+// If gamesdata.js failed to load (offline, blocked) the page must still work instead of crashing.
+const DATA_OK = typeof gamesData !== 'undefined' && Array.isArray(gamesData);
+const GAMES = DATA_OK ? gamesData : [];
 const NEW_BADGE_DAYS = 30;
 const gamesById = new Map();
 (function prepareGames() {
-    gamesData.forEach((g) => {
+    GAMES.forEach((g) => {
         g.id = g.url;                        // stable id (keeps saved Favorites / Recent valid)
         g.embeddable = isEmbeddable(g.url);
         const ageDays = g.added ? (Date.now() - Date.parse(g.added)) / 86400000 : Infinity;
@@ -76,21 +80,23 @@ const gamesById = new Map();
 // 
 const RECENT_LIMIT = 24;
 const state = {
-    games: gamesData,
+    games: GAMES,
     currentCategory: 'all',
     currentView: store.getRaw('og-view', 'grid') === 'list' ? 'list' : 'grid',
     searchQuery: '',
     section: '#home',
-    favorites: new Set((store.getJSON('og-favorites-v2', []) || []).filter((id) => gamesById.has(id))),
-    recentlyPlayed: (store.getJSON('og-recent-v1', []) || []).filter((id) => gamesById.has(id)).slice(0, RECENT_LIMIT)
+    // keep unknown ids: a game missing from a cached/partial list must not wipe the user's saved favorites
+    favorites: new Set(asArray(store.getJSON('og-favorites-v2', [])).filter((id) => typeof id === 'string')),
+    recentlyPlayed: asArray(store.getJSON('og-recent-v1', [])).filter((id) => gamesById.has(id)).slice(0, RECENT_LIMIT)
 };
 function updateBadges() {
-    const counts = { recent: state.recentlyPlayed.length, favorites: state.favorites.size };
+    const counts = { recent: state.recentlyPlayed.length, favorites: favCount() };
     document.querySelectorAll('.nav-badge[data-badge]').forEach((b) => {
         const n = counts[b.dataset.badge] || 0;
         b.textContent = n ? (n > 99 ? '99+' : n) : '';
     });
 }
+const favCount = () => { let n = 0; state.favorites.forEach((id) => { if (gamesById.has(id)) n++; }); return n; };
 const saveFavorites = () => { store.setJSON('og-favorites-v2', [...state.favorites]); updateBadges(); };
 const saveRecent = () => { store.setJSON('og-recent-v1', state.recentlyPlayed); updateBadges(); };
 
@@ -278,7 +284,7 @@ function renderGames() {
 }
 
 function renderFavorites() {
-    const list = gamesData.filter((g) => state.favorites.has(g.id));
+    const list = [...state.favorites].reverse().map((id) => gamesById.get(id)).filter(Boolean);   // newest first
     el.favorites.innerHTML = list.length
         ? list.map(createGameCard).join('')
         : emptyState('star', 'No favorites yet', 'Tap the star on any game to save it here.');
@@ -294,11 +300,11 @@ function renderRecent() {
 function renderFilters() {
     const counts = {};
     let newCount = 0;
-    gamesData.forEach((g) => { counts[g.category] = (counts[g.category] || 0) + 1; if (g.isNew) newCount++; });
+    GAMES.forEach((g) => { counts[g.category] = (counts[g.category] || 0) + 1; if (g.isNew) newCount++; });
 
     const known = Object.keys(CATEGORY_META).filter((c) => c !== 'new' && counts[c]);
     const extra = Object.keys(counts).filter((c) => !CATEGORY_META[c]).sort();
-    const chips = [['all', 'layout', 'All Games', gamesData.length]];
+    const chips = [['all', 'layout', 'All Games', GAMES.length]];
     if (newCount) chips.push(['new', 'sparkles', 'New', newCount]);
     [...known, ...extra].forEach((c) => chips.push([c, categoryIcon(c), categoryLabel(c), counts[c]]));
 
@@ -307,10 +313,9 @@ function renderFilters() {
         `<button class="filter-chip${key === state.currentCategory ? ' active' : ''}" type="button" data-category="${esc(key)}" aria-pressed="${key === state.currentCategory}">${ico(icon)}<span>${esc(label)}</span><span class="chip-count">${n}</span></button>`
     ).join('');
 
-    $('stat-games').textContent = gamesData.length;
+    $('stat-games').textContent = GAMES.length;
     $('stat-cats').textContent = Object.keys(counts).length;
     $('stat-new').textContent = newCount;
-    $('hero-count').textContent = `${gamesData.length} Games Available`;
 }
 
 // 
@@ -323,15 +328,24 @@ function matchesSearch(game, query) {
 }
 
 function filterAndRender() {
-    let list = gamesData;
+    let list = GAMES;
     if (state.currentCategory === 'new') list = list.filter((g) => g.isNew);
     else if (state.currentCategory !== 'all') list = list.filter((g) => g.category === state.currentCategory);
     if (state.searchQuery) list = list.filter((g) => matchesSearch(g, state.searchQuery));
 
     state.games = list;
-    const total = gamesData.length;
+    updateGamesTitle();
+    const total = GAMES.length;
     el.resultsCount.textContent = list.length === total ? `${total} games` : `${list.length} of ${total} games`;
     renderGames();
+}
+
+function updateGamesTitle() {
+    const t = $('games-title-text');
+    if (!t) return;
+    const c = state.currentCategory;
+    t.textContent = state.searchQuery ? `Results for \u201c${state.searchQuery}\u201d`
+        : c === 'all' ? 'All games' : c === 'new' ? 'New games' : categoryLabel(c);
 }
 
 let searchTimer = null;
@@ -436,13 +450,25 @@ function openGameModal(game, { updateURL = true, opener = null } = {}) {
 
     showModal(infoModal);
     infoModal.querySelector('.dialog-close').focus({ preventScroll: true });
-    if (updateURL) setURLParam('game', game.id);
+    if (updateURL) pushGameURL(game.id);
 }
 
-function closeGameModal({ restore = true } = {}) {
+// Opening a game pushes a history entry, so the Back button closes the dialog instead of leaving the site.
+function pushGameURL(id) {
+    try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('game', id);
+        window.history.pushState({ og: 'game' }, '', url);
+    } catch { /* file:// or sandboxed iframe */ }
+}
+
+function closeGameModal({ restore = true, fromHistory = false } = {}) {
     if (!infoModal.classList.contains('active')) return;
     hideModal(infoModal);
-    setURLParam('game', '');
+    if (!fromHistory) {
+        if (window.history.state && window.history.state.og === 'game') window.history.back();
+        else setURLParam('game', '');
+    }
     if (restore) restoreFocus(infoOpener);
     infoOpener = null;
 }
@@ -450,7 +476,7 @@ function closeGameModal({ restore = true } = {}) {
 function applySharedGameFromURL() {
     const id = new URLSearchParams(window.location.search).get('game');
     if (id && gamesById.has(id)) openGameModal(gamesById.get(id), { updateURL: false });
-    else closeGameModal({ restore: false });
+    else closeGameModal({ restore: false, fromHistory: true });
 }
 
 // 
@@ -591,7 +617,7 @@ const lucky = { spinning: false, current: null, timer: null, opener: null };
 
 function luckyPool() {
     const key = $('lucky-pool').value || 'all';
-    let pool = gamesData;
+    let pool = GAMES;
     if (key === 'new') pool = pool.filter((g) => g.isNew);
     else if (key === 'favorites') pool = pool.filter((g) => state.favorites.has(g.id));
     else if (key !== 'all') pool = pool.filter((g) => g.category === key);
@@ -609,11 +635,11 @@ function fillLuckyPoolOptions() {
     const select = $('lucky-pool');
     const previous = select.value || 'all';
     const counts = {};
-    gamesData.forEach((g) => { counts[g.category] = (counts[g.category] || 0) + 1; });
+    GAMES.forEach((g) => { counts[g.category] = (counts[g.category] || 0) + 1; });
 
     const opts = [['all', 'Any game']];
-    if (gamesData.some((g) => g.isNew)) opts.push(['new', 'New games']);
-    if (state.favorites.size) opts.push(['favorites', 'My favorites']);
+    if (GAMES.some((g) => g.isNew)) opts.push(['new', 'New games']);
+    if (favCount()) opts.push(['favorites', 'My favorites']);
     Object.keys(counts)
         .sort((a, b) => categoryLabel(a).localeCompare(categoryLabel(b)))
         .forEach((c) => opts.push([c, categoryLabel(c)]));
@@ -750,6 +776,7 @@ function goToGames() {
 
 function setMobileNav(open) {
     el.mobileNav.classList.toggle('active', open);
+    el.mobileNav.setAttribute('aria-hidden', String(!open));
     el.menuBtn.setAttribute('aria-expanded', String(open));
     syncScrollLock();
     if (open) $('mobile-close-btn').focus({ preventScroll: true });
@@ -771,6 +798,13 @@ function initScrollSpy() {
 // Panic mode
 // 
 const ORIGINAL_TITLE = document.title;
+const NEUTRAL_ICON = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#1a73e8"/><path d="M18 14h20l10 10v26H18z" fill="#fff"/></svg>');
+function swapFavicons(panic) {
+    document.querySelectorAll('link[rel~="icon"]').forEach((l) => {
+        if (!l.dataset.orig) l.dataset.orig = l.getAttribute('href');
+        l.setAttribute('href', panic ? NEUTRAL_ICON : l.dataset.orig);
+    });
+}
 function togglePanicMode() {
     const on = document.body.classList.toggle('panic-mode');
     $('panic-screen').setAttribute('aria-hidden', String(!on));
@@ -780,8 +814,10 @@ function togglePanicMode() {
         closeGameModal({ restore: false });
         setMobileNav(false);
         document.title = 'Google Classroom';
+        swapFavicons(true);
     } else {
         document.title = ORIGINAL_TITLE;
+        swapFavicons(false);
     }
 }
 
@@ -804,6 +840,16 @@ function focusSearch() {
 
 function setupEvents() {
     el.searchInput.addEventListener('input', handleSearch);
+    el.searchInput.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        clearTimeout(searchTimer);
+        state.searchQuery = el.searchInput.value.toLowerCase().trim();
+        setURLParam('search', state.searchQuery);
+        filterAndRender();
+        el.searchInput.blur();
+        $('games').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     el.filters.addEventListener('click', (e) => {
         const chip = e.target.closest('.filter-chip');
         if (!chip) return;
@@ -812,13 +858,18 @@ function setupEvents() {
     });
 
     [el.games, el.favorites, el.recent].forEach((c) => c.addEventListener('click', handleCardAction));
-    document.addEventListener('click', (e) => { if (e.target.closest('[data-reset-filters]')) resetFilters(); });
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-reset-filters]')) resetFilters();
+        if (e.target.closest('[data-reload]')) window.location.reload();
+    });
 
     // Close buttons / backdrops of the info and lucky dialogs
     infoModal.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeGameModal(); });
     luckyModal.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) closeLucky(); });
     infoModal.addEventListener('keydown', (e) => trapFocus(infoModal, e));
     luckyModal.addEventListener('keydown', (e) => trapFocus(luckyModal, e));
+    playerModal.addEventListener('keydown', (e) => trapFocus(playerModal, e));
+    el.mobileNav.addEventListener('keydown', (e) => trapFocus(el.mobileNav, e));
 
     $('modal-favorite-btn').addEventListener('click', (e) => { const id = e.currentTarget.dataset.id; if (id) toggleFavorite(id); });
     $('modal-share-btn').addEventListener('click', (e) => shareGame(e.currentTarget.dataset.id));
@@ -846,7 +897,7 @@ function setupEvents() {
     if (more && navigator.share) {
         more.style.display = '';
         more.addEventListener('click', () => {
-            navigator.share({ title: 'Olivia Games', text: `Check out Olivia Games - play ${gamesData.length}+ free online games instantly!`, url: SITE_URL }).catch(() => {});
+            navigator.share({ title: 'Olivia Games', text: `Check out Olivia Games - play ${GAMES.length}+ free online games instantly!`, url: SITE_URL }).catch(() => {});
         });
     }
 
@@ -885,12 +936,16 @@ function setupEvents() {
             return;
         }
         if (e.key === '`' && !typing) { togglePanicMode(); return; }
-        if (playerOpen || document.body.classList.contains('panic-mode')) return;   // no page shortcuts while a game is open or in panic mode
+        if (document.querySelector('.modal.active') || el.mobileNav.classList.contains('active') || document.body.classList.contains('panic-mode')) return;   // no page shortcuts behind a dialog
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); focusSearch(); return; }
         if (e.key === '/' && !typing) { e.preventDefault(); focusSearch(); }
     });
 
-    window.addEventListener('popstate', () => { applySearchFromURL(); applySharedGameFromURL(); });
+    window.addEventListener('popstate', () => {
+        const q = (new URLSearchParams(window.location.search).get('search') || '').toLowerCase().trim();
+        if (q !== state.searchQuery) applySearchFromURL();      // do not re-render the list just because a dialog closed
+        applySharedGameFromURL();
+    });
 }
 
 // 
@@ -948,6 +1003,12 @@ function init() {
     applySharedGameFromURL();  // ?game=<url>     (Share button deep link)
 
     $('currentYear').textContent = new Date().getFullYear();
+
+    if (!DATA_OK) {
+        el.resultsCount.textContent = '';
+        el.games.innerHTML = emptyState('alert', 'Games could not be loaded', 'Check your connection and try again.',
+            '<button class="pill-btn" data-reload type="button" style="margin:1.25rem auto 0">Reload</button>');
+    }
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -1,17 +1,19 @@
-const CACHE_NAME = 'cache-v3.25';
+const CACHE_NAME = 'cache-v3.26';
 const MAX_AGE = 60 * 60 * 1000;          // 1 hour
 const HOME_URL = '/index.html';
 const STAMP_HEADER = 'sw-cached-at';
 
 // Precached on install. Core files are required, icons are best-effort.
 const CORE_URLS = [
-  '/',
-  '/index.html',
-  '/index.js?v=3.25',
-  '/gamesdata.js?v=3.25',
+  '/index.html',                 // also serves '/' (same cache key)
+  '/index.js?v=3.26',
+  '/gamesdata.js?v=3.26',
   '/manifest.json',
 ];
 const ICON_URLS = [
+  '/icons/logo-mark.svg?v=3.26',
+  '/favicon.svg?v=3.26',
+  '/apple-touch-icon.png?v=3.26',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
 ];
@@ -30,6 +32,8 @@ async function putInCache(key, response) {
   // Only full, same-origin, successful responses can be cached (not 206 / opaque / errors)
   if (!response || response.status !== 200 || response.type !== 'basic') return;
   const headers = new Headers(response.headers);
+  headers.delete('content-encoding');   // the body we store is already decoded
+  headers.delete('content-length');
   headers.set(STAMP_HEADER, String(Date.now()));
   const stamped = new Response(await response.clone().blob(), {
     status: response.status,
@@ -38,6 +42,12 @@ async function putInCache(key, response) {
   });
   const cache = await caches.open(CACHE_NAME);
   await cache.put(key, stamped);
+}
+
+// Look only in the current cache (caches.match would also hit an older version's cache during an update)
+async function cacheMatch(key) {
+  const cache = await caches.open(CACHE_NAME);
+  return cache.match(key);
 }
 
 function isFresh(response) {
@@ -58,19 +68,26 @@ async function fetchAndCache(request, key) {
 async function networkFirst(request) {
   const key = keyFor(request);
   try {
-    return await fetchAndCache(request, key);
+    const response = await fetchAndCache(request, key);
+    if (response.status >= 500) {                       // server error: prefer a good cached copy
+      const cached = (await cacheMatch(key)) || (await cacheMatch(HOME_URL));
+      if (cached) return cached;
+    }
+    return response;
   } catch (err) {
-    return (await caches.match(key)) || (await caches.match(HOME_URL)) || Response.error();
+    return (await cacheMatch(key)) || (await cacheMatch(HOME_URL)) || Response.error();
   }
 }
 
 // Other files: use cache if younger than 1 hour, otherwise refetch (stale copy only if offline)
 async function freshOrNetwork(request) {
   const key = keyFor(request);
-  const cached = await caches.match(key);
+  const cached = await cacheMatch(key);
   if (cached && isFresh(cached)) return cached;
   try {
-    return await fetchAndCache(request, key);
+    const response = await fetchAndCache(request, key);
+    if (cached && response.status >= 500) return cached;
+    return response;
   } catch (err) {
     return cached || Response.error();
   }
@@ -81,7 +98,7 @@ async function refreshPrecache() {
   const all = [...CORE_URLS, ...ICON_URLS];
   await Promise.all(
     all.map(url =>
-      fetchAndCache(new Request(url), keyFor(new Request(url, { method: 'GET' }))).catch(() => {})
+      fetchAndCache(new Request(url), keyFor(new Request(url))).catch(() => {})
     )
   );
 }
@@ -115,6 +132,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return;   // DevTools quirk
   if (request.headers.has('range')) return;                       // let the browser handle media ranges
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;                // ignore third-party requests
