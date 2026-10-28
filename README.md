@@ -1,16 +1,16 @@
 # Olivia Games - Play 500+ Online Games
 
-![Olivia Games](https://olivia-games.github.io/og-image.jpg)
+![Olivia Games](https://olivia-games.github.io/og-image.png)
 
 ## Discover Free Online Games
 
-**[Olivia Games](https://olivia-games.github.io/)** is a collection of **500+ free online games** that you can play instantly in your browser. No downloads or installations are required - simply choose a game and start playing.
+**[Olivia Games](https://olivia-games.github.io/)** is a collection of **550+ free online games** that you can play instantly in your browser. No downloads or installations are required - simply choose a game and start playing.
 
 Explore a wide variety of genres, including **action, puzzle, sports, arcade, strategy, racing, adventure, and casual games**. Whether you have a few minutes to spare or want to enjoy a longer gaming session, Olivia Games makes it easy to find something fun to play.
 
 ### 🎮 Play Online Instantly
 
-- 🕹️ **500+ online games**
+- 🕹️ **550+ online games**
 - ⚡ **Play instantly in your browser**
 - 🧩 Puzzle and brain games
 - ⚽ Sports games
@@ -25,7 +25,7 @@ Explore a wide variety of genres, including **action, puzzle, sports, arcade, st
 
 Visit the website and discover new games across different categories:
 
-**👉 [Play 500+ Free Online Games at Olivia Games](https://olivia-games.github.io/)**
+**👉 [Play 550+ Free Online Games at Olivia Games](https://olivia-games.github.io/)**
 
 ## Why Play Olivia Games?
 
