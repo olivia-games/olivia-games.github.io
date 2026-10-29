@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v3.26';
+const CACHE_NAME = 'cache-v3.27';
 const MAX_AGE = 60 * 60 * 1000;          // 1 hour
 const HOME_URL = '/index.html';
 const STAMP_HEADER = 'sw-cached-at';
@@ -6,14 +6,14 @@ const STAMP_HEADER = 'sw-cached-at';
 // Precached on install. Core files are required, icons are best-effort.
 const CORE_URLS = [
   '/index.html',                 // also serves '/' (same cache key)
-  '/index.js?v=3.26',
-  '/gamesdata.js?v=3.26',
+  '/index.js?v=3.27',
+  '/gamesdata.js?v=3.27',
   '/manifest.json',
 ];
 const ICON_URLS = [
-  '/icons/logo-mark.svg?v=3.26',
-  '/favicon.svg?v=3.26',
-  '/apple-touch-icon.png?v=3.26',
+  '/icons/logo-mark.svg?v=3.27',
+  '/favicon.svg?v=3.27',
+  '/apple-touch-icon.png?v=3.27',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
 ];
@@ -108,12 +108,12 @@ async function refreshPrecache() {
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil((async () => {
-    try {
-      await Promise.all(CORE_URLS.map(url => fetchAndCache(new Request(url), keyFor(new Request(url)))));
-      console.log('Cache successfully initialized');
-    } catch (error) {
-      console.log('Cache initialization failed:', error);
-    }
+    // Core files are required: if one fails the install fails and the previous version keeps running (retried on the next update check).
+    await Promise.all(CORE_URLS.map(async url => {
+      const req = new Request(url);
+      const res = await fetchAndCache(req, keyFor(req));
+      if (!res.ok) throw new Error('Precache failed: ' + url + ' (' + res.status + ')');
+    }));
     // Icons must never break installation
     await Promise.all(
       ICON_URLS.map(url => fetchAndCache(new Request(url), new Request(url)).catch(() => {}))

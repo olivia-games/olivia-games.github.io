@@ -1,5 +1,8 @@
 'use strict';
 
+// Bump together with CACHE_NAME / ?v= in sw.js and index.html.
+const APP_VERSION = '3.27';
+
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const compact = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -60,12 +63,14 @@ const categoryIcon = (c) => (CATEGORY_META[c] && CATEGORY_META[c].icon) || 'game
 // 
 // If gamesdata.js failed to load (offline, blocked) the page must still work instead of crashing.
 const DATA_OK = typeof gamesData !== 'undefined' && Array.isArray(gamesData);
-const GAMES = DATA_OK ? gamesData : [];
+// Drop entries without a name/url and entries whose id repeats (the id is the url unless the entry sets its own).
+const gameKey = (g) => (g && (g.id || g.url)) || '';
+const GAMES = DATA_OK ? gamesData.filter((g, i, all) => g && g.name && g.url && all.findIndex((x) => gameKey(x) === gameKey(g)) === i) : [];
 const NEW_BADGE_DAYS = 30;
 const gamesById = new Map();
 (function prepareGames() {
     GAMES.forEach((g) => {
-        g.id = g.url;                        // stable id (keeps saved Favorites / Recent valid)
+        g.id = gameKey(g);                   // stable id (keeps saved Favorites / Recent valid)
         g.embeddable = isEmbeddable(g.url);
         const ageDays = g.added ? (Date.now() - Date.parse(g.added)) / 86400000 : Infinity;
         g.isNew = ageDays >= 0 && ageDays <= NEW_BADGE_DAYS;
@@ -333,6 +338,11 @@ function filterAndRender() {
     else if (state.currentCategory !== 'all') list = list.filter((g) => g.category === state.currentCategory);
     if (state.searchQuery) list = list.filter((g) => matchesSearch(g, state.searchQuery));
 
+    if (state.searchQuery) {          // best matches first: name starts with the query, then name contains it
+        const q = state.searchQuery, qc = compact(q);
+        const rank = (g) => { const n = g.name.toLowerCase(); return n.startsWith(q) || compact(n).startsWith(qc) ? 0 : n.includes(q) || compact(n).includes(qc) ? 1 : 2; };
+        list = list.map((g, i) => [rank(g), i, g]).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map((x) => x[2]);
+    }
     state.games = list;
     updateGamesTitle();
     const total = GAMES.length;
@@ -513,9 +523,15 @@ function openPlayer(game, opener) {
     player.opener = infoModal.classList.contains('active') ? infoOpener
         : luckyModal.classList.contains('active') ? lucky.opener
         : (opener || document.activeElement);
-    // Close anything else that is open first
+    // Close anything else that is open first (no history.back() here: the player takes over that history entry)
     closeLucky({ restore: false });
-    closeGameModal({ restore: false });
+    closeGameModal({ restore: false, fromHistory: true });
+    try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('game');
+        if (window.history.state && window.history.state.og === 'game') window.history.replaceState({ og: 'player' }, '', url);
+        else window.history.pushState({ og: 'player' }, '', url);   // so the Back button closes the game instead of leaving the site
+    } catch { /* file:// or sandboxed iframe */ }
 
     player.game = game;
     $('player-title').textContent = game.name;
@@ -527,8 +543,9 @@ function openPlayer(game, opener) {
     $('player-close').focus({ preventScroll: true });
 }
 
-function closePlayer() {
+function closePlayer({ fromHistory = false } = {}) {
     if (!playerModal.classList.contains('active')) return;
+    const popEntry = !fromHistory && window.history.state && window.history.state.og === 'player';
     exitFullscreen();
     setPseudoFs(false);
     clearTimeout(player.slowTimer);
@@ -537,6 +554,7 @@ function closePlayer() {
     hideModal(playerModal);
     restoreFocus(player.opener);
     player.opener = null;
+    if (popEntry) window.history.back();
     if (window.__swReload) location.reload();   // a new version arrived while the game was open
 }
 
@@ -942,6 +960,7 @@ function setupEvents() {
     });
 
     window.addEventListener('popstate', () => {
+        if (playerModal.classList.contains('active')) { closePlayer({ fromHistory: true }); return; }   // Back button while a game is open
         const q = (new URLSearchParams(window.location.search).get('search') || '').toLowerCase().trim();
         if (q !== state.searchQuery) applySearchFromURL();      // do not re-render the list just because a dialog closed
         applySharedGameFromURL();
@@ -984,6 +1003,20 @@ function initInstall() {
     });
 }
 
+function applyHash() {
+    const hash = window.location.hash;
+    if (['#favorites', '#recent', '#games', '#categories', '#home'].includes(hash)) showSection(hash);
+}
+
+// After an update, ask the service worker to re-download its files once so the new version is not served from a stale copy.
+function checkAppVersion() {
+    if (store.getRaw('og-app-version', '') === APP_VERSION) return;
+    store.setRaw('og-app-version', APP_VERSION);
+    try {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) navigator.serviceWorker.controller.postMessage('refresh');
+    } catch { /* ignore */ }
+}
+
 function init() {
     setupEvents();
     initPlayer();
@@ -996,8 +1029,9 @@ function init() {
     initScrollSpy();
     updateBadges();
 
-    const hash = window.location.hash;
-    if (hash === '#favorites' || hash === '#recent') showSection(hash);
+    applyHash();
+    window.addEventListener('hashchange', applyHash);   // PWA shortcuts / "Skip to games" while the app is already open
+    checkAppVersion();
 
     applySearchFromURL();      // ?search=<term>  (matches the SearchAction in the page's structured data)
     applySharedGameFromURL();  // ?game=<url>     (Share button deep link)

@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Olivia Games - Play 550+ Free Online Games",
+  "name": "Olivia Games - Play 600+ Free Online Games",
   "short_name": "Olivia Games",
-  "description": "Play 550+ free online games instantly in your browser. No downloads, no sign-up.",
+  "description": "Play 600+ free online games instantly in your browser. No downloads, no sign-up.",
   "categories": [
     "games",
     "entertainment"
@@ -126,6 +126,36 @@
           "type": "image/png"
         }
       ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Browse 600+ free games on desktop"
+    },
+    {
+      "src": "/screenshots/desktop-games.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Search and filter by category"
+    },
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Play instantly on your phone"
+    },
+    {
+      "src": "/screenshots/mobile-games.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Find your next game"
     }
   ]
 }
